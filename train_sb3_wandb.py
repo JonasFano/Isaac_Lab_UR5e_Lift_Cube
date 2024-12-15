@@ -43,12 +43,12 @@ def main():
         config=config,
         sync_tensorboard=True,  # auto-upload sb3's tensorboard metrics
         monitor_gym=False,  # auto-upload the videos of agents playing the game
-        save_code=True,  # Save code for reproducibility
+        save_code=False,  # Save code for reproducibility
     )
 
     # Load env cfg
     task = "UR5e-Lift-Cube-IK" # "UR5e-Lift-Cube"
-    num_envs = 8192
+    num_envs = 4096
     device = "cuda"
     env_cfg = parse_env_cfg(task, device=device, num_envs=num_envs)
     env_cfg.seed = wandb.config["seed"]
