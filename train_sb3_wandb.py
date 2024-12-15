@@ -35,11 +35,11 @@ from wandb.integration.sb3 import WandbCallback
 def main():
     """Train with stable-baselines agent."""
     # WandB initialization (config.yaml values come from WandB during sweep)
-    with open("./config_0_1.yaml") as file:
+    with open("./config_0_05.yaml") as file:
         config = yaml.load(file, Loader=yaml.FullLoader)
 
     run = wandb.init(
-        project="rel_ik_sb3_ppo_ur5e_cube_lift_0_1_v3",
+        project="rel_ik_sb3_ppo_ur5e_lift_cube_0_05",
         config=config,
         sync_tensorboard=True,  # auto-upload sb3's tensorboard metrics
         monitor_gym=False,  # auto-upload the videos of agents playing the game
@@ -48,7 +48,7 @@ def main():
 
     # Load env cfg
     task = "UR5e-Lift-Cube-IK" # "UR5e-Lift-Cube"
-    num_envs = 4096
+    num_envs = 8192
     device = "cuda"
     env_cfg = parse_env_cfg(task, device=device, num_envs=num_envs)
     env_cfg.seed = wandb.config["seed"]
@@ -112,7 +112,7 @@ def main():
     agent.learn(
         total_timesteps=wandb.config["n_timesteps"],
         callback=WandbCallback(
-            gradient_save_freq=1000,
+            gradient_save_freq=10000,
             model_save_path=f"models/{run.id}",
             verbose=2,
         ),
