@@ -25,7 +25,7 @@ from omni.isaac.lab.utils.assets import ISAAC_NUCLEUS_DIR
 # Scene definition
 ##
 
-MODEL_PATH = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../")), "scene_models")
+MODEL_PATH = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")), "scene_models")
 MIN_HEIGHT = 0.1 # 0.04 # 0.1
 
 @configclass
