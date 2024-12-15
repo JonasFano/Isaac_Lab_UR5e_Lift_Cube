@@ -217,12 +217,12 @@ class ObservationsCfg:
             params={"robot_cfg": SceneEntityCfg("robot", body_names=["wrist_3_link"])},
         )
         
-        object_position = ObsTerm(
+        object_pose = ObsTerm(
             func=mdp.object_position_in_robot_root_frame
         )
 
         target_object_pose = ObsTerm(
-            func=mdp.generated_commands, 
+            func=mdp.generated_commands,
             params={"command_name": "object_pose"}
         )
 
