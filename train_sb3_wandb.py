@@ -48,7 +48,7 @@ def main():
 
     # Load env cfg
     task = "UR5e-Lift-Cube-IK" # "UR5e-Lift-Cube"
-    num_envs = 4096
+    num_envs = 8192
     device = "cuda"
     env_cfg = parse_env_cfg(task, device=device, num_envs=num_envs)
     env_cfg.seed = wandb.config["seed"]

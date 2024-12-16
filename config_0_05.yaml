@@ -10,7 +10,7 @@ parameters:
     value: 42
 
   n_timesteps: # iteration * n_steps * nenvs: 300 * 64 * 4096 = 104857600 # 52428800 # 78643200
-    value: 104857600
+    value: 314572800
 
   policy:
     value: 'MlpPolicy'
@@ -25,7 +25,7 @@ parameters:
     value: 0.95
 
   gamma:
-    values: [0.95, 0.99]
+    value: 0.95
 
   n_epochs:
     value: 8
@@ -49,9 +49,9 @@ parameters:
       net_arch:
         parameters:
           pi:
-            value: [128, 64]
+            values: [[256, 128, 64], [128, 64]]
           vf:
-            value: [128, 64]
+            values: [[256, 128, 64], [128, 64]]
 
   target_kl:
     value: 0.02
