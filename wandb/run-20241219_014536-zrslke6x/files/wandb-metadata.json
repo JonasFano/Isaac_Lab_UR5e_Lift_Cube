@@ -1,0 +1,43 @@
+{
+    "os": "Linux-6.8.0-49-generic-x86_64-with-glibc2.35",
+    "python": "3.10.12",
+    "heartbeatAt": "2024-12-19T00:45:36.550509",
+    "startedAt": "2024-12-19T00:45:36.067181",
+    "docker": null,
+    "gpu": "NVIDIA GeForce RTX 4070",
+    "gpu_count": 1,
+    "cpu_count": 24,
+    "cuda": null,
+    "args": [
+        "--batch_size=16384",
+        "--clip_obs=50",
+        "--clip_range=0.2",
+        "--ent_coef=0.01",
+        "--gae_lambda=0.95",
+        "--gamma=0.95",
+        "--learning_rate=0.0003",
+        "--max_grad_norm=1",
+        "--n_epochs=8",
+        "--n_steps=64",
+        "--n_timesteps=314572800",
+        "--normalize_input=False",
+        "--normalize_value=False",
+        "--policy=MlpPolicy",
+        "--policy_kwargs={'activation_fn': 'nn.ELU', 'net_arch': {'pi': [128, 64], 'vf': [256, 128, 64]}}",
+        "--seed=42",
+        "--target_kl=0.02",
+        "--vf_coef=0.01"
+    ],
+    "state": "running",
+    "program": "/home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/train_sb3_wandb.py",
+    "codePath": "train_sb3_wandb.py",
+    "git": {
+        "remote": "git@github.com:JonasFano/Isaac_Lab_UR5e_Lift_Cube.git",
+        "commit": "c707c316e8ee844f22610e76395051e5d5d0be20"
+    },
+    "email": "fanojoni@gmail.com",
+    "root": "/home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube",
+    "host": "ia-li-2wqd414.unirobotts.local",
+    "username": "jofa",
+    "executable": "/home/jofa/isaaclab/bin/python"
+}
