@@ -13,6 +13,7 @@ parser.add_argument("--task", type=str, default=None, help="Name of the task.")
 parser.add_argument("--seed", type=int, default=None, help="Seed used for the environment")
 parser.add_argument("--checkpoint", type=str, default=None, help="Path to the model checkpoint.")
 parser.add_argument("--max_iterations", type=int, default=None, help="RL Policy training iterations.")
+parser.add_argument("--no_logging", action="store_true", default=False, help="Disable logging for the training process.")
 
 # append AppLauncher cli args
 AppLauncher.add_app_launcher_args(parser)
@@ -74,15 +75,19 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     env_cfg.seed = agent_cfg["seed"]
     env_cfg.sim.device = args_cli.device if args_cli.device is not None else env_cfg.sim.device
 
-    # directory for logging into
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-    log_dir = os.path.join(script_dir, "logs", "sb3", "ppo", args_cli.task, datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    # Directory for logging into
+    if not args_cli.no_logging:
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        log_dir = os.path.join(script_dir, "logs", "sb3", "ppo", args_cli.task, datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
 
-    # dump the configuration into log-directory
-    dump_yaml(os.path.join(log_dir, "params", "env.yaml"), env_cfg)
-    dump_yaml(os.path.join(log_dir, "params", "agent.yaml"), agent_cfg)
-    dump_pickle(os.path.join(log_dir, "params", "env.pkl"), env_cfg)
-    dump_pickle(os.path.join(log_dir, "params", "agent.pkl"), agent_cfg)
+        # dump the configuration into log-directory
+        dump_yaml(os.path.join(log_dir, "params", "env.yaml"), env_cfg)
+        dump_yaml(os.path.join(log_dir, "params", "agent.yaml"), agent_cfg)
+        dump_pickle(os.path.join(log_dir, "params", "env.pkl"), env_cfg)
+        dump_pickle(os.path.join(log_dir, "params", "agent.pkl"), agent_cfg)
+    else:
+        log_dir = None  # No logging
+    
 
     # post-process agent configuration
     agent_cfg = process_sb3_cfg(agent_cfg)
@@ -131,60 +136,62 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         agent = PPO(policy_arch, env, verbose=1, **agent_cfg)  # Create a new model
 
 
-    # configure the logger
-    new_logger = configure(log_dir, ["stdout", "csv", "tensorboard"])
-    agent.set_logger(new_logger)
+    # Configure the logger only if logging is enabled
+    if not args_cli.no_logging:
+        new_logger = configure(log_dir, ["stdout", "csv", "tensorboard"])
+        agent.set_logger(new_logger)
 
-    # callbacks for agent
-    checkpoint_callback = CheckpointCallback(save_freq=1000, save_path=log_dir, name_prefix="model", verbose=2)
+        checkpoint_callback = CheckpointCallback(save_freq=1000, save_path=log_dir, name_prefix="model", verbose=2)
+    else:
+        checkpoint_callback = None
     
     # train the agent
-    # agent.learn(total_timesteps=n_timesteps, callback=checkpoint_callback)
+    agent.learn(total_timesteps=n_timesteps, callback=checkpoint_callback)
 
 
 
 
 
-    # Initialize the environment and variables
-    obs = env.reset()
-    total_timesteps = n_timesteps
-    timestep = 0
-    rollout_buffer = []  # Buffer to collect rollouts for training
+    # # Initialize the environment and variables
+    # obs = env.reset()
+    # total_timesteps = n_timesteps
+    # timestep = 0
+    # rollout_buffer = []  # Buffer to collect rollouts for training
 
-    while timestep < total_timesteps:
-        # Predict the action using the policy
-        action, _states = agent.predict(obs, deterministic=False)
+    # while timestep < total_timesteps:
+    #     # Predict the action using the policy
+    #     action, _states = agent.predict(obs, deterministic=False)
 
-        print(f"Timestep: {timestep}, Action: {action}")
+    #     print(f"Timestep: {timestep}, Action: {action}")
 
-        # Take the action in the environment
-        new_obs, reward, done, info = env.step(action)
+    #     # Take the action in the environment
+    #     new_obs, reward, done, info = env.step(action)
 
-        # Print the reward for this timestep
-        # print(f"Timestep: {timestep}, Reward: {reward}")
-        print(f"Timestep: {timestep}, Obs: {obs}")
+    #     # Print the reward for this timestep
+    #     # print(f"Timestep: {timestep}, Reward: {reward}")
+    #     print(f"Timestep: {timestep}, Obs: {obs}")
 
 
-        # Collect data for learning
-        rollout_buffer.append((obs, action, reward, new_obs, done))
+    #     # Collect data for learning
+    #     rollout_buffer.append((obs, action, reward, new_obs, done))
 
-        # Update observation
-        obs = new_obs
+    #     # Update observation
+    #     obs = new_obs
 
-        # If any of the environments are done, reset them
-        if np.any(done):  # Use np.any to handle the array
-            obs = env.reset()
+    #     # If any of the environments are done, reset them
+    #     if np.any(done):  # Use np.any to handle the array
+    #         obs = env.reset()
 
-        # Increment the timestep
-        timestep += 1
+    #     # Increment the timestep
+    #     timestep += 1
 
-        # Periodically train the agent using the collected rollouts
-        if len(rollout_buffer) >= agent.n_steps:  # `agent.n_steps` is the number of steps per update
-            for experience in rollout_buffer:
-                obs, action, reward, new_obs, done = experience
-                agent.policy.optimizer.zero_grad()
-                agent.policy.optimizer.step()  # Perform the training step
-            rollout_buffer.clear()  # Clear buffer after training
+    #     # Periodically train the agent using the collected rollouts
+    #     if len(rollout_buffer) >= agent.n_steps:  # `agent.n_steps` is the number of steps per update
+    #         for experience in rollout_buffer:
+    #             obs, action, reward, new_obs, done = experience
+    #             agent.policy.optimizer.zero_grad()
+    #             agent.policy.optimizer.step()  # Perform the training step
+    #         rollout_buffer.clear()  # Clear buffer after training
 
 
 
@@ -194,7 +201,8 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
 
 
     # Save the final model
-    agent.save(os.path.join(log_dir, "model"))
+    if not args_cli.no_logging:
+        agent.save(os.path.join(log_dir, "model"))
 
     # Close the simulator
     env.close()

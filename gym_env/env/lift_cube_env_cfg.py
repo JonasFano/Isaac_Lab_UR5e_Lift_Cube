@@ -15,7 +15,7 @@ from omni.isaac.lab.utils import configclass
 from omni.isaac.lab.actuators import ImplicitActuatorCfg
 from . import mdp
 import os
-
+import math
 from omni.isaac.lab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
 from omni.isaac.lab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
 from omni.isaac.lab.utils.assets import ISAAC_NUCLEUS_DIR
@@ -132,7 +132,7 @@ class UR5e_LiftCubeSceneCfg(InteractiveSceneCfg):
         init_state=RigidObjectCfg.InitialStateCfg(pos=[0.04, 0.35, 0.055], rot=[1, 0, 0, 0]),
         spawn=UsdFileCfg(
             usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Blocks/DexCube/dex_cube_instanceable.usd",
-            scale=(0.3, 0.3, 0.3),
+            scale=(0.3, 0.3, 1.0),
             rigid_props=RigidBodyPropertiesCfg(
                 solver_position_iteration_count=16,
                 solver_velocity_iteration_count=1,
@@ -179,7 +179,12 @@ class CommandsCfg:
         resampling_time_range=(5.0, 5.0),
         debug_vis=True,
         ranges=mdp.UniformPoseCommandCfg.Ranges(
-            pos_x=(0.25, 0.35), pos_y=(0.3, 0.4), pos_z=(0.25, 0.35), roll=(0.0, 0.0), pitch=(0.0, 0.0), yaw=(0.0, 0.0)
+            pos_x=(0.25, 0.35), 
+            pos_y=(0.3, 0.4), 
+            pos_z=(0.25, 0.35), 
+            roll=(0.0, 0.0),
+            pitch=(math.pi, math.pi),  # depends on end-effector axis
+            yaw=(-3.14, 3.14), # (0.0, 0.0), # y
         ),
     )
 
@@ -275,6 +280,12 @@ class RewardsCfg:
         weight=5.0,
     )
 
+    end_effector_orientation_tracking = RewTerm(
+        func=mdp.orientation_command_error,
+        weight=-10.0,
+        params={"minimal_height": MIN_HEIGHT, "command_name": "object_pose", "asset_cfg": SceneEntityCfg("robot", body_names=["wrist_3_link"]),},
+    )
+
     # action penalty
     action_rate = RewTerm(func=mdp.action_rate_l2, weight=-1e-4)
 
@@ -344,4 +355,4 @@ class UR5e_LiftCubeEnvCfg(ManagerBasedRLEnvCfg):
         self.sim.physx.gpu_found_lost_aggregate_pairs_capacity = 1024 * 1024 * 4
         self.sim.physx.gpu_total_aggregate_pairs_capacity = 16 * 1024
         self.sim.physx.friction_correlation_distance = 0.00625
-        self.sim.physx.gpu_collision_stack_size = 4096 * 4096 * 100 # Was added due to an PhysX error: collisionStackSize buffer overflow detected
+        self.sim.physx.gpu_collision_stack_size = 4096 * 4096 * 110 # Was added due to an PhysX error: collisionStackSize buffer overflow detected

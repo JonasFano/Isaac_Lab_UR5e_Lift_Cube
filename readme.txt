@@ -6,13 +6,30 @@
 
 source isaaclab/bin/activate
 cd isaaclab/IsaacLab
-./isaaclab.sh -p /home/jofa/Downloads/Repositories/isaac_lab_lift_cube/train_sb3.py --num_envs 512 --task UR5e-Lift-Cube-IK
-./isaaclab.sh -p /home/jofa/Downloads/Repositories/isaac_lab_lift_cube/train_sb3.py --num_envs 4096 --task UR5e-Lift-Cube-IK --headless
+./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/train_sb3.py --num_envs 4096 --task UR5e-Lift-Cube-IK --headless
+./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/train_sb3.py --num_envs 1 --task UR5e-Lift-Cube-IK --no_logging
 ./isaaclab.sh -p /home/jofa/Downloads/Repositories/isaac_lab_lift_cube/train_sb3.py --num_envs 256 --task UR5e-Lift-Cube-IK --checkpoint /home/jofa/Downloads/Repositories/isaac_lab_lift_cube/logs/sb3/UR5e-Lift-Cube-IK/2024-10-18_14-01-49/model_2816000_steps.zip
-./isaaclab.sh -p /home/jofa/Downloads/Repositories/isaac_lab_lift_cube/play_sb3.py --task UR5e-Lift-Cube --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/isaac_lab_lift_cube/logs/sb3/UR5e-Lift-Cube/2024-10-25_14-27-06/model_3584000_steps.zip
-./isaaclab.sh -p /home/jofa/Downloads/Repositories/isaac_lab_lift_cube/play_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/isaac_lab_lift_cube/logs/sb3/ppo/UR5e-Lift-Cube-IK/2024-11-18_21-51-22/model_524288000_steps.zip
-./isaaclab.sh -p /home/jofa/Downloads/Repositories/isaac_lab_lift_cube/play_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/isaac_lab_lift_cube/logs/sb3/ppo/UR5e-Lift-Cube-IK/2024-11-18_21-51-22/model_413696000_steps.zip
-./isaaclab.sh -p /home/jofa/Downloads/Repositories/isaac_lab_lift_cube/play_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/isaac_lab_lift_cube/logs/sb3/ppo/UR5e-Lift-Cube-IK/2024-11-18_21-51-22/model_217088000_steps.zip
+
+# Grasping it sideways - wrist downwards - sweep 11 - 'pi': [256, 128, 64], 'vf': [128, 64] - vf_coef=0.1
+./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/play_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/models/trcytobk/model.zip
+
+# Grasping it sideways - wrist upwards - sweep 9 - 'pi': [256, 128, 64], 'vf': [256, 128, 64] - vf_coef=0.1
+./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/play_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/models/f3u3nism/model.zip
+
+# Grasping it sideways - wrist upwards but gripper almost touches elbow - sweep 16 - 'pi': [128, 64], 'vf': [128, 64] - vf_coef=0.01
+./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/play_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/models/kayuaa4n/model.zip
+
+# Grasping it sideways - wrist downwards but gripper almost touches robot base - sweep 10 - 'pi': [256, 128, 64], 'vf': [256, 128, 64] - vf_coef=0.01
+./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/play_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/models/0r2dmgdl/model.zip
+
+# Adjusted reward training run - negative
+./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/play_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/logs/sb3/ppo/UR5e-Lift-Cube-IK/adjusted_reward_negative_4/model.zip
+
+# Adjusted reward training run - tanh
+./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/play_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/logs/sb3/ppo/UR5e-Lift-Cube-IK/adjusted_reward_tanh_4/model.zip
+
+# Adjusted reward training run - tcp
+./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/play_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/logs/sb3/ppo/UR5e-Lift-Cube-IK/adjusted_reward_tcp_6/model.zip
 
 
 

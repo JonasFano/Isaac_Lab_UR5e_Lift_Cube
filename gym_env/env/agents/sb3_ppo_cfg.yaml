@@ -4,17 +4,16 @@ seed: 42
 # epoch * n_steps * nenvs: 200 * 64 * 4096 = 52428800
 # epoch * n_steps * nenvs: 400 * 64 * 8192 = 209715200
 # epochs = iterations
-n_timesteps: 1048576000 
+n_timesteps: 209715200 
 policy: 'MlpPolicy'
 n_steps: 64
-# mini batch size: num_envs * nsteps / nminibatches 2048×512÷2048
-batch_size: 2048 # 192
+batch_size: 16384
 gae_lambda: 0.95
-gamma: 0.99
+gamma: 0.95
 n_epochs: 8
-ent_coef: 0.001
-vf_coef: 0.0001
-learning_rate: !!float 1e-4 #3e-4
+ent_coef: 0.01
+vf_coef: 0.1
+learning_rate: !!float 3e-4 #3e-4
 clip_range: 0.2
 policy_kwargs: "dict(
                   activation_fn=nn.ELU,
@@ -26,5 +25,5 @@ max_grad_norm: 1.0
 # Uses VecNormalize class to normalize obs
 normalize_input: False
 # Uses VecNormalize class to normalize rew
-normalize_value: True
-clip_obs: 5
+normalize_value: False
+clip_obs: 50.0
