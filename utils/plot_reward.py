@@ -3,14 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 # Replace with the path to your log file
-log_file_path = '/home/jofa/Downloads/Omniverse/Peg_in_hole/Isaac_Lab_Lift_Cube/logs/sb3/ppo/Franka-Lift-Cube-IK/2024-11-05_10-57-00/progress.csv'
-
-
-log_file_path = "/home/jofa/Downloads/Omniverse/Peg_in_hole/Isaac_Lab_Lift_Cube/logs/sb3/ppo/Franka-Lift-Cube-IK/2024-11-05_16-31-32/progress.csv"
-
-log_file_path = "/home/jofa/Downloads/Omniverse/Peg_in_hole/Isaac_Lab_Lift_Cube/logs/sb3/ppo/UR5e-Lift-Cube-IK/2024-11-11_09-16-12/progress.csv"
-
-log_file_path = "/home/jofa/Downloads/Omniverse/Peg_in_hole/Isaac_Lab_Lift_Cube/logs/sb3/ppo/UR5e-Lift-Cube-IK/2024-11-18_21-51-22/progress.csv"
+log_file_path = "/home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/logs/sb3/ppo/UR5e-Lift-Cube-IK/adjusted_reward_tcp_6/progress.csv"
 
 # Read the log file
 data = pd.read_csv(log_file_path)

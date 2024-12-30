@@ -282,7 +282,7 @@ class RewardsCfg:
 
     end_effector_orientation_tracking = RewTerm(
         func=mdp.orientation_command_error,
-        weight=-10.0,
+        weight=-6.0,
         params={"minimal_height": MIN_HEIGHT, "command_name": "object_pose", "asset_cfg": SceneEntityCfg("robot", body_names=["wrist_3_link"]),},
     )
 

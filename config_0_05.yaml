@@ -9,8 +9,8 @@ parameters:
   seed:
     value: 42
 
-  n_timesteps: # iteration * n_steps * nenvs: 300 * 64 * 4096 = 104857600 # 52428800 # 78643200
-    value: 314572800
+  n_timesteps: # iteration * n_steps * nenvs: 1000 * 64 * 4096 = 262144000 # 52428800 # 78643200
+    value: 262144000
 
   policy:
     value: 'MlpPolicy'
@@ -19,7 +19,7 @@ parameters:
     value: 64
 
   batch_size:
-    value: 16384
+    values: [8192, 16384, 32768]
 
   gae_lambda:
     value: 0.95
@@ -34,7 +34,7 @@ parameters:
     values: [0.01, 0.001]
 
   vf_coef:
-    values: [0.1, 0.01]
+    value: 0.1
 
   learning_rate:
     values: [1e-4, 3e-4]
@@ -45,13 +45,13 @@ parameters:
   policy_kwargs:
     parameters:
       activation_fn: 
-        value: nn.ELU
+        values: [nn.ELU, nn.Tanh, nn.ReLU]
       net_arch:
         parameters:
           pi:
-            values: [[256, 128, 64], [128, 64]]
+            value: [256, 128, 64]
           vf:
-            values: [[256, 128, 64], [128, 64]]
+            value: [256, 128, 64]
 
   target_kl:
     value: 0.02
