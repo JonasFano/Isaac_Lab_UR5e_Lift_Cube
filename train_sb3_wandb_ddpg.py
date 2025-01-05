@@ -3,8 +3,9 @@ from omni.isaac.lab.app import AppLauncher
 import gymnasium as gym
 import numpy as np
 import torch.nn as nn  # Import nn to access activation functions
-from stable_baselines3 import DDPG, NormalActionNoise, HerReplayBuffer
+from stable_baselines3 import DDPG, HerReplayBuffer
 from stable_baselines3.common.vec_env import VecNormalize
+from stable_baselines3.common.noise import NormalActionNoise
 
 # argparse for non-agent parameters
 parser = argparse.ArgumentParser(description="Train an RL agent with Stable-Baselines3.")
@@ -89,18 +90,19 @@ def main():
             raise ValueError(f"Unknown activation function: {activation_fn_name}")
         
     if "action_noise" in wandb.config and wandb.config["action_noise"] == "NormalActionNoise":
-        action_noise = NormalActionNoise(0, 0.1)
+        action_dim = env.action_space.shape[0]
+        action_noise = NormalActionNoise(mean=np.zeros(action_dim), sigma=0.1 * np.ones(action_dim))
     else:
         action_noise = None
 
 
     # HER Replay Buffer (if enabled)
-    if "replay_buffer_class" in wandb.config and wandb.config["replay_buffer_class"] == "HerReplayBuffer":
-        replay_buffer_kwargs = eval(wandb.config["replay_buffer_kwargs"])
-        replay_buffer_class = HerReplayBuffer
-    else:
-        replay_buffer_class = None
-        replay_buffer_kwargs = None
+    # if "replay_buffer_class" in wandb.config and wandb.config["replay_buffer_class"] == "HerReplayBuffer":
+    #     replay_buffer_kwargs = eval(wandb.config["replay_buffer_kwargs"])
+    #     replay_buffer_class = HerReplayBuffer
+    # else:
+    #     replay_buffer_class = None
+    #     replay_buffer_kwargs = None
 
 
     # Create a new agent from stable baselines
@@ -119,8 +121,8 @@ def main():
         tau=wandb.config.tau,
         policy_kwargs=policy_kwargs,
         action_noise=action_noise,
-        replay_buffer_class=replay_buffer_class,
-        replay_buffer_kwargs=replay_buffer_kwargs,
+        # replay_buffer_class=replay_buffer_class,
+        # replay_buffer_kwargs=replay_buffer_kwargs,
     )
 
     # Train the agent

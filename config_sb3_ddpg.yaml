@@ -46,11 +46,11 @@ parameters:
   action_noise:
     value: NormalActionNoise
 
-  replay_buffer_class: 
-    value: "HerReplayBuffer"
+  # replay_buffer_class: 
+  #   value: "HerReplayBuffer"
 
-  replay_buffer_kwargs: 
-    value: "dict(goal_selection_strategy='future', n_sampled_goal=4)"
+  # replay_buffer_kwargs: 
+  #   value: "dict(goal_selection_strategy='future', n_sampled_goal=4)"
 
   policy_kwargs:
     parameters:
