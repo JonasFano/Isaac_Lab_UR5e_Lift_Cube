@@ -20,7 +20,7 @@ parameters:
     value: 'MlpPolicy'
 
   batch_size:
-    values: [1024, 4096] 
+    values: [512, 1024] 
 
   gamma:
     value: 0.95
