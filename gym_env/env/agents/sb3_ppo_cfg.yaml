@@ -1,9 +1,5 @@
 # Reference: https://github.com/DLR-RM/rl-baselines3-zoo/blob/master/hyperparams/ppo.yml#L32
 seed: 42
-
-# epoch * n_steps * nenvs: 200 * 64 * 4096 = 52428800
-# epoch * n_steps * nenvs: 400 * 64 * 8192 = 209715200
-# epochs = iterations
 n_timesteps: 209715200 
 policy: 'MlpPolicy'
 n_steps: 64
@@ -13,10 +9,10 @@ gamma: 0.95
 n_epochs: 8
 ent_coef: 0.01
 vf_coef: 0.1
-learning_rate: !!float 3e-4 #3e-4
+learning_rate: !!float 3e-4
 clip_range: 0.2
 policy_kwargs: "dict(
-                  activation_fn=nn.ELU,
+                  activation_fn=nn.Tanh,
                   net_arch=dict(pi=[256, 128, 64], vf=[256, 128, 64])
                 )"
 target_kl: 0.02
