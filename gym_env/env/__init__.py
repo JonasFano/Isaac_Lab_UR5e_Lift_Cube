@@ -4,7 +4,7 @@ from . import agents, ik_rel_env_cfg, ik_rel_env_cfg_franka, joint_pos_env_cfg, 
 # Register Gym environments.
 
 
-# Relative Differential Inverse Kinematics Actin Space
+# Relative Differential Inverse Kinematics Action Space
 
 gym.register(
     id="UR5e-Lift-Cube-IK",
@@ -13,7 +13,8 @@ gym.register(
     kwargs={
         "env_cfg_entry_point": ik_rel_env_cfg.RelIK_UR5e_LiftCubeEnvCfg,
         "sb3_ppo_cfg_entry_point": f"{agents.__name__}:sb3_ppo_cfg.yaml",
-        "rl_games_cfg_entry_point": f"{agents.__name__}:rl_games_ppo_cfg.yaml",
+        "sb3_ddpg_cfg_entry_point": f"{agents.__name__}:sb3_ddpg_cfg.yaml",
+        "sb3_td3_cfg_entry_point": f"{agents.__name__}:sb3_td3_cfg.yaml",
     },
 )
 
@@ -27,7 +28,8 @@ gym.register(
     kwargs={
         "env_cfg_entry_point": joint_pos_env_cfg.JointPos_UR5e_LiftCubeEnvCfg,
         "sb3_ppo_cfg_entry_point": f"{agents.__name__}:sb3_ppo_cfg.yaml",
-        "rl_games_cfg_entry_point": f"{agents.__name__}:rl_games_ppo_cfg.yaml",
+        "sb3_ddpg_cfg_entry_point": f"{agents.__name__}:sb3_ddpg_cfg.yaml",
+        "sb3_td3_cfg_entry_point": f"{agents.__name__}:sb3_td3_cfg.yaml",
     },
 )
 
@@ -39,8 +41,8 @@ gym.register(
     kwargs={
         "env_cfg_entry_point": joint_pos_env_cfg_franka.JointPos_Franka_LiftCubeEnvCfg,
         "sb3_ppo_cfg_entry_point": f"{agents.__name__}:sb3_ppo_cfg.yaml",
-        "rl_games_cfg_entry_point": f"{agents.__name__}:rl_games_ppo_cfg.yaml",
-        "sb3_sac_cfg_entry_point": f"{agents.__name__}:sb3_sac_cfg.yaml",
+        "sb3_ddpg_cfg_entry_point": f"{agents.__name__}:sb3_ddpg_cfg.yaml",
+        "sb3_td3_cfg_entry_point": f"{agents.__name__}:sb3_td3_cfg.yaml",
     },
 )
 
@@ -52,7 +54,7 @@ gym.register(
     kwargs={
         "env_cfg_entry_point": ik_rel_env_cfg_franka.RelIK_Franka_LiftCubeEnvCfg,
         "sb3_ppo_cfg_entry_point": f"{agents.__name__}:sb3_ppo_cfg.yaml",
-        "rl_games_cfg_entry_point": f"{agents.__name__}:rl_games_ppo_cfg.yaml",
-        "sb3_sac_cfg_entry_point": f"{agents.__name__}:sb3_sac_cfg.yaml",
+        "sb3_ddpg_cfg_entry_point": f"{agents.__name__}:sb3_ddpg_cfg.yaml",
+        "sb3_td3_cfg_entry_point": f"{agents.__name__}:sb3_td3_cfg.yaml",
     },
 )
