@@ -26,6 +26,9 @@ cd /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube
 wandb sweep --project rel_ik_sb3_td3_ur5e_lift_cube_0_05 config_sb3_td3.yaml
 wandb agent jofan23-university-of-southern-denmark/rel_ik_sb3_td3_ur5e_lift_cube_0_05/na8cl8j7
 
+wandb sweep --project rel_ik_sb3_td3_ur5e_lift_cube_0_05_noise_1_0 config_sb3_td3.yaml
+
+
 
 
 ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/play_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/logs/sb3/ppo/UR5e-Lift-Cube-IK/adjusted_reward_tcp_6_v2/model.zip
