@@ -41,7 +41,7 @@ def main():
         config = yaml.load(file, Loader=yaml.FullLoader)
 
     run = wandb.init(
-        project="rel_ik_sb3_td3_ur5e_lift_cube_0_05",
+        project="rel_ik_sb3_td3_ur5e_lift_cube_0_05_noise_1_0",
         config=config,
         sync_tensorboard=True,  # auto-upload sb3's tensorboard metrics
         monitor_gym=False,  # auto-upload the videos of agents playing the game
@@ -93,7 +93,7 @@ def main():
 
     if "action_noise" in wandb.config and wandb.config["action_noise"] == "NormalActionNoise":
         action_dim = env.action_space.shape[0]
-        action_noise = NormalActionNoise(mean=np.zeros(action_dim), sigma=0.1 * np.ones(action_dim))
+        action_noise = NormalActionNoise(mean=np.zeros(action_dim), sigma=1.0 * np.ones(action_dim))
     else:
         action_noise = None
 

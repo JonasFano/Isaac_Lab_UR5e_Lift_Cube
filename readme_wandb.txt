@@ -17,11 +17,22 @@ wandb agent jofan23-university-of-southern-denmark/rel_ik_sb3_ppo_ur5e_lift_cube
 source isaaclab/bin/activate
 cd /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube
 wandb sweep --project rel_ik_sb3_ddpg_ur5e_lift_cube_0_05 config_sb3_ddpg.yaml
-
+wandb agent jofan23-university-of-southern-denmark/rel_ik_sb3_ddpg_ur5e_lift_cube_0_05/umvvcp9f
 
 
 # TD3
 source isaaclab/bin/activate
 cd /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube
 wandb sweep --project rel_ik_sb3_td3_ur5e_lift_cube_0_05 config_sb3_td3.yaml
-wandb agent jofan23-university-of-southern-denmark/rel_ik_sb3_td3_ur5e_lift_cube_0_05/jo1ii36s
+wandb agent jofan23-university-of-southern-denmark/rel_ik_sb3_td3_ur5e_lift_cube_0_05/na8cl8j7
+
+
+
+./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/play_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/logs/sb3/ppo/UR5e-Lift-Cube-IK/adjusted_reward_tcp_6_v2/model.zip
+
+# PPO
+python3 play_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/models/dond3q8q/model.zip
+
+# TD3
+python3 play_sb3_td3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/models/yh1yv5bu/model.zip
+
