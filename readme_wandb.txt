@@ -27,7 +27,7 @@ wandb sweep --project rel_ik_sb3_td3_ur5e_lift_cube_0_05 config_sb3_td3.yaml
 wandb agent jofan23-university-of-southern-denmark/rel_ik_sb3_td3_ur5e_lift_cube_0_05/na8cl8j7
 
 wandb sweep --project rel_ik_sb3_td3_ur5e_lift_cube_0_05_noise_1_0 config_sb3_td3.yaml
-
+wandb sweep --project rel_ik_sb3_td3_ur5e_lift_cube_0_05_noise_10 config_sb3_td3.yaml
 
 
 
@@ -38,4 +38,3 @@ python3 play_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jof
 
 # TD3
 python3 play_sb3_td3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/models/yh1yv5bu/model.zip
-

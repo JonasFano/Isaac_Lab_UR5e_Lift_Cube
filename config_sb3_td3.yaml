@@ -1,7 +1,7 @@
 # Reference: https://github.com/DLR-RM/rl-baselines3-zoo/blob/master/hyperparams/sac.yml
 program: train_sb3_wandb_td3.py
 method: grid
-name: rel_ik_sb3_td3_ur5e_lift_cube_0_05_noise_1_0
+name: rel_ik_sb3_td3_ur5e_lift_cube_0_05_noise_100
 metric:
   goal: maximize
   name: rollout/ep_rew_mean
