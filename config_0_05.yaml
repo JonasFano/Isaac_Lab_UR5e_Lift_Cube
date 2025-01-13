@@ -19,7 +19,7 @@ parameters:
     value: 64
 
   batch_size:
-    values: [8192, 16384, 32768]
+    values: [8192, 16384]
 
   gae_lambda:
     value: 0.95
@@ -31,13 +31,13 @@ parameters:
     value: 8
 
   ent_coef: # Possibly change this to encourange more exploration
-    values: [0.01, 0.001]
+    value: 0.01
 
   vf_coef:
     value: 0.1
 
   learning_rate:
-    values: [1e-4, 3e-4]
+    value: 3e-4
 
   clip_range:
     value: 0.2
@@ -45,7 +45,7 @@ parameters:
   policy_kwargs:
     parameters:
       activation_fn: 
-        values: [nn.ELU, nn.Tanh, nn.ReLU]
+        values: [nn.ELU, nn.Tanh]
       net_arch:
         parameters:
           pi:
