@@ -93,7 +93,7 @@ def main():
 
     if "action_noise" in wandb.config and wandb.config["action_noise"] == "NormalActionNoise":
         action_dim = env.action_space.shape[0]
-        action_noise = NormalActionNoise(mean=np.zeros(action_dim), sigma=10.0 * np.ones(action_dim))
+        action_noise = NormalActionNoise(mean=np.zeros(action_dim), sigma=100.0 * np.ones(action_dim))
     else:
         action_noise = None
 
