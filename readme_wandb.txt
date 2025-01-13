@@ -8,7 +8,7 @@
 # PPO
 source isaaclab/bin/activate
 cd /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube
-wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_final config_0_05.yaml
+wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e config_0_05.yaml
 wandb agent jofan23-university-of-southern-denmark/rel_ik_sb3_ppo_ur5e_lift_cube_0_05_final/u64j6irx
 
 
@@ -41,4 +41,5 @@ python3 play_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jof
 python3 play_sb3_td3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/models/yh1yv5bu/model.zip
 
 
-# ssh -I 10.178.107.200 jofa@ia-li-2wqd414.unirobotts.local
+# Remote control
+ssh -I 10.178.107.200 jofa@ia-li-2wqd414.unirobotts.local

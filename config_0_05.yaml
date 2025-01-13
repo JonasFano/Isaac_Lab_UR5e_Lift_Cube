@@ -1,6 +1,6 @@
 program: train_sb3_wandb.py
 method: grid
-name: rel_ik_sb3_ppo_ur5e_lift_cube_0_05_final
+name: rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e
 metric:
   goal: maximize
   name: rollout/ep_rew_mean
