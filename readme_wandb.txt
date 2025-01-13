@@ -27,14 +27,18 @@ wandb sweep --project rel_ik_sb3_td3_ur5e_lift_cube_0_05 config_sb3_td3.yaml
 wandb agent jofan23-university-of-southern-denmark/rel_ik_sb3_td3_ur5e_lift_cube_0_05/na8cl8j7
 
 wandb sweep --project rel_ik_sb3_td3_ur5e_lift_cube_0_05_noise_1_0 config_sb3_td3.yaml
-wandb sweep --project rel_ik_sb3_td3_ur5e_lift_cube_0_05_noise_10 config_sb3_td3.yaml
+wandb sweep --project rel_ik_sb3_td3_ur5e_lift_cube_0_05_noise_100 config_sb3_td3.yaml
 
 
 
 ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/play_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/logs/sb3/ppo/UR5e-Lift-Cube-IK/adjusted_reward_tcp_6_v2/model.zip
 
 # PPO
+python3 train_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --no_logging --headless
 python3 play_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/models/dond3q8q/model.zip
 
 # TD3
 python3 play_sb3_td3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/models/yh1yv5bu/model.zip
+
+
+# ssh -I 10.178.107.200 jofa@ia-li-2wqd414.unirobotts.local

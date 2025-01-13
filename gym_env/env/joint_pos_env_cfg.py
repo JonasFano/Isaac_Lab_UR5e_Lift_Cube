@@ -4,6 +4,7 @@ from omni.isaac.lab.markers.config import FRAME_MARKER_CFG  # isort: skip
 from omni.isaac.lab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
 
 from . import lift_cube_env_cfg, mdp
+from settings import Settings
 
 @configclass
 class JointPos_UR5e_LiftCubeEnvCfg(lift_cube_env_cfg.UR5e_LiftCubeEnvCfg):
@@ -23,7 +24,7 @@ class JointPos_UR5e_LiftCubeEnvCfg(lift_cube_env_cfg.UR5e_LiftCubeEnvCfg):
                     prim_path="{ENV_REGEX_NS}/robot/wrist_3_link",
                     name="end_effector",
                     offset=OffsetCfg(
-                        pos=[0.0, 0.0, 0.135],
+                        pos=Settings.gripper_offset,
                     ),
                 ),
             ],

@@ -26,7 +26,7 @@ from omni.isaac.lab.utils.assets import ISAAC_NUCLEUS_DIR
 ##
 
 MODEL_PATH = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")), "scene_models")
-MIN_HEIGHT = 0.1 # 0.04 # 0.1
+MIN_HEIGHT = 0.15 # 0.04 # 0.1
 
 @configclass
 class UR5e_LiftCubeSceneCfg(InteractiveSceneCfg):
@@ -35,7 +35,8 @@ class UR5e_LiftCubeSceneCfg(InteractiveSceneCfg):
     robot = ArticulationCfg(
         prim_path="{ENV_REGEX_NS}/robot", 
         spawn=sim_utils.UsdFileCfg(
-            usd_path=os.path.join(MODEL_PATH, "ur5e_robotiq_new.usd"),
+            #usd_path=os.path.join(MODEL_PATH, "ur5e_robotiq_sdu.usd"),
+            usd_path=os.path.join(MODEL_PATH, "ur5e_robotiq_hand_e.usd"),
             rigid_props=sim_utils.RigidBodyPropertiesCfg(
                 disable_gravity=False,
                 max_depenetration_velocity=5.0,
@@ -132,7 +133,7 @@ class UR5e_LiftCubeSceneCfg(InteractiveSceneCfg):
         init_state=RigidObjectCfg.InitialStateCfg(pos=[0.04, 0.35, 0.055], rot=[1, 0, 0, 0]),
         spawn=UsdFileCfg(
             usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Blocks/DexCube/dex_cube_instanceable.usd",
-            scale=(0.3, 0.3, 1.0),
+            scale=(0.7, 0.7, 0.7),
             rigid_props=RigidBodyPropertiesCfg(
                 solver_position_iteration_count=16,
                 solver_velocity_iteration_count=1,
@@ -199,7 +200,8 @@ class ActionsCfg:
         asset_name="robot",
         joint_names=["joint_left", "joint_right"],
         open_command_expr={"joint_left": 0.0, "joint_right": 0.0},
-        close_command_expr={"joint_left": 0.02, "joint_right": 0.02},
+        # close_command_expr={"joint_left": 0.02, "joint_right": 0.02}, # SDU gripper ("ur5e_robotiq_sdu.usd")
+        close_command_expr={"joint_left": -0.025, "joint_right": -0.025}, # Robotiq Hand E gripper ("ur5e_robotiq_hand_e.usd")
     )
 
 

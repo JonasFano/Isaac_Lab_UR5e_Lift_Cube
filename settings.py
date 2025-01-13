@@ -25,20 +25,30 @@ class Settings:
     # Quaternion (w, x, y, z)
     ee_quat_des = torch.tensor([0.0, 0.0, -1.0, 0.0], device="cuda")
 
+    # Offset from end-effector to TCP
+    gripper_offset = torch.tensor([0, 0, 0.15], device="cuda")
+
     # Corrects for non-linear cartesian movement of the controller
     ctrl_inacc_correction = torch.tensor([0.1456, 0.252], device="cuda")
+    
+    # Define gripper states
+    gripper_open = torch.tensor([0.0, 0.0])
+    # SDU gripper
+    # gripper_close = torch.tensor([0.02, 0.02])
+
+    # Hand E
+    gripper_close = torch.tensor([-0.015, -0.015]) 
 
     # Joint positions
-    joint_pos_above_pick_up = torch.tensor([1.57400844, -1.38136219,  1.87365737, -2.06385432, -1.57065705,  3.14481264, 0.0, 0.0], device="cuda")
-    joint_pos_pick_up = torch.tensor([1.57400297, -1.29256433,  1.95634084, -2.23534695, -1.57062928,  3.14480187, 0.0, 0.0], device="cuda")
-    joint_pos_pick_up_close = torch.tensor([1.57400297, -1.29256433,  1.95634084, -2.23534695, -1.57062928,  3.14480187, 0.02, 0.02], device="cuda")
-    joint_pos_above_pick_up_close = torch.tensor([1.57400844, -1.38136219,  1.87365737, -2.06385432, -1.57065705,  3.14481264, 0.02, 0.02], device="cuda")
-    joint_pos_above_place_close = torch.tensor([1.31718041, -1.67172325,  2.17931126, -2.07737736, -1.57061328,  2.88865622, 0.02, 0.02], device="cuda")
-    joint_pos_place_close = torch.tensor([1.317328,   -1.58043441,  2.26478794, -2.25573415, -1.57119171,  2.88805712, 0.02, 0.02], device="cuda")
-    joint_pos_place = torch.tensor([1.317328,   -1.58043441,  2.26478794, -2.25573415, -1.57119171,  2.88805712, 0.0, 0.0], device="cuda")
-    joint_pos_above_place = torch.tensor([1.31718041, -1.67172325,  2.17931126, -2.07737736, -1.57061328,  2.88865622, 0.0, 0.0], device="cuda")
+    joint_pos_above_pick_up = torch.cat((torch.tensor([1.57400844, -1.38136219,  1.87365737, -2.06385432, -1.57065705,  3.14481264]), gripper_open))
+    joint_pos_pick_up = torch.cat((torch.tensor([1.57400297, -1.29256433,  1.95634084, -2.23534695, -1.57062928,  3.14480187]), gripper_open))
+    joint_pos_pick_up_close = torch.cat((torch.tensor([1.57400297, -1.29256433,  1.95634084, -2.23534695, -1.57062928,  3.14480187]), gripper_close))
+    joint_pos_above_pick_up_close = torch.cat((torch.tensor([1.57400844, -1.38136219,  1.87365737, -2.06385432, -1.57065705,  3.14481264]), gripper_close))
+    joint_pos_above_place_close = torch.cat((torch.tensor([1.31718041, -1.67172325,  2.17931126, -2.07737736, -1.57061328,  2.88865622]), gripper_close))
+    joint_pos_place_close = torch.cat((torch.tensor([1.317328,   -1.58043441,  2.26478794, -2.25573415, -1.57119171,  2.88805712]), gripper_close))
+    joint_pos_place = torch.cat((torch.tensor([1.317328,   -1.58043441,  2.26478794, -2.25573415, -1.57119171,  2.88805712]), gripper_open))
+    joint_pos_above_place = torch.cat((torch.tensor([1.31718041, -1.67172325,  2.17931126, -2.07737736, -1.57061328,  2.88865622]), gripper_open))
     
-
 
     # DMP
     # Time in seconds on when to start which Movement primitive after starting the movement at 0.0 seconds

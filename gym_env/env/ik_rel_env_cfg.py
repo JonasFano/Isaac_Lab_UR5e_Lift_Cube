@@ -6,6 +6,7 @@ from omni.isaac.lab.controllers.differential_ik_cfg import DifferentialIKControl
 from omni.isaac.lab.envs.mdp.actions.actions_cfg import DifferentialInverseKinematicsActionCfg
 
 from . import lift_cube_env_cfg
+from settings import Settings
 
 @configclass
 class RelIK_UR5e_LiftCubeEnvCfg(lift_cube_env_cfg.UR5e_LiftCubeEnvCfg):
@@ -25,7 +26,7 @@ class RelIK_UR5e_LiftCubeEnvCfg(lift_cube_env_cfg.UR5e_LiftCubeEnvCfg):
                     prim_path="{ENV_REGEX_NS}/robot/wrist_3_link",
                     name="end_effector",
                     offset=OffsetCfg(
-                        pos=[0.0, 0.0, 0.135],
+                        pos=Settings.gripper_offset,
                     ),
                 ),
             ],
@@ -36,7 +37,7 @@ class RelIK_UR5e_LiftCubeEnvCfg(lift_cube_env_cfg.UR5e_LiftCubeEnvCfg):
             joint_names=["shoulder_pan_joint", "shoulder_lift_joint", "elbow_joint", "wrist_1_joint", "wrist_2_joint", "wrist_3_joint"],
             body_name="wrist_3_link",
             controller=DifferentialIKControllerCfg(command_type="pose", use_relative_mode=True, ik_method="dls"),
-            body_offset=DifferentialInverseKinematicsActionCfg.OffsetCfg(pos=[0.0, 0.0, 0.135]),
+            body_offset=DifferentialInverseKinematicsActionCfg.OffsetCfg(pos=Settings.gripper_offset),
             scale=0.05,
             debug_vis=True  # Enable debug visualization, set to False for production
         )
