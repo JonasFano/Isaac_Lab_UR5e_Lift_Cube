@@ -4,3 +4,6 @@ __pycache__/
 # Ignore all .pyc files (compiled Python files)
 *.pyc
 **/*.pyc
+
+# Ignore outputs folder
+/outputs/

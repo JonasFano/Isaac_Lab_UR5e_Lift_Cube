@@ -61,6 +61,10 @@ parameters:
   action_noise:
     value: NormalActionNoise
 
+  action_sigma:
+    min: 0.001
+    max: 0.1
+
   # replay_buffer_class: 
   #   value: "HerReplayBuffer"
 

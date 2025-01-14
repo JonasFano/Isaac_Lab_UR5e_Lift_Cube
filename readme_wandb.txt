@@ -35,10 +35,9 @@ wandb sweep --project rel_ik_sb3_td3_ur5e_lift_cube_0_05_noise_100 config_sb3_td
 ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/play_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/logs/sb3/ppo/UR5e-Lift-Cube-IK/adjusted_reward_tcp_6_v2/model.zip
 
 # PPO
-python3 train_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --no_logging --headless
+python3 train_sb3.py --task UR5e-Lift-Cube-IK --num_envs 2 --no_logging --headless
 python3 play_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/models/dond3q8q/model.zip
 
-python3 play_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/models/urjhlqn1/model.zip
 python3 play_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/models/vsccu703/model.zip
 
 
