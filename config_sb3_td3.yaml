@@ -27,8 +27,8 @@ parameters:
     max: 0.999
 
   learning_rate:
-    min: 1e-5
-    max: 1e-3
+    min: !!float 1e-5
+    max: !!float 1e-3
     log: true
 
   train_freq:
