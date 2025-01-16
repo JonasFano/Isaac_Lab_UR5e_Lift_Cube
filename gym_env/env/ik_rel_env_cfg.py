@@ -39,7 +39,7 @@ class RelIK_UR5e_LiftCubeEnvCfg(lift_cube_env_cfg.UR5e_LiftCubeEnvCfg):
             controller=DifferentialIKControllerCfg(command_type="pose", use_relative_mode=True, ik_method="dls"),
             body_offset=DifferentialInverseKinematicsActionCfg.OffsetCfg(pos=Settings.gripper_offset),
             scale=0.05,
-            debug_vis=True  # Enable debug visualization, set to False for production
+            debug_vis=False  # Enable debug visualization, set to False for production
         )
 
 

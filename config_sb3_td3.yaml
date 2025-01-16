@@ -24,44 +24,44 @@ parameters:
 
   gamma:
     min: 0.9
-    max: 0.999
+    max: 0.99
 
   learning_rate:
-    min: !!float 1e-5
+    min: !!float 5e-5
     max: !!float 1e-3
 
   train_freq:
-    values: [1, 4, 8, 16]
+    values: [1, 4, 8]
 
   gradient_steps:
-    values: [1, 4, 8, 16]
+    values: [1, 4, 8]
 
   buffer_size: 
     values: [50000, 100000, 1000000, 5000000]
 
   policy_delay:
-    values: [1, 2, 3]
+    value: 2
 
   learning_starts: 
-    values: [100, 1000, 5000, 10000]
+    values: [100, 1000, 10000]
 
   tau: 
-    min: 0.005
+    min: 0.001
     max: 0.05
 
   target_policy_noise:
-    min: 0.1
+    min: 0.0
     max: 0.3
 
   target_noise_clip:
-    min: 0.2
+    min: 0.0
     max: 0.6
 
   action_noise:
     value: NormalActionNoise
 
   action_sigma:
-    min: 0.001
+    min: 0.0
     max: 0.1
 
   # replay_buffer_class: 
