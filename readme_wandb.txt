@@ -30,7 +30,7 @@ wandb agent jofan23-university-of-southern-denmark/rel_ik_sb3_td3_ur5e_lift_cube
 wandb sweep --project rel_ik_sb3_td3_ur5e_lift_cube_0_05_noise_1_0 config_sb3_td3.yaml
 wandb sweep --project rel_ik_sb3_td3_ur5e_lift_cube_0_05_noise_100 config_sb3_td3.yaml
 
-wandb sweep --project rel_ik_sb3_td3_ur5e_lift_cube_0_05_bayes config_sb3_td3.yaml
+wandb sweep --project rel_ik_sb3_td3_ur5e_lift_cube_0_05_bayes_64 config_sb3_td3.yaml
 
 
 
