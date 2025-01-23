@@ -346,7 +346,7 @@ class UR5e_LiftCubeEnvCfg(ManagerBasedRLEnvCfg):
     def __post_init__(self):
         """Post initialization."""
         # general settings
-        self.decimation = 4
+        self.decimation = 2
         self.episode_length_s = 5.0
         # simulation settings
         self.sim.dt = 0.01  # 100Hz
@@ -357,4 +357,4 @@ class UR5e_LiftCubeEnvCfg(ManagerBasedRLEnvCfg):
         self.sim.physx.gpu_found_lost_aggregate_pairs_capacity = 1024 * 1024 * 4
         self.sim.physx.gpu_total_aggregate_pairs_capacity = 16 * 1024
         self.sim.physx.friction_correlation_distance = 0.00625
-        self.sim.physx.gpu_collision_stack_size = 4096 * 4096 * 110 # Was added due to an PhysX error: collisionStackSize buffer overflow detected
+        self.sim.physx.gpu_collision_stack_size = 4096 * 4096 * 100 # Was added due to an PhysX error: collisionStackSize buffer overflow detected
