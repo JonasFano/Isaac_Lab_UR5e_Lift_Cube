@@ -1,4 +1,4 @@
-program: train_sb3_wandb.py
+program: train_sb3_wandb_ppo.py
 method: grid
 name: rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_num_env_test
 metric:
