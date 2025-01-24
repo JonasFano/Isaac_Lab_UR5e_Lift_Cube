@@ -1,6 +1,6 @@
 program: train_sb3_wandb.py
 method: grid
-name: rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e
+name: rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_num_env_test
 metric:
   goal: maximize
   name: rollout/ep_rew_mean
@@ -8,6 +8,9 @@ metric:
 parameters:
   seed:
     value: 42
+
+  num_envs:
+    values: [4, 64, 1028, 2048]
 
   n_timesteps: # iteration * n_steps * nenvs: 1000 * 64 * 4096 = 262144000 # 52428800 # 78643200
     value: 262144000
@@ -19,7 +22,7 @@ parameters:
     value: 64
 
   batch_size:
-    values: [8192, 16384]
+    value: 16384
 
   gae_lambda:
     value: 0.95
@@ -45,7 +48,7 @@ parameters:
   policy_kwargs:
     parameters:
       activation_fn: 
-        values: [nn.ELU, nn.Tanh]
+        value: nn.Tanh
       net_arch:
         parameters:
           pi:

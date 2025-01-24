@@ -14,6 +14,10 @@ wandb agent jofan23-university-of-southern-denmark/rel_ik_sb3_ppo_ur5e_lift_cube
 wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e config_0_05.yaml
 
 
+wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_num_env_test config_sb3_ppo.yaml
+
+
+
 # DDPG
 source isaaclab/bin/activate
 cd /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube
