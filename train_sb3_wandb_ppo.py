@@ -35,7 +35,7 @@ from wandb.integration.sb3 import WandbCallback
 def main():
     """Train with stable-baselines agent."""
     # WandB initialization (config.yaml values come from WandB during sweep)
-    with open("./config_0_05.yaml") as file:
+    with open("./config_sb3_ppo.yaml") as file:
         config = yaml.load(file, Loader=yaml.FullLoader)
 
     run = wandb.init(

@@ -12,6 +12,7 @@ gym.register(
     disable_env_checker=True,
     kwargs={
         "env_cfg_entry_point": ik_rel_env_cfg.RelIK_UR5e_LiftCubeEnvCfg,
+        "rl_games_cfg_entry_point": f"{agents.__name__}:rl_games_ppo_cfg.yaml",
         "sb3_ppo_cfg_entry_point": f"{agents.__name__}:sb3_ppo_cfg.yaml",
         "sb3_ddpg_cfg_entry_point": f"{agents.__name__}:sb3_ddpg_cfg.yaml",
         "sb3_td3_cfg_entry_point": f"{agents.__name__}:sb3_td3_cfg.yaml",

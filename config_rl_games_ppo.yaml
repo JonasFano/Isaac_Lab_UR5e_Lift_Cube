@@ -1,0 +1,160 @@
+program: train_rl_games_wandb_ppo.py
+method: grid
+name: rel_ik_rl_games_ppo_ur5e_lift_cube_0_05_hand_e
+metric:
+  goal: maximize
+  name: rollout/ep_rew_mean
+
+
+parameters:
+  params:
+    parameters:
+      seed: 
+        value: 42
+
+      # environment wrapper clipping
+      env:
+        parameters:
+          clip_observations: 
+            value: 100.0
+          clip_actions: 
+            value: 100.0
+
+      algo:
+        parameters:
+          name: 
+            value: a2c_continuous
+
+      model:
+        parameters:
+          name: 
+            value: continuous_a2c_logstd
+
+      network:
+        parameters:
+          name:
+            value:  actor_critic
+          separate: 
+            value: False
+          space:
+            parameters:
+              continuous:
+                parameters:
+                  mu_activation: 
+                    value: None
+                  sigma_activation: 
+                    value: None
+
+                mu_init:
+                  parameters:
+                    name: 
+                      value: default
+                sigma_init:
+                  parameters:
+                    name: 
+                      value: const_initializer
+                    val: 
+                      value: 0
+                fixed_sigma: 
+                    value: True
+          mlp:
+            parameters:
+              units: 
+                value: [256, 128, 64]
+              activation: 
+                value: elu
+              d2rl: 
+                value: False
+
+              initializer:
+                parameters:
+                  name: 
+                    value: default
+              regularizer:
+                parameters:
+                  name: 
+                    value: None
+
+      load_checkpoint: 
+        value: False # flag which sets whether to load the checkpoint
+      load_path: 
+        value: '' # path to the checkpoint to load
+
+      config:
+        parameters:
+          name: 
+            value: UR5e-Lift-Cube-IK
+          env_name: 
+            value: rlgpu
+          device: 
+            value: 'cuda:0'
+          device_name: 
+            value: 'cuda:0'
+          multi_gpu: 
+            value: False
+          ppo: 
+            value: True
+          mixed_precision: 
+            value: False
+          normalize_input: 
+            value: True
+          normalize_value: 
+            value: True
+          value_bootstrap: 
+            value: False
+          num_actors: 
+            value: 4096
+
+          reward_shaper:
+            parameters:
+              scale_value: 
+                value: 0.01
+
+          normalize_advantage: 
+            value: True
+          gamma: 
+            value: 0.99
+          tau: 
+            value: 0.95
+          learning_rate:
+            value: 1e-4
+          lr_schedule: 
+            value: adaptive
+          schedule_type: 
+            value: legacy
+          kl_threshold: 
+            value: 0.01
+          score_to_win: 
+            value: 100000000
+          max_epochs: 
+            value: 1500
+          save_best_after: 
+            value: 100
+          save_frequency: 
+            value: 50
+          print_stats: 
+            value: True
+          grad_norm: 
+            value: 1.0
+          entropy_coef: 
+            value: 0.001
+          truncate_grads: 
+            value: True
+          e_clip: 
+            value: 0.2
+          horizon_length: 
+            value: 24
+          minibatch_size: 
+            value: 98304 # 48 # 1536 # 6144 # 24576 # Should be equal to horizon_length * num_actors where num_actors = num_envs
+          mini_epochs: 
+            value: 8
+          critic_coef: 
+            value: 4
+          clip_value: 
+            value: True
+          clip_actions: 
+            value: False
+          seq_len: 
+            value: 4
+          bounds_loss_coef:
+            value: 0.0001
