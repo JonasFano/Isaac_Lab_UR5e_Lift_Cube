@@ -74,29 +74,29 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     env_cfg.scene.num_envs = args_cli.num_envs if args_cli.num_envs is not None else env_cfg.scene.num_envs
     env_cfg.sim.device = args_cli.device if args_cli.device is not None else env_cfg.sim.device
 
-    agent_cfg["parameters"]["seed"] = args_cli.seed if args_cli.seed is not None else agent_cfg["parameters"]["seed"]
-    agent_cfg["parameters"]["config"]["max_epochs"] = (
-        args_cli.max_iterations if args_cli.max_iterations is not None else agent_cfg["parameters"]["config"]["max_epochs"]
+    agent_cfg["params"]["seed"] = args_cli.seed if args_cli.seed is not None else agent_cfg["params"]["seed"]
+    agent_cfg["params"]["config"]["max_epochs"] = (
+        args_cli.max_iterations if args_cli.max_iterations is not None else agent_cfg["params"]["config"]["max_epochs"]
     )
     if args_cli.checkpoint is not None:
         resume_path = retrieve_file_path(args_cli.checkpoint)
-        agent_cfg["parameters"]["load_checkpoint"] = True
-        agent_cfg["parameters"]["load_path"] = resume_path
-        print(f"[INFO]: Loading model checkpoint from: {agent_cfg['parameters']['load_path']}")
+        agent_cfg["params"]["load_checkpoint"] = True
+        agent_cfg["params"]["load_path"] = resume_path
+        print(f"[INFO]: Loading model checkpoint from: {agent_cfg['params']['load_path']}")
     train_sigma = float(args_cli.sigma) if args_cli.sigma is not None else None
 
     # multi-gpu training config
     if args_cli.distributed:
-        agent_cfg["parameters"]["seed"] += app_launcher.global_rank
-        agent_cfg["parameters"]["config"]["device"] = f"cuda:{app_launcher.local_rank}"
-        agent_cfg["parameters"]["config"]["device_name"] = f"cuda:{app_launcher.local_rank}"
-        agent_cfg["parameters"]["config"]["multi_gpu"] = True
+        agent_cfg["params"]["seed"] += app_launcher.global_rank
+        agent_cfg["params"]["config"]["device"] = f"cuda:{app_launcher.local_rank}"
+        agent_cfg["params"]["config"]["device_name"] = f"cuda:{app_launcher.local_rank}"
+        agent_cfg["params"]["config"]["multi_gpu"] = True
         # update env config device
         env_cfg.sim.device = f"cuda:{app_launcher.local_rank}"
 
     # set the environment seed (after multi-gpu config for updated rank from agent seed)
     # note: certain randomizations occur in the environment initialization so we set the seed here
-    env_cfg.seed = agent_cfg["parameters"]["seed"]
+    env_cfg.seed = agent_cfg["params"]["seed"]
 
     # specify directory for logging experiments
     script_dir = os.path.dirname(os.path.abspath(__file__))
@@ -106,22 +106,22 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
 
     print(f"[INFO] Logging experiment in directory: {log_root_path}")
     # specify directory for logging runs
-    log_dir = agent_cfg["parameters"]["config"].get("full_experiment_name", datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    log_dir = agent_cfg["params"]["config"].get("full_experiment_name", datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     # set directory into agent config
     # logging directory path: <train_dir>/<full_experiment_name>
-    agent_cfg["parameters"]["config"]["train_dir"] = log_root_path
-    agent_cfg["parameters"]["config"]["full_experiment_name"] = log_dir
+    agent_cfg["params"]["config"]["train_dir"] = log_root_path
+    agent_cfg["params"]["config"]["full_experiment_name"] = log_dir
 
     # dump the configuration into log-directory
-    dump_yaml(os.path.join(log_root_path, log_dir, "parameters", "env.yaml"), env_cfg)
-    dump_yaml(os.path.join(log_root_path, log_dir, "parameters", "agent.yaml"), agent_cfg)
-    dump_pickle(os.path.join(log_root_path, log_dir, "parameters", "env.pkl"), env_cfg)
-    dump_pickle(os.path.join(log_root_path, log_dir, "parameters", "agent.pkl"), agent_cfg)
+    dump_yaml(os.path.join(log_root_path, log_dir, "params", "env.yaml"), env_cfg)
+    dump_yaml(os.path.join(log_root_path, log_dir, "params", "agent.yaml"), agent_cfg)
+    dump_pickle(os.path.join(log_root_path, log_dir, "params", "env.pkl"), env_cfg)
+    dump_pickle(os.path.join(log_root_path, log_dir, "params", "agent.pkl"), agent_cfg)
 
     # read configurations about the agent-training
-    rl_device = agent_cfg["parameters"]["config"]["device"]
-    clip_obs = agent_cfg["parameters"]["env"].get("clip_observations", math.inf)
-    clip_actions = agent_cfg["parameters"]["env"].get("clip_actions", math.inf)
+    rl_device = agent_cfg["params"]["config"]["device"]
+    clip_obs = agent_cfg["params"]["env"].get("clip_observations", math.inf)
+    clip_actions = agent_cfg["params"]["env"].get("clip_actions", math.inf)
 
     # create isaac environment
     env = gym.make(args_cli.task, cfg=env_cfg, render_mode="rgb_array" if args_cli.video else None)
@@ -152,7 +152,7 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     env_configurations.register("rlgpu", {"vecenv_type": "IsaacRlgWrapper", "env_creator": lambda **kwargs: env})
 
     # set number of actors into agent config
-    agent_cfg["parameters"]["config"]["num_actors"] = env.unwrapped.num_envs
+    agent_cfg["params"]["config"]["num_actors"] = env.unwrapped.num_envs
     # create runner from rl-games
     runner = Runner(IsaacAlgoObserver())
     runner.load(agent_cfg)

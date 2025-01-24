@@ -52,8 +52,11 @@ tensorboard --logdir='directory'
 
 source isaaclab/bin/activate
 cd isaaclab/IsaacLab
-./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/train_rl_games.py --num_envs 1024 --task UR5e-Lift-Cube-IK --headless --max_iterations 1500
+./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/train_rl_games.py --num_envs 2048 --task UR5e-Lift-Cube-IK --headless --max_iterations 1500
 ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/play_rl_games.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/logs/rl_games/UR5e-Lift-Cube-IK/2024-11-04_15-25-12/nn/last_Ur5e-Lift-Cube_ep_1500_rew_1.097335.pth
+
+python3 train_rl_games.py --num_envs 2048 --task UR5e-Lift-Cube-IK --headless --max_iterations 1000
+
 
 
 
