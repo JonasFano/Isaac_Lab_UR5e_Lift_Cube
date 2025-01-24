@@ -70,7 +70,7 @@ params:
     truncate_grads: True
     e_clip: 0.2
     horizon_length: 24
-    minibatch_size: 49152 # 98304 # 48 # 1536 # 6144 # 24576 # Should be equal to horizon_length * num_actors where num_actors = num_envs
+    minibatch_size: 24576 # 98304 # 48 # 1536 # 6144 # 24576 # Should be equal to horizon_length * num_actors where num_actors = num_envs
     mini_epochs: 8
     critic_coef: 4
     clip_value: True
