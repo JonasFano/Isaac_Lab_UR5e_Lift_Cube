@@ -48,5 +48,17 @@ python3 play_sb3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jof
 python3 play_sb3_td3.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/models/yh1yv5bu/model.zip
 
 
+
+############
+# rl_games #
+############
+source isaaclab/bin/activate
+cd /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube
+wandb sweep --project rel_ik_rl_games_ppo_ur5e_lift_cube_0_05_hand_e config_rl_games_ppo.yaml
+
+
+
+
+
 # Remote control
 ssh -I 10.178.107.200 jofa@ia-li-2wqd414.unirobotts.local

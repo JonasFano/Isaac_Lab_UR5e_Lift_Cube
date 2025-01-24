@@ -5,156 +5,125 @@ metric:
   goal: maximize
   name: rollout/ep_rew_mean
 
-
 parameters:
-  params:
-    parameters:
-      seed: 
-        value: 42
+  seed:
+    value: 42
 
-      # environment wrapper clipping
-      env:
-        parameters:
-          clip_observations: 
-            value: 100.0
-          clip_actions: 
-            value: 100.0
+  # Environment wrapper clipping
+  env.clip_observations:
+    value: 100.0
+  env.clip_actions:
+    value: 100.0
 
-      algo:
-        parameters:
-          name: 
-            value: a2c_continuous
+  algo.name:
+    value: a2c_continuous
 
-      model:
-        parameters:
-          name: 
-            value: continuous_a2c_logstd
+  model.name:
+    value: continuous_a2c_logstd
 
-      network:
-        parameters:
-          name:
-            value:  actor_critic
-          separate: 
-            value: False
-          space:
-            parameters:
-              continuous:
-                parameters:
-                  mu_activation: 
-                    value: None
-                  sigma_activation: 
-                    value: None
+  network.name:
+    value: actor_critic
+  network.separate:
+    value: False
+  network.space.continuous.mu_activation:
+    value: None
+  network.space.continuous.sigma_activation:
+    value: None
+  network.space.continuous.mu_init.name:
+    value: default
+  network.space.continuous.sigma_init.name:
+    value: const_initializer
+  network.space.continuous.sigma_init.val:
+    value: 0
+  network.space.continuous.fixed_sigma:
+    value: True
+  network.mlp.units:
+    value: [256, 128, 64]
+  network.mlp.activation:
+    value: elu
+  network.mlp.d2rl:
+    value: False
+  network.mlp.initializer.name:
+    value: default
+  network.mlp.regularizer.name:
+    value: None
 
-                mu_init:
-                  parameters:
-                    name: 
-                      value: default
-                sigma_init:
-                  parameters:
-                    name: 
-                      value: const_initializer
-                    val: 
-                      value: 0
-                fixed_sigma: 
-                    value: True
-          mlp:
-            parameters:
-              units: 
-                value: [256, 128, 64]
-              activation: 
-                value: elu
-              d2rl: 
-                value: False
+  load_checkpoint:
+    value: False
+  load_path:
+    value: ''
 
-              initializer:
-                parameters:
-                  name: 
-                    value: default
-              regularizer:
-                parameters:
-                  name: 
-                    value: None
+  config.name:
+    value: UR5e-Lift-Cube-IK
+  config.env_name:
+    value: rlgpu
+  config.device:
+    value: 'cuda:0'
+  config.device_name:
+    value: 'cuda:0'
+  config.multi_gpu:
+    value: False
+  config.ppo:
+    value: True
+  config.mixed_precision:
+    value: False
+  config.normalize_input:
+    value: True
+  config.normalize_value:
+    value: True
+  config.value_bootstrap:
+    value: False
+  config.num_actors:
+    value: 4096
 
-      load_checkpoint: 
-        value: False # flag which sets whether to load the checkpoint
-      load_path: 
-        value: '' # path to the checkpoint to load
+  config.reward_shaper.scale_value:
+    value: 0.01
 
-      config:
-        parameters:
-          name: 
-            value: UR5e-Lift-Cube-IK
-          env_name: 
-            value: rlgpu
-          device: 
-            value: 'cuda:0'
-          device_name: 
-            value: 'cuda:0'
-          multi_gpu: 
-            value: False
-          ppo: 
-            value: True
-          mixed_precision: 
-            value: False
-          normalize_input: 
-            value: True
-          normalize_value: 
-            value: True
-          value_bootstrap: 
-            value: False
-          num_actors: 
-            value: 4096
-
-          reward_shaper:
-            parameters:
-              scale_value: 
-                value: 0.01
-
-          normalize_advantage: 
-            value: True
-          gamma: 
-            value: 0.99
-          tau: 
-            value: 0.95
-          learning_rate:
-            value: 1e-4
-          lr_schedule: 
-            value: adaptive
-          schedule_type: 
-            value: legacy
-          kl_threshold: 
-            value: 0.01
-          score_to_win: 
-            value: 100000000
-          max_epochs: 
-            value: 1500
-          save_best_after: 
-            value: 100
-          save_frequency: 
-            value: 50
-          print_stats: 
-            value: True
-          grad_norm: 
-            value: 1.0
-          entropy_coef: 
-            value: 0.001
-          truncate_grads: 
-            value: True
-          e_clip: 
-            value: 0.2
-          horizon_length: 
-            value: 24
-          minibatch_size: 
-            value: 98304 # 48 # 1536 # 6144 # 24576 # Should be equal to horizon_length * num_actors where num_actors = num_envs
-          mini_epochs: 
-            value: 8
-          critic_coef: 
-            value: 4
-          clip_value: 
-            value: True
-          clip_actions: 
-            value: False
-          seq_len: 
-            value: 4
-          bounds_loss_coef:
-            value: 0.0001
+  config.normalize_advantage:
+    value: True
+  config.gamma:
+    value: 0.99
+  config.tau:
+    value: 0.95
+  config.learning_rate:
+    value: 1e-4
+  config.lr_schedule:
+    value: adaptive
+  config.schedule_type:
+    value: legacy
+  config.kl_threshold:
+    value: 0.01
+  config.score_to_win:
+    value: 100000000
+  config.max_epochs:
+    value: 1500
+  config.save_best_after:
+    value: 100
+  config.save_frequency:
+    value: 50
+  config.print_stats:
+    value: True
+  config.grad_norm:
+    value: 1.0
+  config.entropy_coef:
+    value: 0.001
+  config.truncate_grads:
+    value: True
+  config.e_clip:
+    value: 0.2
+  config.horizon_length:
+    value: 24
+  config.minibatch_size:
+    value: 98304
+  config.mini_epochs:
+    value: 8
+  config.critic_coef:
+    value: 4
+  config.clip_value:
+    value: True
+  config.clip_actions:
+    value: False
+  config.seq_len:
+    value: 4
+  config.bounds_loss_coef:
+    value: 0.0001

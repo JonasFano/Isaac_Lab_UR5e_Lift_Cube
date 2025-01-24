@@ -46,36 +46,39 @@ def main():
         save_code=False,  # Save code for reproducibility
     )
 
-    # Load env cfg
-    device = wandb.config["params"]["config"]["device"]
-    clip_obs = wandb.config["params"]["env"].get("clip_observations", math.inf)
-    clip_actions = wandb.config["params"]["env"].get("clip_actions", math.inf)
-    task = wandb.config["params"]["config"]["name"]
-    num_envs = wandb.config["params"]["config"]["num_actors"]
+    # Extract key parameters from wandb.config
+    device = wandb.config["config.device"]
+    clip_obs = wandb.config["env.clip_observations"]
+    clip_actions = wandb.config["env.clip_actions"]
+    task = wandb.config["config.name"]
+    num_envs = wandb.config["config.num_actors"]
 
+    # Parse environment configuration
     env_cfg = parse_env_cfg(task, device=device, num_envs=num_envs)
-    env_cfg.seed = wandb.config["params"]["seed"]
+    env_cfg.seed = wandb.config["seed"]
+
+    print("Wandb Config:", wandb.config)
 
     # Create Isaac environment
     env = gym.make(task, cfg=env_cfg, render_mode=None)
 
-    # Wrap around environment for rl_games
+    # Wrap the environment for RL-Games
     env = RlGamesVecEnvWrapper(env, device, clip_obs, clip_actions)
 
-    # register the environment to rl-games registry
-    # note: in agents configuration: environment name must be "rlgpu"
+    # Register the environment to RL-Games registry
     vecenv.register(
         "IsaacRlgWrapper", lambda config_name, num_actors, **kwargs: RlGamesGpuEnv(config_name, num_actors, **kwargs)
     )
     env_configurations.register("rlgpu", {"vecenv_type": "IsaacRlgWrapper", "env_creator": lambda **kwargs: env})
-        
-    # create runner from rl-games
+
+    # Create runner from RL-Games
     runner = Runner(IsaacAlgoObserver())
     runner.load(wandb.config)
 
-    # reset the agent and env
+    # Reset the agent and environment
     runner.reset()
 
+    # Train the agent
     runner.run({"train": True, "play": False, "sigma": None})
 
     # Close the environment
@@ -84,7 +87,7 @@ def main():
 
 
 if __name__ == "__main__":
-    # run the main function
+    # Run the main function
     main()
-    # close sim app
+    # Close the simulation app
     simulation_app.close()

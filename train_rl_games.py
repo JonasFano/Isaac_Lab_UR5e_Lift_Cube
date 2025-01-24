@@ -100,8 +100,10 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
 
     # specify directory for logging experiments
     script_dir = os.path.dirname(os.path.abspath(__file__))
-    log_root_path = os.path.join(script_dir, "logs", "rl_games", agent_cfg["params"]["config"]["name"])
+    log_root_path = os.path.join(script_dir, "logs", "rl_games", "ppo")
     log_root_path = os.path.abspath(log_root_path)
+    log_dir = os.path.join(script_dir, "logs", "rl_games", "ppo", args_cli.task, datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+
     print(f"[INFO] Logging experiment in directory: {log_root_path}")
     # specify directory for logging runs
     log_dir = agent_cfg["params"]["config"].get("full_experiment_name", datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
