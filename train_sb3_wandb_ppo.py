@@ -110,7 +110,7 @@ def main():
 
     # Train the agent
     agent.learn(
-        total_timesteps= 800*64*wandb.config["num_envs"], #wandb.config["n_timesteps"],
+        total_timesteps=wandb.config["n_timesteps"],
         callback=WandbCallback(
             gradient_save_freq=10000,
             model_save_path=f"models/{run.id}",
