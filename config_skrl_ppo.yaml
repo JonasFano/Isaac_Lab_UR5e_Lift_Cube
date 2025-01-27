@@ -1,0 +1,10 @@
+program: train_skrl_ppo.py
+method: grid
+name: rel_ik_skrl_ppo_ur5e_lift_cube
+metric:
+  goal: maximize
+  name: Reward/Total Reward (mean)
+
+parameters:
+  clip_predicted_values:
+    values: [True, False]

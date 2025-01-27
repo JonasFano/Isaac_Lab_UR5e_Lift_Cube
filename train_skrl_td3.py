@@ -28,7 +28,7 @@ parser.add_argument("--seed", type=int, default=None, help="Seed used for the en
 parser.add_argument("--distributed", action="store_true", default=False, help="Run training with multiple GPUs or nodes.")
 parser.add_argument("--max_iterations", type=int, default=None, help="RL Policy training iterations.")
 parser.add_argument("--ml_framework", type=str, default="torch", choices=["torch", "jax", "jax-numpy"], help="The ML framework used for training the skrl agent.",)
-parser.add_argument("--algorithm", type=str, default="PPO", choices=["PPO", "IPPO", "MAPPO"], help="The RL algorithm used for training the skrl agent.",)
+parser.add_argument("--algorithm", type=str, default="TD3", choices=["TD3"], help="The RL algorithm used for training the skrl agent.",)
 
 # append AppLauncher cli args
 AppLauncher.add_app_launcher_args(parser)
@@ -85,7 +85,7 @@ from omni.isaac.lab_tasks.utils.wrappers.skrl import SkrlVecEnvWrapper
 
 # config shortcuts
 algorithm = args_cli.algorithm.lower()
-agent_cfg_entry_point = "skrl_ppo_cfg_entry_point" if algorithm in ["ppo"] else f"skrl_{algorithm}_cfg_entry_point"
+agent_cfg_entry_point = "skrl_td3_cfg_entry_point" if algorithm in ["td3"] else f"skrl_{algorithm}_cfg_entry_point"
 
 
 @hydra_task_config(args_cli.task, agent_cfg_entry_point)
@@ -150,7 +150,7 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
         env = gym.wrappers.RecordVideo(env, **video_kwargs)
 
     # convert to single-agent instance if required by the RL algorithm
-    if isinstance(env.unwrapped, DirectMARLEnv) and algorithm in ["ppo"]:
+    if isinstance(env.unwrapped, DirectMARLEnv) and algorithm in ["td3"]:
         env = multi_agent_to_single_agent(env)
 
     # wrap around environment for skrl

@@ -17,6 +17,7 @@ gym.register(
         "sb3_ddpg_cfg_entry_point": f"{agents.__name__}:sb3_ddpg_cfg.yaml",
         "sb3_td3_cfg_entry_point": f"{agents.__name__}:sb3_td3_cfg.yaml",
         "skrl_ppo_cfg_entry_point": f"{agents.__name__}:skrl_ppo_cfg.yaml",
+        "skrl_td3_cfg_entry_point": f"{agents.__name__}:skrl_td3_cfg.yaml",
     },
 )
 

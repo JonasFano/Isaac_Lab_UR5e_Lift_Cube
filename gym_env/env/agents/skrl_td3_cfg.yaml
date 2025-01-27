@@ -1,0 +1,108 @@
+seed: 42
+
+# Models are instantiated using skrl's model instantiator utility
+# https://skrl.readthedocs.io/en/latest/api/utils/model_instantiators.html
+models:
+  separate: True
+  policy:  # Deterministic policy model for TD3
+    class: DeterministicMixin
+    clip_actions: False
+    network:
+      - name: net
+        input: STATES
+        layers: [512, 256]
+        activations: relu
+    output: ACTIONS
+  target_policy:  # Target policy model for TD3
+    class: DeterministicMixin
+    clip_actions: False
+    network:
+      - name: net
+        input: STATES
+        layers: [512, 256]
+        activations: relu
+    output: ACTIONS
+  critic_1:  # First critic model for TD3
+    class: DeterministicMixin
+    clip_actions: False
+    network:
+      - name: net
+        input: CONCAT(STATES, ACTIONS)
+        layers: [512, 256]
+        activations: relu
+    output: ONE
+  critic_2:  # Second critic model for TD3
+    class: DeterministicMixin
+    clip_actions: False
+    network:
+      - name: net
+        input: CONCAT(STATES, ACTIONS)
+        layers: [512, 256]
+        activations: relu
+    output: ONE
+  target_critic_1:  # Target first critic model for TD3
+    class: DeterministicMixin
+    clip_actions: False
+    network:
+      - name: net
+        input: CONCAT(STATES, ACTIONS)
+        layers: [512, 256]
+        activations: relu
+    output: ONE
+  target_critic_2:  # Target second critic model for TD3
+    class: DeterministicMixin
+    clip_actions: False
+    network:
+      - name: net
+        input: CONCAT(STATES, ACTIONS)
+        layers: [512, 256]
+        activations: relu
+    output: ONE
+
+# Rollout memory
+# https://skrl.readthedocs.io/en/latest/api/memories/random.html
+memory:
+  class: RandomMemory
+  memory_size: 15625
+
+# TD3 agent configuration (field names are from TD3_DEFAULT_CONFIG)
+# https://skrl.readthedocs.io/en/latest/api/agents/td3.html
+agent:
+  class: TD3
+  exploration:
+    noise:
+      class: GaussianNoise
+      mean: 0.0
+      std: 0.1
+  smooth_regularization_noise:
+    class: GaussianNoise
+    mean: 0.0
+    std: 0.2
+  smooth_regularization_clip: 0.5
+  gradient_steps: 1
+  batch_size: 4096
+  discount_factor: 0.99
+  polyak: 0.005
+  actor_learning_rate: 5e-4
+  critic_learning_rate: 5e-4
+  random_timesteps: 80
+  learning_starts: 80
+  state_preprocessor: RunningStandardScaler
+  state_preprocessor_kwargs:
+    size: ENV_OBSERVATION_SPACE
+    device: DEVICE
+  # logging and checkpoint
+  experiment:
+    directory: "td3/UR5e-Lift-Cube-IK"
+    write_interval: 800
+    checkpoint_interval: 8000
+    wandb: True
+    wandb_kwargs:
+      entity: jofan23-university-of-southern-denmark
+
+# Sequential trainer
+# https://skrl.readthedocs.io/en/latest/api/trainers/sequential.html
+trainer:
+  class: SequentialTrainer
+  timesteps: 160000
+  environment_info: log

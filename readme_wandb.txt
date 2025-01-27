@@ -62,6 +62,14 @@ wandb sweep --project rel_ik_rl_games_ppo_ur5e_lift_cube_0_05_hand_e config_rl_g
 
 
 
+########
+# SKRL #
+########
+source isaaclab/bin/activate
+cd /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube
+wandb sweep --project rel_ik_skrl_ppo_ur5e_lift_cube config_skrl_ppo.yaml
+
+
 
 
 # Remote control

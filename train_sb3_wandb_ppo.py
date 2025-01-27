@@ -18,7 +18,7 @@ parser.add_argument("--max_iterations", type=int, default=None, help="RL Policy 
 AppLauncher.add_app_launcher_args(parser)
 # parse the arguments
 args_cli, hydra_args = parser.parse_known_args()
-args_cli.headless = True  # Set this based on your requirement
+args_cli.headless = True 
 
 # launch the omniverse app
 app_launcher = AppLauncher(args_cli)
