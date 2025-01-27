@@ -88,13 +88,18 @@ def main():
         else:
             raise ValueError(f"Unknown activation function: {activation_fn_name}")
         
+    total_data = 64 * 4096
+    n_steps = int(total_data/num_envs)
+    n_iterations = 1000
+    n_timesteps = n_iterations * total_data
+        
     # Create a new agent from stable baselines
     agent = PPO(
         wandb.config["policy"], 
         env, 
         verbose=1, 
         tensorboard_log=f"runs/{run.id}", 
-        n_steps=wandb.config.n_steps,
+        n_steps=n_steps, #wandb.config.n_steps,
         batch_size=wandb.config.batch_size,
         gae_lambda=wandb.config.gae_lambda,
         gamma=wandb.config.gamma,
@@ -110,7 +115,7 @@ def main():
 
     # Train the agent
     agent.learn(
-        total_timesteps=wandb.config["n_timesteps"],
+        total_timesteps=n_timesteps, #wandb.config["n_timesteps"],
         callback=WandbCallback(
             gradient_save_freq=10000,
             model_save_path=f"models/{run.id}",

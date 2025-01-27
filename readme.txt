@@ -58,6 +58,9 @@ cd isaaclab/IsaacLab
 python3 train_rl_games.py --num_envs 2048 --task UR5e-Lift-Cube-IK --headless --max_iterations 1000
 
 
+# Play RL games
+./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/play_rl_games.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/logs/rl_games/ppo/2025-01-24_16-31-54/nn/UR5e-Lift-Cube-IK.pth
+./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/play_rl_games.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/logs/rl_games/ppo/2025-01-24_18-24-53/nn/UR5e-Lift-Cube-IK.pth
 
 
 # RL games - Franka
@@ -90,8 +93,6 @@ source isaaclab/bin/activate
 cd isaaclab/IsaacLab
 ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/play_rl_games.py --task UR5e-Lift-Cube --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/logs/rl_games/UR5e-Lift-Cube/2024-10-25_12-22-41/nn/last_Peg-in-hole_ep_750_rew_91.63596.pth
 ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/play_rl_games.py --task UR5e-Lift-Cube --num_envs 4 --use_last_checkpoint
-
-
 
 
 # Stable-baselines3 - UR5e
