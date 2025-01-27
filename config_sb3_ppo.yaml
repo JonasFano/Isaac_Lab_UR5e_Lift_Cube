@@ -10,7 +10,7 @@ parameters:
     value: 42
 
   num_envs:
-    values: [4, 64, 1028, 2048]
+    values: [128, 1028]
 
   n_timesteps: # iteration * n_steps * nenvs: 1000 * 64 * 4096 = 262144000 # 52428800 # 78643200
     value: 262144000
