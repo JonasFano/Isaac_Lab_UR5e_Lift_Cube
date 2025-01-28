@@ -16,6 +16,8 @@ wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e config_0_05.yaml
 
 wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_num_env_test config_sb3_ppo.yaml
 
+wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_final config_sb3_ppo.yaml
+
 
 
 # DDPG
@@ -35,6 +37,7 @@ wandb sweep --project rel_ik_sb3_td3_ur5e_lift_cube_0_05_noise_1_0 config_sb3_td
 wandb sweep --project rel_ik_sb3_td3_ur5e_lift_cube_0_05_noise_100 config_sb3_td3.yaml
 
 wandb sweep --project rel_ik_sb3_td3_ur5e_lift_cube_0_05_bayes_64 config_sb3_td3.yaml
+
 
 
 
