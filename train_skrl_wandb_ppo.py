@@ -134,7 +134,7 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
     log_dir = os.path.join(log_root_path, log_dir)
 
 
-    with open("./config_sb3_ppo.yaml") as file:
+    with open("./config_skrl_ppo.yaml") as file:
         config = yaml.load(file, Loader=yaml.FullLoader)
 
     run = wandb.init(
@@ -148,6 +148,7 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
 
     # Wandb parameter tuning
     agent_cfg["agent"]["clip_predicted_values"] = wandb.config["clip_predicted_values"]
+    agent_cfg["trainer"]["timesteps"] = wandb.config["timesteps"]
 
 
 

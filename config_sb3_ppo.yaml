@@ -37,7 +37,7 @@ parameters:
     values: [0.00, 0.01]
 
   vf_coef:
-    value: 0.0001
+    values: [0.0001, 1]
 
   learning_rate:
     value: !!float 3e-4
@@ -48,7 +48,7 @@ parameters:
   policy_kwargs:
     parameters:
       activation_fn: 
-        value: nn.ELU
+        value: nn.Tanh
       net_arch:
         parameters:
           pi:

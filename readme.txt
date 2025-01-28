@@ -65,10 +65,12 @@ python3 train_rl_games.py --num_envs 2048 --task UR5e-Lift-Cube-IK --headless --
 
 
 # SKRL train UR5e
-/home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/logs/skrl/UR5e-Lift-Cube-IK/2025-01-27_10-15-36_ppo_torch/checkpoints/best_agent.pt
+python3 train_skrl_ppo.py --num_envs 1024 --task UR5e-Lift-Cube-IK --headless
+./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/train_skrl_ppo.py --num_envs 1024 --task UR5e-Lift-Cube
 
 # SKRL play
 python3 play_skrl_ppo.py --num_envs 4 --task UR5e-Lift-Cube-IK --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/logs/skrl/UR5e-Lift-Cube-IK/2025-01-27_10-15-36_ppo_torch/checkpoints/best_agent.pt
+python3 play_skrl_ppo.py --num_envs 4 --task UR5e-Lift-Cube-IK --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/logs/skrl/ppo/UR5e-Lift-Cube-IK/2025-01-27_21-55-52_ppo_torch/checkpoints/best_agent.pt
 
 
 

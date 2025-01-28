@@ -47,8 +47,8 @@ agent:
   # n_epochs from sb3
   learning_epochs: 8 
 
-  # Total collected data in each training iteration / batch_size
-  mini_batches: 12 # 96 * 2048 / 98304 -> equation provided by skrl or use 96 * 2048 / batch_size (e.g. 16384)
+  # Minibatches = Total collected data in each training iteration / batch_size
+  mini_batches: 8 # 96 * 2048 / 98304 -> equation provided by skrl or use 96 * 2048 / batch_size (e.g. 16384)
   discount_factor: 0.99
   lambda: 0.95
   learning_rate: !!float 1e-3
@@ -69,7 +69,7 @@ agent:
   entropy_loss_scale: 0.01
   value_loss_scale: 1.0
   kl_threshold: 0.0
-  rewards_shaper_scale: 1.0
+  rewards_shaper_scale: 0.01
   time_limit_bootstrap: True
   # logging and checkpoint
   experiment:
@@ -120,5 +120,5 @@ agent:
 # https://skrl.readthedocs.io/en/latest/api/trainers/sequential.html
 trainer:
   class: SequentialTrainer
-  timesteps: 104857600 # 98304
+  timesteps: 96000 # 98304
   environment_info: log

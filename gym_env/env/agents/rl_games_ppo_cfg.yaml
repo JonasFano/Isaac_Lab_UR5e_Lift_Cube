@@ -47,12 +47,12 @@ params:
     multi_gpu: False
     ppo: True
     mixed_precision: False
-    normalize_input: False #True
-    normalize_value: False #True
+    normalize_input: True
+    normalize_value: True
     value_bootstrap: False
-    num_actors: 2048
+    num_actors: 1024
     reward_shaper:
-      scale_value: 1.0 # 0.01
+      scale_value: 1.0 #0.01
     normalize_advantage: True
     gamma: 0.99
     tau: 0.95
@@ -61,7 +61,7 @@ params:
     schedule_type: legacy
     kl_threshold: 0.01
     score_to_win: 100000000
-    max_epochs: 1500
+    max_epochs: 1000
     save_best_after: 100
     save_frequency: 50
     print_stats: True
@@ -73,7 +73,7 @@ params:
     minibatch_size: 24576 # 98304 # 48 # 1536 # 6144 # 24576 # Should be equal to horizon_length * num_actors where num_actors = num_envs
     mini_epochs: 8
     critic_coef: 4
-    clip_value: True
+    clip_value: False #True
     clip_actions: False
     seq_len: 4
     bounds_loss_coef: 0.0001

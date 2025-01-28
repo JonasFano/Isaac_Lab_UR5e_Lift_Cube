@@ -8,3 +8,6 @@ metric:
 parameters:
   clip_predicted_values:
     values: [True, False]
+
+  timesteps:
+    value: 48000
