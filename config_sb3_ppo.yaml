@@ -122,11 +122,11 @@ parameters:
 #   max_grad_norm:
 #     value: 1.0
 
-#   normalize_input:
-#     value: False
+  normalize_input:
+    value: False
 
-#   normalize_value:
-#     value: False
+  normalize_value:
+    value: False
 
-#   clip_obs:
-#     value: 50.0
+  clip_obs:
+    value: 50.0
