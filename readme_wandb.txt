@@ -16,7 +16,7 @@ wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e config_0_05.yaml
 
 wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_num_env_test config_sb3_ppo.yaml
 
-wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_final config_sb3_ppo.yaml
+wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_final_v2 config_sb3_ppo.yaml
 
 
 
