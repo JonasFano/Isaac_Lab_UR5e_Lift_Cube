@@ -26,6 +26,11 @@ args_cli.headless = True  # Set this based on your requirement
 app_launcher = AppLauncher(args_cli)
 simulation_app = app_launcher.app
 
+import sys
+import os
+
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+
 import gym_env.env  # Ensure custom environment is recognized
 from omni.isaac.lab_tasks.utils.parse_cfg import parse_env_cfg
 from omni.isaac.lab_tasks.utils.wrappers.sb3 import Sb3VecEnvWrapper

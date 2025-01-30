@@ -81,7 +81,7 @@ cd isaaclab/IsaacLab
 
 ## PPO
     source isaaclab/bin/activate
-    cd /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube
+    cd /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3
     wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_final config_0_05.yaml
 
     wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e config_0_05.yaml
@@ -96,13 +96,13 @@ cd isaaclab/IsaacLab
 
 ## DDPG
     source isaaclab/bin/activate
-    cd /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube
+    cd /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3
     wandb sweep --project rel_ik_sb3_ddpg_ur5e_lift_cube_0_05 config_sb3_ddpg.yaml
 
 
 ## TD3
     source isaaclab/bin/activate
-    cd /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube
+    cd /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3
     wandb sweep --project rel_ik_sb3_td3_ur5e_lift_cube_0_05 config_sb3_td3.yaml
 
     wandb sweep --project rel_ik_sb3_td3_ur5e_lift_cube_0_05_noise_1_0 config_sb3_td3.yaml
