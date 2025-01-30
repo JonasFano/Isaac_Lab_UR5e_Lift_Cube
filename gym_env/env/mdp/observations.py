@@ -6,8 +6,7 @@
 from __future__ import annotations
 
 import torch
-from typing import TYPE_CHECKING
-from settings import Settings
+from typing import TYPE_CHECKING, List
 from omni.isaac.lab.assets import RigidObject
 from omni.isaac.lab.managers import SceneEntityCfg
 from omni.isaac.lab.utils.math import subtract_frame_transforms, quat_apply, axis_angle_from_quat
@@ -36,7 +35,7 @@ def quat_rotate_vector(quat: torch.Tensor, vec: torch.Tensor) -> torch.Tensor:
     return rotated_vec
 
 
-def get_current_tcp_pose(env: ManagerBasedRLEnv, robot_cfg: SceneEntityCfg) -> torch.Tensor:
+def get_current_tcp_pose(env: ManagerBasedRLEnv, gripper_offset: List[float], robot_cfg: SceneEntityCfg) -> torch.Tensor:
     """
     Compute the current TCP pose in both the base frame and world frame.
     
@@ -57,7 +56,7 @@ def get_current_tcp_pose(env: ManagerBasedRLEnv, robot_cfg: SceneEntityCfg) -> t
     ee_pose_w = body_state_w_list[:, robot_cfg.body_ids[0], :7]
 
     # Define the offset from the end-effector frame to the TCP in the end-effector frame
-    offset_ee = torch.tensor(Settings.gripper_offset, device="cuda").unsqueeze(0).repeat(env.scene.num_envs, 1)
+    offset_ee = torch.tensor(gripper_offset, dtype=torch.float32, device="cuda").unsqueeze(0).repeat(env.scene.num_envs, 1)
 
     # Rotate the offset from the end-effector frame to the world frame
     offset_w = quat_rotate_vector(ee_pose_w[:, 3:7], offset_ee)
