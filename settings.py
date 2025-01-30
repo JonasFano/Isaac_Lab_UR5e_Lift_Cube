@@ -26,7 +26,7 @@ class Settings:
     ee_quat_des = torch.tensor([0.0, 0.0, -1.0, 0.0], device="cuda")
 
     # Offset from end-effector to TCP
-    gripper_offset = torch.tensor([0, 0, 0.15], device="cuda")
+    gripper_offset = torch.tensor([0, 0, 0.135], device="cuda")
 
     # Corrects for non-linear cartesian movement of the controller
     ctrl_inacc_correction = torch.tensor([0.1456, 0.252], device="cuda")
@@ -34,10 +34,10 @@ class Settings:
     # Define gripper states
     gripper_open = torch.tensor([0.0, 0.0])
     # SDU gripper
-    # gripper_close = torch.tensor([0.02, 0.02])
+    gripper_close = torch.tensor([0.02, 0.02])
 
     # Hand E
-    gripper_close = torch.tensor([-0.015, -0.015]) 
+    # gripper_close = torch.tensor([-0.015, -0.015]) 
 
     # Joint positions
     joint_pos_above_pick_up = torch.cat((torch.tensor([1.57400844, -1.38136219,  1.87365737, -2.06385432, -1.57065705,  3.14481264]), gripper_open))

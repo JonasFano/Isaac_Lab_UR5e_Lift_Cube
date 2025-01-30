@@ -68,7 +68,7 @@ memory:
 # TD3 agent configuration (field names are from TD3_DEFAULT_CONFIG)
 # https://skrl.readthedocs.io/en/latest/api/agents/td3.html
 agent:
-  class: TD3
+  class: skrl.agents.td3.TD3
   exploration:
     noise:
       class: GaussianNoise
@@ -94,6 +94,7 @@ agent:
   # logging and checkpoint
   experiment:
     directory: "td3/UR5e-Lift-Cube-IK"
+    experiment_name: ""
     write_interval: 800
     checkpoint_interval: 8000
     wandb: True
