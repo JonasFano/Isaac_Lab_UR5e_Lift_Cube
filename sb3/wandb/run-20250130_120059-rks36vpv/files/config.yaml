@@ -1,0 +1,277 @@
+wandb_version: 1
+
+_current_progress_remaining:
+  desc: null
+  value: 1.0
+_custom_logger:
+  desc: null
+  value: 'False'
+_episode_num:
+  desc: null
+  value: 0
+_last_episode_starts:
+  desc: null
+  value: '[ True  True  True ...  True  True  True]'
+_last_obs:
+  desc: null
+  value: "[[ 0.         0.        -0.0644722 ...  0.         0.         0.       ]\n\
+    \ [ 0.         0.        -0.0644722 ...  0.         0.         0.       ]\n [\
+    \ 0.         0.        -0.0644722 ...  0.         0.         0.       ]\n ...\n\
+    \ [ 0.         0.        -0.0644722 ...  0.         0.         0.       ]\n [\
+    \ 0.         0.        -0.0644722 ...  0.         0.         0.       ]\n [ 0.\
+    \         0.        -0.0644722 ...  0.         0.         0.       ]]"
+_last_original_obs:
+  desc: null
+  value: None
+_logger:
+  desc: null
+  value: <stable_baselines3.common.logger.Logger object at 0x79826c183850>
+_n_updates:
+  desc: null
+  value: 0
+_num_timesteps_at_start:
+  desc: null
+  value: 0
+_stats_window_size:
+  desc: null
+  value: 100
+_total_timesteps:
+  desc: null
+  value: 262144000
+_vec_normalize_env:
+  desc: null
+  value: None
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.12.21
+    code_path: code/sb3/train_sb3_wandb_ppo.py
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: false
+    python_version: 3.10.12
+    start_time: 1738234859
+    t:
+      1:
+      - 1
+      - 55
+      2:
+      - 1
+      - 55
+      3:
+      - 1
+      - 2
+      - 3
+      - 16
+      - 22
+      - 35
+      4: 3.10.12
+      5: 0.12.21
+      8:
+      - 5
+action_noise:
+  desc: null
+  value: None
+action_space:
+  desc: null
+  value: Box(-100.0, 100.0, (7,), float32)
+algo:
+  desc: null
+  value: PPO
+batch_size:
+  desc: null
+  value: 16384
+clip_obs:
+  desc: null
+  value: 50
+clip_range:
+  desc: null
+  value: 0.2
+clip_range_vf:
+  desc: null
+  value: None
+device:
+  desc: null
+  value: cuda
+ent_coef:
+  desc: null
+  value: 0.01
+env:
+  desc: null
+  value: <Sb3VecEnvWrapper<OrderEnforcing<ManagerBasedRLEnv<UR5e-Lift-Cube-IK>>>>
+ep_info_buffer:
+  desc: null
+  value: deque([], maxlen=100)
+ep_success_buffer:
+  desc: null
+  value: deque([], maxlen=100)
+gae_lambda:
+  desc: null
+  value: 0.95
+gamma:
+  desc: null
+  value: 0.95
+learning_rate:
+  desc: null
+  value: 0.0003
+lr_schedule:
+  desc: null
+  value: <function get_schedule_fn.<locals>.<lambda> at 0x79827a567250>
+max_grad_norm:
+  desc: null
+  value: 1
+method:
+  desc: null
+  value: grid
+metric:
+  desc: null
+  value:
+    goal: maximize
+    name: rollout/ep_rew_mean
+n_envs:
+  desc: null
+  value: 2048
+n_epochs:
+  desc: null
+  value: 8
+n_steps:
+  desc: null
+  value: 64
+n_timesteps:
+  desc: null
+  value: 262144000
+name:
+  desc: null
+  value: rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_final_v3
+normalize_advantage:
+  desc: null
+  value: 'True'
+normalize_input:
+  desc: null
+  value: false
+normalize_value:
+  desc: null
+  value: false
+num_envs:
+  desc: null
+  value: 2048
+num_timesteps:
+  desc: null
+  value: 0
+observation_space:
+  desc: null
+  value: Box(-inf, inf, (30,), float32)
+parameters:
+  desc: null
+  value:
+    batch_size:
+      value: 16384
+    clip_obs:
+      value: 50.0
+    clip_range:
+      value: 0.2
+    ent_coef:
+      value: 0.01
+    gae_lambda:
+      value: 0.95
+    gamma:
+      value: 0.95
+    learning_rate:
+      value: 0.0003
+    max_grad_norm:
+      value: 1.0
+    n_epochs:
+      value: 8
+    n_steps:
+      value: 64
+    n_timesteps:
+      value: 262144000
+    normalize_input:
+      value: false
+    normalize_value:
+      value: false
+    num_envs:
+      values:
+      - 2048
+      - 4096
+    policy:
+      value: MlpPolicy
+    policy_kwargs:
+      parameters:
+        activation_fn:
+          values:
+          - nn.Tanh
+          - nn.ELU
+        net_arch:
+          parameters:
+            pi:
+              value:
+              - 256
+              - 128
+              - 64
+            vf:
+              value:
+              - 256
+              - 128
+              - 64
+    seed:
+      value: 42
+    target_kl:
+      value: 0.02
+    vf_coef:
+      value: 0.1
+policy:
+  desc: null
+  value: MlpPolicy
+policy_class:
+  desc: null
+  value: <class 'stable_baselines3.common.policies.ActorCriticPolicy'>
+policy_kwargs:
+  desc: null
+  value:
+    activation_fn: nn.Tanh
+    net_arch:
+      pi:
+      - 256
+      - 128
+      - 64
+      vf:
+      - 256
+      - 128
+      - 64
+program:
+  desc: null
+  value: train_sb3_wandb_ppo.py
+rollout_buffer:
+  desc: null
+  value: <stable_baselines3.common.buffers.RolloutBuffer object at 0x79827a44c2b0>
+rollout_buffer_class:
+  desc: null
+  value: <class 'stable_baselines3.common.buffers.RolloutBuffer'>
+rollout_buffer_kwargs:
+  desc: null
+  value: '{}'
+sde_sample_freq:
+  desc: null
+  value: -1
+seed:
+  desc: null
+  value: 42
+start_time:
+  desc: null
+  value: 1738234863740311341
+target_kl:
+  desc: null
+  value: 0.02
+tensorboard_log:
+  desc: null
+  value: runs/rks36vpv
+use_sde:
+  desc: null
+  value: 'False'
+verbose:
+  desc: null
+  value: 1
+vf_coef:
+  desc: null
+  value: 0.1
