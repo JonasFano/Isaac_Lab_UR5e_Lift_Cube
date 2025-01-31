@@ -257,6 +257,65 @@ class EventCfg:
         },
     )
 
+    randomize_object_mass = EventTerm(
+        func=mdp.randomize_rigid_body_mass, 
+        mode="reset",
+        params={
+            "asset_cfg": SceneEntityCfg("object", body_names="Object"),
+            "mass_distribution_params": (1, 5),
+            "operation": "abs",
+            "distribution": "gaussian",
+            "recompute_inertia": True,
+        }
+    )
+
+    randomize_actuator_stiffness = EventTerm(
+        func=mdp.randomize_actuator_gains, # or randomize_fixed_tendon_parameters?
+        mode="reset",
+        params={
+            "asset_cfg": SceneEntityCfg("robot", joint_names=["shoulder_pan_joint", "shoulder_lift_joint", "elbow_joint", "wrist_1_joint", "wrist_2_joint", "wrist_3_joint"]),
+            "stiffness_distribution_params": (500, 1500),
+            "operation": "abs",
+            "distribution": "gaussian",
+        }
+    )
+
+    randomize_actuator_damping = EventTerm(
+        func=mdp.randomize_actuator_gains,
+        mode="reset",
+        params={
+            "asset_cfg": SceneEntityCfg("robot", joint_names=["shoulder_pan_joint", "shoulder_lift_joint", "elbow_joint", "wrist_1_joint", "wrist_2_joint", "wrist_3_joint"]),
+            "damping_distribution_params": (0.8, 1.2),
+            "operation": "scale",
+            "distribution": "gaussian",
+        }
+    )
+
+    randomize_gripper_stiffness = EventTerm(
+        func=mdp.randomize_actuator_gains,
+        mode="reset",
+        params={
+            "asset_cfg": SceneEntityCfg("robot", joint_names=["joint_left", "joint_right"]),
+            "stiffness_distribution_params": (2000, 4000),
+            "operation": "abs",
+            "distribution": "gaussian",
+        }
+    )
+
+    randomize_gripper_damping = EventTerm(
+        func=mdp.randomize_actuator_gains,
+        mode="reset",
+        params={
+            "asset_cfg": SceneEntityCfg("robot", joint_names=["joint_left", "joint_right"]),
+            "damping_distribution_params": (200, 700),
+            "operation": "abs",
+            "distribution": "gaussian",
+        }
+    )
+
+
+
+
 
 @configclass
 class RewardsCfg:
