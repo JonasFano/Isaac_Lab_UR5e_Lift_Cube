@@ -58,6 +58,18 @@ cd isaaclab/IsaacLab
 
 
 
+#################################################
+# IK Relative Control with domain randomization #
+#################################################
+
+## UR5e
+### Train PPO agent
+    source isaaclab/bin/activate
+    cd isaaclab/IsaacLab
+    ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/train_sb3_ppo.py --num_envs 2048 --task UR5e-Hand-E-Domain-Rand-Lift-Cube-IK --headless
+
+
+
 ##########################
 # Joint Position Control #
 ##########################
@@ -71,7 +83,6 @@ cd isaaclab/IsaacLab
 
 ### Play the trained PPO agent
 ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/play_sb3_ppo.py --task UR5e-Lift-Cube --num_envs 4 --checkpoint path/to/checkpoint
-
 
 
 

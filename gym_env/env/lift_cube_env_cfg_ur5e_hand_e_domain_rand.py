@@ -16,7 +16,7 @@ from omni.isaac.lab.actuators import ImplicitActuatorCfg
 from . import mdp
 import os
 import math
-from omni.isaac.lab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
+from omni.isaac.lab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg, MassPropertiesCfg
 from omni.isaac.lab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
 from omni.isaac.lab.utils.assets import ISAAC_NUCLEUS_DIR
 
@@ -29,7 +29,7 @@ MODEL_PATH = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__)
 MIN_HEIGHT = 0.15 # 0.04 # 0.1
 
 @configclass
-class UR5e_Hand_E_LiftCubeSceneCfg(InteractiveSceneCfg):
+class UR5e_Hand_E_Domain_Rand_LiftCubeSceneCfg(InteractiveSceneCfg):
     """Configuration for the lift scene with a robot and a object."""
     # articulation
     robot = ArticulationCfg(
@@ -141,8 +141,23 @@ class UR5e_Hand_E_LiftCubeSceneCfg(InteractiveSceneCfg):
                 max_depenetration_velocity=5.0,
                 disable_gravity=False,
             ),
+            mass_props=MassPropertiesCfg(
+                mass=0.5,
+            ),
         ),
     )
+
+    # object = RigidObjectCfg(
+    #     prim_path = "{ENV_REGEX_NS}/Object", 
+    #     spawn=sim_utils.UsdFileCfg(
+    #         usd_path=os.path.join(MODEL_PATH, "cranfield_model/Cranfield parts - BolzenKleinEckig.usd"), 
+    #         scale=(0.92, 0.92, 1),
+    #         mass_props=MassPropertiesCfg(
+    #             mass=1.0,
+    #         ),
+    #     ), 
+    #     init_state=RigidObjectCfg.InitialStateCfg(pos=(0.04, 0.35, 0.0), lin_vel=(0.0, 0.0, 0.0)),
+    # )
 
     # ground plane
     ground = AssetBaseCfg(
@@ -217,7 +232,7 @@ class ObservationsCfg:
         
         tcp_pose = ObsTerm(
             func=mdp.get_current_tcp_pose,
-            params={"robot_cfg": SceneEntityCfg("robot", body_names=["wrist_3_link"])},
+            params={"gripper_offset": [0.0, 0.0, 0.15], "robot_cfg": SceneEntityCfg("robot", body_names=["wrist_3_link"])},
         )
         
         object_pose = ObsTerm(
@@ -262,59 +277,68 @@ class EventCfg:
         mode="reset",
         params={
             "asset_cfg": SceneEntityCfg("object", body_names="Object"),
-            "mass_distribution_params": (1, 5),
+            "mass_distribution_params": (0.1, 1.5),
             "operation": "abs",
-            "distribution": "gaussian",
+            "distribution": "uniform",
             "recompute_inertia": True,
         }
     )
 
-    randomize_actuator_stiffness = EventTerm(
-        func=mdp.randomize_actuator_gains, # or randomize_fixed_tendon_parameters?
+    randomize_robot_gains = EventTerm(
+        func=mdp.randomize_actuator_gains_custom,
         mode="reset",
         params={
             "asset_cfg": SceneEntityCfg("robot", joint_names=["shoulder_pan_joint", "shoulder_lift_joint", "elbow_joint", "wrist_1_joint", "wrist_2_joint", "wrist_3_joint"]),
-            "stiffness_distribution_params": (500, 1500),
-            "operation": "abs",
-            "distribution": "gaussian",
+            "stiffness_distribution_params": (0.8, 1.2),
+            "damping_distribution_params": (0.9, 1.1),
+            "operation_stiffness": "scale",
+            "operation_damping": "scale",
+            "distribution_stiffness": "uniform",
+            "distribution_damping": "uniform",
         }
     )
 
-    randomize_actuator_damping = EventTerm(
-        func=mdp.randomize_actuator_gains,
-        mode="reset",
-        params={
-            "asset_cfg": SceneEntityCfg("robot", joint_names=["shoulder_pan_joint", "shoulder_lift_joint", "elbow_joint", "wrist_1_joint", "wrist_2_joint", "wrist_3_joint"]),
-            "damping_distribution_params": (0.8, 1.2),
-            "operation": "scale",
-            "distribution": "gaussian",
-        }
-    )
-
-    randomize_gripper_stiffness = EventTerm(
-        func=mdp.randomize_actuator_gains,
+    randomize_gripper_gains = EventTerm(
+        func=mdp.randomize_actuator_gains_custom,
         mode="reset",
         params={
             "asset_cfg": SceneEntityCfg("robot", joint_names=["joint_left", "joint_right"]),
-            "stiffness_distribution_params": (2000, 4000),
-            "operation": "abs",
-            "distribution": "gaussian",
+            "stiffness_distribution_params": (2500, 3500),
+            "damping_distribution_params": (300, 700),
+            "operation_stiffness": "scale",
+            "operation_damping": "abs",
+            "distribution_stiffness": "uniform",
+            "distribution_damping": "uniform",
         }
     )
 
-    randomize_gripper_damping = EventTerm(
-        func=mdp.randomize_actuator_gains,
+    randomize_gripper_fingers_friction_coefficients = EventTerm(
+        func=mdp.randomize_friction_coefficients,
         mode="reset",
         params={
-            "asset_cfg": SceneEntityCfg("robot", joint_names=["joint_left", "joint_right"]),
-            "damping_distribution_params": (200, 700),
+            "asset_cfg": SceneEntityCfg("robot", body_names=["finger_left", "finger_right"]),
+            "static_friction_distribution_params": (0.5, 1.2), #(0.1, 1.5),
+            "dynamic_friction_distribution_params": (0.4, 1.0), #(0.05, 1.2),
+            "restitution_distribution_params": (0.2, 0.6), #(0.0, 1.0),
             "operation": "abs",
-            "distribution": "gaussian",
+            "distribution": "uniform",
+            "make_consistent": True,  # Ensure dynamic friction <= static friction
         }
     )
 
-
-
+    randomize_object_friction_coefficients = EventTerm(
+        func=mdp.randomize_friction_coefficients,
+        mode="reset",
+        params={
+            "asset_cfg": SceneEntityCfg("object", body_names="Object"),
+            "static_friction_distribution_params": (0.4, 0.8),
+            "dynamic_friction_distribution_params": (0.3, 0.6),
+            "restitution_distribution_params": (0.3, 0.7),
+            "operation": "abs",
+            "distribution": "uniform",
+            "make_consistent": True,  # Ensure dynamic friction <= static friction
+        }
+    )
 
 
 @configclass
@@ -373,10 +397,10 @@ class CurriculumCfg:
 ##
 
 @configclass
-class UR5e_Hand_E_LiftCubeEnvCfg(ManagerBasedRLEnvCfg):
+class UR5e_Hand_E_Domain_Rand_LiftCubeEnvCfg(ManagerBasedRLEnvCfg):
     """Configuration for the lifting environment."""
     # Scene settings
-    scene: UR5e_Hand_E_LiftCubeSceneCfg = UR5e_Hand_E_LiftCubeSceneCfg(num_envs=4, env_spacing=2.5)
+    scene: UR5e_Hand_E_Domain_Rand_LiftCubeSceneCfg = UR5e_Hand_E_Domain_Rand_LiftCubeSceneCfg(num_envs=4, env_spacing=2.5)
 
     # Basic settings
     observations: ObservationsCfg = ObservationsCfg()

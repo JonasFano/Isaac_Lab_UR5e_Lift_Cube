@@ -13,13 +13,13 @@ parameters:
     value: 4096
 
   n_timesteps: # Total number of environment interactions: iteration * n_steps * num_envs: 1000 * 64 * 4096 = 262144000 # 52428800 # 78643200
-    value: 262144000
+    value: 524288000
 
   policy:
     value: 'MlpPolicy'
 
   n_steps: # Number of steps each environment runs before the collected data is used for policy update
-    values: [32, 64, 128]
+    values: [64, 128]
 
   batch_size: # Data is divided into minibatches of size batch_size. = number of samples used for one gradient update during training
     value: 16384
