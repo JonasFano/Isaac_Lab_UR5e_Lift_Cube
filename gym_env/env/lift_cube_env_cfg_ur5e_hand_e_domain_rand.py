@@ -326,19 +326,19 @@ class EventCfg:
         }
     )
 
-    randomize_object_friction_coefficients = EventTerm(
-        func=mdp.randomize_friction_coefficients,
-        mode="reset",
-        params={
-            "asset_cfg": SceneEntityCfg("object", body_names="Object"),
-            "static_friction_distribution_params": (0.4, 0.8),
-            "dynamic_friction_distribution_params": (0.3, 0.6),
-            "restitution_distribution_params": (0.3, 0.7),
-            "operation": "abs",
-            "distribution": "uniform",
-            "make_consistent": True,  # Ensure dynamic friction <= static friction
-        }
-    )
+    # randomize_object_friction_coefficients = EventTerm(
+    #     func=mdp.randomize_friction_coefficients,
+    #     mode="reset",
+    #     params={
+    #         "asset_cfg": SceneEntityCfg("object", body_names="Object"),
+    #         "static_friction_distribution_params": (0.4, 0.8),
+    #         "dynamic_friction_distribution_params": (0.3, 0.6),
+    #         "restitution_distribution_params": (0.3, 0.7),
+    #         "operation": "abs",
+    #         "distribution": "uniform",
+    #         "make_consistent": True,  # Ensure dynamic friction <= static friction
+    #     }
+    # )
 
 
 @configclass

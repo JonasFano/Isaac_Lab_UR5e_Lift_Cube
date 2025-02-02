@@ -39,6 +39,8 @@ def randomize_friction_coefficients(
     # resolve environment ids
     env_ids = torch.arange(env.scene.num_envs, device="cpu") if env_ids is None else env_ids.cpu()
 
+    # print(env_ids)
+
     if isinstance(asset, Articulation) and asset_cfg.body_ids != slice(None):
         num_shapes_per_body = []
         for link_path in asset.root_physx_view.link_paths[0]:
@@ -92,9 +94,15 @@ def randomize_friction_coefficients(
             # obtain indices of shapes for the body
             start_idx = sum(num_shapes_per_body[:body_id])
             end_idx = start_idx + num_shapes_per_body[body_id]
+
+
+            # print(f"materials shape: {materials.shape}")
+            # print(f"materials[env_ids, start_idx:end_idx] shape: {materials[env_ids, start_idx:end_idx].shape}")
+            # print(f"material_samples[:, start_idx:end_idx] shape: {material_samples[:, start_idx:end_idx].shape}")
+
             # assign the new materials
             # material samples are of shape: num_env_ids x total_num_shapes x 3
-            materials[env_ids, start_idx:end_idx] = material_samples[:, start_idx:end_idx]
+            materials[env_ids, start_idx:end_idx] = material_samples[env_ids, start_idx:end_idx]
     else:
         # assign all the materials
         materials[env_ids] = material_samples[:]
