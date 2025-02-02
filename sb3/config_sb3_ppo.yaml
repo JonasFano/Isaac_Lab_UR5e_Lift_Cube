@@ -1,13 +1,13 @@
 program: train_sb3_wandb_ppo.py
 method: grid
-name: rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_final_v5
+name: rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_domain_rand
 metric:
   goal: maximize
   name: rollout/ep_rew_mean
 
 parameters:
   seed:
-    value: 42
+    values: [42, 24]
 
   num_envs:
     value: 4096
