@@ -59,6 +59,8 @@ def randomize_friction_coefficients(
         # in this case, we don't need to do special indexing
         num_shapes_per_body = None
 
+    # print(num_shapes_per_body)
+
     # Define the friction parameters and randomize them
     friction_params = {
         "static": static_friction_distribution_params,
@@ -83,6 +85,10 @@ def randomize_friction_coefficients(
             distribution=distribution
         )
 
+    # print(material_samples)
+    # print(env_ids.shape)
+    # print(env_ids.shape[0])
+
     # Ensure dynamic friction <= static friction if required
     if make_consistent:
         material_samples[:, :, 1] = torch.min(material_samples[:, :, 0], material_samples[:, :, 1])
@@ -95,7 +101,6 @@ def randomize_friction_coefficients(
             start_idx = sum(num_shapes_per_body[:body_id])
             end_idx = start_idx + num_shapes_per_body[body_id]
 
-
             # print(f"materials shape: {materials.shape}")
             # print(f"materials[env_ids, start_idx:end_idx] shape: {materials[env_ids, start_idx:end_idx].shape}")
             # print(f"material_samples[:, start_idx:end_idx] shape: {material_samples[:, start_idx:end_idx].shape}")
@@ -103,6 +108,8 @@ def randomize_friction_coefficients(
             # assign the new materials
             # material samples are of shape: num_env_ids x total_num_shapes x 3
             materials[env_ids, start_idx:end_idx] = material_samples[env_ids, start_idx:end_idx]
+    elif num_shapes_per_body is None and env_ids.shape[0] != env.scene.num_envs:
+        materials[env_ids] = material_samples[env_ids].unsqueeze(0)
     else:
         # assign all the materials
         materials[env_ids] = material_samples[:]
@@ -239,6 +246,9 @@ def _randomize_prop_by_op(
         n_dim_0 = len(dim_0_ids)
         if not isinstance(dim_1_ids, slice):
             dim_0_ids = dim_0_ids[:, None]
+
+    # print(dim_0_ids)
+
     # -- dim 1
     if isinstance(dim_1_ids, slice):
         n_dim_1 = data.shape[1]

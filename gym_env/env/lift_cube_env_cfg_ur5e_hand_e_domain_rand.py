@@ -127,37 +127,37 @@ class UR5e_Hand_E_Domain_Rand_LiftCubeSceneCfg(InteractiveSceneCfg):
     )
 
     # Set Cube as object
-    object = RigidObjectCfg(
-        prim_path="{ENV_REGEX_NS}/Object",
-        init_state=RigidObjectCfg.InitialStateCfg(pos=[0.04, 0.35, 0.055], rot=[1, 0, 0, 0]),
-        spawn=UsdFileCfg(
-            usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Blocks/DexCube/dex_cube_instanceable.usd",
-            scale=(0.4, 0.4, 0.4),
-            rigid_props=RigidBodyPropertiesCfg(
-                solver_position_iteration_count=16,
-                solver_velocity_iteration_count=1,
-                max_angular_velocity=1000.0,
-                max_linear_velocity=1000.0,
-                max_depenetration_velocity=5.0,
-                disable_gravity=False,
-            ),
-            mass_props=MassPropertiesCfg(
-                mass=0.5,
-            ),
-        ),
-    )
-
     # object = RigidObjectCfg(
-    #     prim_path = "{ENV_REGEX_NS}/Object", 
-    #     spawn=sim_utils.UsdFileCfg(
-    #         usd_path=os.path.join(MODEL_PATH, "cranfield_model/Cranfield parts - BolzenKleinEckig.usd"), 
-    #         scale=(0.92, 0.92, 1),
-    #         mass_props=MassPropertiesCfg(
-    #             mass=1.0,
+    #     prim_path="{ENV_REGEX_NS}/Object",
+    #     init_state=RigidObjectCfg.InitialStateCfg(pos=[0.04, 0.35, 0.055], rot=[1, 0, 0, 0]),
+    #     spawn=UsdFileCfg(
+    #         usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Blocks/DexCube/dex_cube_instanceable.usd",
+    #         scale=(0.4, 0.4, 0.4),
+    #         rigid_props=RigidBodyPropertiesCfg(
+    #             solver_position_iteration_count=16,
+    #             solver_velocity_iteration_count=1,
+    #             max_angular_velocity=1000.0,
+    #             max_linear_velocity=1000.0,
+    #             max_depenetration_velocity=5.0,
+    #             disable_gravity=False,
     #         ),
-    #     ), 
-    #     init_state=RigidObjectCfg.InitialStateCfg(pos=(0.04, 0.35, 0.0), lin_vel=(0.0, 0.0, 0.0)),
+    #         mass_props=MassPropertiesCfg(
+    #             mass=0.5,
+    #         ),
+    #     ),
     # )
+
+    object = RigidObjectCfg(
+        prim_path = "{ENV_REGEX_NS}/Object", 
+        spawn=sim_utils.UsdFileCfg(
+            usd_path=os.path.join(MODEL_PATH, "cranfield_model/Cranfield parts - BolzenKleinEckig.usd"), 
+            scale=(0.92, 0.92, 1),
+            mass_props=MassPropertiesCfg(
+                mass=1.0,
+            ),
+        ), 
+        init_state=RigidObjectCfg.InitialStateCfg(pos=(0.04, 0.35, 0.0), lin_vel=(0.0, 0.0, 0.0)),
+    )
 
     # ground plane
     ground = AssetBaseCfg(
@@ -326,19 +326,19 @@ class EventCfg:
         }
     )
 
-    # randomize_object_friction_coefficients = EventTerm(
-    #     func=mdp.randomize_friction_coefficients,
-    #     mode="reset",
-    #     params={
-    #         "asset_cfg": SceneEntityCfg("object", body_names="Object"),
-    #         "static_friction_distribution_params": (0.4, 0.8),
-    #         "dynamic_friction_distribution_params": (0.3, 0.6),
-    #         "restitution_distribution_params": (0.3, 0.7),
-    #         "operation": "abs",
-    #         "distribution": "uniform",
-    #         "make_consistent": True,  # Ensure dynamic friction <= static friction
-    #     }
-    # )
+    randomize_object_friction_coefficients = EventTerm(
+        func=mdp.randomize_friction_coefficients,
+        mode="reset",
+        params={
+            "asset_cfg": SceneEntityCfg("object", body_names="Object"),
+            "static_friction_distribution_params": (0.4, 0.8),
+            "dynamic_friction_distribution_params": (0.3, 0.6),
+            "restitution_distribution_params": (0.3, 0.7),
+            "operation": "abs",
+            "distribution": "uniform",
+            "make_consistent": True,  # Ensure dynamic friction <= static friction
+        }
+    )
 
 
 @configclass

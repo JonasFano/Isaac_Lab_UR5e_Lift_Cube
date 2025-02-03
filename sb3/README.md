@@ -66,7 +66,7 @@ cd isaaclab/IsaacLab
 ### Train PPO agent
     source isaaclab/bin/activate
     cd isaaclab/IsaacLab
-    ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/train_sb3_ppo.py --num_envs 2048 --task UR5e-Hand-E-Domain-Rand-Lift-Cube-IK --headless
+    ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/train_sb3_ppo.py --num_envs 64 --task UR5e-Hand-E-Domain-Rand-Lift-Cube-IK --headless
 
 
 
