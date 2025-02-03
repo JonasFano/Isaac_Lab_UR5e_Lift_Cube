@@ -279,12 +279,3 @@ def _randomize_prop_by_op(
             f"Unknown operation: '{operation}' for property randomization. Please use 'add', 'scale', or 'abs'."
         )
     return data
-
-
-def _resolve_env_ids(env: ManagerBasedEnv, env_ids: torch.Tensor | None) -> torch.Tensor:
-    """
-    Resolves the environment IDs to ensure proper indexing.
-    """
-    if env_ids is None:
-        return torch.arange(env.scene.num_envs, device="cpu")
-    return env_ids.cpu()

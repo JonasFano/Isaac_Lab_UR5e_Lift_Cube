@@ -21,13 +21,12 @@ Train pre-trained model:
 
 
 ### Play the trained PPO agent
+    source isaaclab/bin/activate
+    cd isaaclab/IsaacLab
+    ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/play_sb3_ppo.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint path/to/checkpoint
 
 
 #### Examples:
-Bad training run
-
-    ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/play_sb3_ppo.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/logs/sb3/ppo/UR5e-Lift-Cube-IK/2024-12-24_12-25-03/model_212992000_steps.zip
-
 Training runs for optimizing reward function (penalizing wrong TCP orientation) - Requires UR5e SDU gripper and object of scale=(0.3, 0.3, 1.0)
 
 Reward weight too high
@@ -44,6 +43,15 @@ Optimal reward weight
 Reward weight too low
 
     ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/play_sb3_ppo.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/logs/sb3/ppo/UR5e-Lift-Cube-IK/adjusted_reward_tcp_3/model.zip
+
+
+Final training runs with SDU gripper
+
+    ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/play_sb3_ppo.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/models/rks36vpv/model.zip # Great performance - Reward 108 - num_envs 2048 - n_step 64
+    ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/play_sb3_ppo.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/models/e5a16qaq/model.zip # Poor orientation alginment - Reward 94 -  num_envs 4096 - n_step 64
+
+    ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/play_sb3_ppo.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/models/bes84smk/model.zip # Great performance - Reward 118 - num_envs 4096 - n_step 64 - 8 hours
+    ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/play_sb3_ppo.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/models/4pssftbx/model.zip # Best performance - Reward 126 - num_envs 4096 - n_step 128 - 8 hours
 
 
 ## Franka
