@@ -26,7 +26,7 @@ from omni.isaac.lab.utils.assets import ISAAC_NUCLEUS_DIR
 ##
 
 MODEL_PATH = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")), "scene_models")
-MIN_HEIGHT = 0.15 # 0.04 # 0.1
+MIN_HEIGHT = 0.08 # 0.04 # 0.1
 
 @configclass
 class UR5e_Hand_E_LiftCubeSceneCfg(InteractiveSceneCfg):

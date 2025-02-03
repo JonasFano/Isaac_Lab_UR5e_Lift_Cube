@@ -117,6 +117,7 @@ cd isaaclab/IsaacLab
 
     wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_domain_rand config_sb3_ppo.yaml
 
+    wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_v2 config_sb3_ppo.yaml
 
 
 ## DDPG

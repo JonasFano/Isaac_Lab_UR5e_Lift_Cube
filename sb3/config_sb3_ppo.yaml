@@ -1,6 +1,6 @@
 program: train_sb3_wandb_ppo.py
 method: grid
-name: rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_domain_rand
+name: rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_v2
 metric:
   goal: maximize
   name: rollout/ep_rew_mean
@@ -19,7 +19,7 @@ parameters:
     value: 'MlpPolicy'
 
   n_steps: # Number of steps each environment runs before the collected data is used for policy update
-    values: [64, 128]
+    values: [32, 64, 128]
 
   batch_size: # Data is divided into minibatches of size batch_size. = number of samples used for one gradient update during training
     value: 16384
