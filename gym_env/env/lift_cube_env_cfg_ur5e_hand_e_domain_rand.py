@@ -299,8 +299,8 @@ class EventCfg:
         mode="reset",
         params={
             "asset_cfg": SceneEntityCfg("robot", joint_names=["shoulder_pan_joint", "shoulder_lift_joint", "elbow_joint", "wrist_1_joint", "wrist_2_joint", "wrist_3_joint"]),
-            "stiffness_distribution_params": (0.8, 1.2),
-            "damping_distribution_params": (0.9, 1.1),
+            "stiffness_distribution_params": (0.7, 1.3),
+            "damping_distribution_params": (0.7, 1.3),
             "operation_stiffness": "scale",
             "operation_damping": "scale",
             "distribution_stiffness": "uniform",
