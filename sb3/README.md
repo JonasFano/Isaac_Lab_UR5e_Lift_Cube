@@ -54,6 +54,7 @@ Final training runs with SDU gripper
     ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/play_sb3_ppo.py --task UR5e-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/models/4pssftbx_UR5e_Lift_Cube_IK/model.zip # Best performance - Reward 126 - num_envs 4096 - n_step 128 - 8 hours
 
 Final training runs with Hand E gripper
+Min_height: 0.08 - Actuator stiffness: 1000.0 - Cube scale: 0.04 - Pose generation ranges: pos_x=(0.25, 0.35), pos_y=(0.3, 0.4), pos_z=(0.25, 0.35) - Unoise: 0.0 - Object reset range: "x": (-0.1, 0.1), "y": (-0.25, 0.25), "z": (0.0, 0.0) - Resampling time range: 5.0 - Episode length: 5.0 - Gripper offset: 0.15 - Robot reset: "position_range": (1.0, 1.0)
 
     ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/play_sb3_ppo.py --task UR5e-Hand-E-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/models/hr7kc81h_UR5e_Hand_E_Lift_Cube_IK/model.zip # Great performance - Reward 117 - num_envs 4096 - n_step 32
     ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/play_sb3_ppo.py --task UR5e-Hand-E-Lift-Cube-IK --num_envs 4 --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/models/5jg855iw_UR5e_Hand_E_Lift_Cube_IK/model.zip # Great performance - Reward 122 - num_envs 4096 - n_step 32
