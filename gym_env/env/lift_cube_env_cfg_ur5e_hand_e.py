@@ -13,6 +13,7 @@ from omni.isaac.lab.managers import TerminationTermCfg as DoneTerm
 from omni.isaac.lab.scene import InteractiveSceneCfg
 from omni.isaac.lab.utils import configclass
 from omni.isaac.lab.actuators import ImplicitActuatorCfg
+from omni.isaac.lab.utils.noise import AdditiveUniformNoiseCfg as Unoise
 from . import mdp
 import os
 import math
@@ -213,20 +214,24 @@ class ObservationsCfg:
         gripper_joint_pos = ObsTerm(
             func=mdp.joint_pos, 
             params={"asset_cfg": SceneEntityCfg("robot", joint_names=["joint_left", "joint_right"]),},
+            # noise=Unoise(n_min=-0.001, n_max=0.001),
         )
         
         tcp_pose = ObsTerm(
             func=mdp.get_current_tcp_pose,
             params={"gripper_offset": [0.0, 0.0, 0.15], "robot_cfg": SceneEntityCfg("robot", body_names=["wrist_3_link"])},
+            # noise=Unoise(n_min=-0.001, n_max=0.001),
         )
         
         object_pose = ObsTerm(
-            func=mdp.object_position_in_robot_root_frame
+            func=mdp.object_position_in_robot_root_frame,
+            # noise=Unoise(n_min=-0.001, n_max=0.001),
         )
 
         target_object_pose = ObsTerm(
             func=mdp.generated_commands,
-            params={"command_name": "object_pose"}
+            params={"command_name": "object_pose"},
+            # noise=Unoise(n_min=-0.001, n_max=0.001),
         )
 
         actions = ObsTerm(
@@ -246,14 +251,14 @@ class EventCfg:
     """Configuration for events."""
     reset_all = EventTerm(func=mdp.reset_scene_to_default, mode="reset")
 
-    # reset_robot_joints = EventTerm(
-    #     func=mdp.reset_joints_by_scale,
-    #     mode="reset",
-    #     params={
-    #         "position_range": (0.5, 1.5),
-    #         "velocity_range": (0.0, 0.0),
-    #     },
-    # )
+    reset_robot_joints = EventTerm(
+        func=mdp.reset_joints_by_scale,
+        mode="reset",
+        params={
+            "position_range": (0.5, 1.5),
+            "velocity_range": (0.0, 0.0),
+        },
+    )
 
     # Randomize the object position 
     reset_object_position = EventTerm(

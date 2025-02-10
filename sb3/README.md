@@ -124,12 +124,16 @@ cd isaaclab/IsaacLab
 
     wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_final_v5 config_sb3_ppo.yaml
 
-    wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_domain_rand config_sb3_ppo.yaml
-
     wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_final config_sb3_ppo.yaml
 
-    wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_domain_rand config_sb3_ppo.yaml
-    
+
+
+
+## PPO with domain randomization
+    source isaaclab/bin/activate
+    cd /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3
+
+    wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_domain_rand config_sb3_ppo_domain_rand.yaml
 
 
 ## DDPG
