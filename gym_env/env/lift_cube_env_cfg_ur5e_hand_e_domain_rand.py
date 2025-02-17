@@ -282,17 +282,17 @@ class EventCfg:
         },
     )
 
-    randomize_object_mass = EventTerm(
-        func=mdp.randomize_rigid_body_mass, 
-        mode="reset",
-        params={
-            "asset_cfg": SceneEntityCfg("object", body_names="Object"),
-            "mass_distribution_params": (0.1, 1.0),
-            "operation": "abs",
-            "distribution": "uniform",
-            "recompute_inertia": True,
-        }
-    )
+    # randomize_object_mass = EventTerm(
+    #     func=mdp.randomize_rigid_body_mass, 
+    #     mode="reset",
+    #     params={
+    #         "asset_cfg": SceneEntityCfg("object", body_names="Object"),
+    #         "mass_distribution_params": (0.1, 1.0),
+    #         "operation": "abs",
+    #         "distribution": "uniform",
+    #         "recompute_inertia": True,
+    #     }
+    # )
 
     randomize_robot_gains = EventTerm(
         func=mdp.randomize_actuator_gains_custom,
