@@ -262,14 +262,14 @@ class EventCfg:
     """Configuration for events."""
     reset_all = EventTerm(func=mdp.reset_scene_to_default, mode="reset")
 
-    # reset_robot_joints = EventTerm(
-    #     func=mdp.reset_joints_by_scale,
-    #     mode="reset",
-    #     params={
-    #         "position_range": (0.5, 1.5),
-    #         "velocity_range": (0.0, 0.0),
-    #     },
-    # )
+    reset_robot_joints = EventTerm(
+        func=mdp.reset_joints_by_scale,
+        mode="reset",
+        params={
+            "position_range": (0.8, 1.2),
+            "velocity_range": (0.0, 0.0),
+        },
+    )
 
     # Randomize the object position 
     reset_object_position = EventTerm(
@@ -287,7 +287,7 @@ class EventCfg:
         mode="reset",
         params={
             "asset_cfg": SceneEntityCfg("object", body_names="Object"),
-            "mass_distribution_params": (0.1, 1.5),
+            "mass_distribution_params": (0.1, 1.0),
             "operation": "abs",
             "distribution": "uniform",
             "recompute_inertia": True,
@@ -322,33 +322,33 @@ class EventCfg:
         }
     )
 
-    randomize_gripper_fingers_friction_coefficients = EventTerm(
-        func=mdp.randomize_friction_coefficients,
-        mode="reset",
-        params={
-            "asset_cfg": SceneEntityCfg("robot", body_names=["finger_left", "finger_right"]),
-            "static_friction_distribution_params": (0.5, 1.2), #(0.1, 1.5),
-            "dynamic_friction_distribution_params": (0.4, 1.0), #(0.05, 1.2),
-            "restitution_distribution_params": (0.2, 0.6), #(0.0, 1.0),
-            "operation": "abs",
-            "distribution": "uniform",
-            "make_consistent": True,  # Ensure dynamic friction <= static friction
-        }
-    )
+    # randomize_gripper_fingers_friction_coefficients = EventTerm(
+    #     func=mdp.randomize_friction_coefficients,
+    #     mode="reset",
+    #     params={
+    #         "asset_cfg": SceneEntityCfg("robot", body_names=["finger_left", "finger_right"]),
+    #         "static_friction_distribution_params": (0.5, 1.2), #(0.1, 1.5),
+    #         "dynamic_friction_distribution_params": (0.4, 1.0), #(0.05, 1.2),
+    #         "restitution_distribution_params": (0.2, 0.6), #(0.0, 1.0),
+    #         "operation": "abs",
+    #         "distribution": "uniform",
+    #         "make_consistent": True,  # Ensure dynamic friction <= static friction
+    #     }
+    # )
 
-    randomize_object_friction_coefficients = EventTerm(
-        func=mdp.randomize_friction_coefficients,
-        mode="reset",
-        params={
-            "asset_cfg": SceneEntityCfg("object", body_names="Object"),
-            "static_friction_distribution_params": (0.4, 0.8),
-            "dynamic_friction_distribution_params": (0.3, 0.6),
-            "restitution_distribution_params": (0.3, 0.7),
-            "operation": "abs",
-            "distribution": "uniform",
-            "make_consistent": True,  # Ensure dynamic friction <= static friction
-        }
-    )
+    # randomize_object_friction_coefficients = EventTerm(
+    #     func=mdp.randomize_friction_coefficients,
+    #     mode="reset",
+    #     params={
+    #         "asset_cfg": SceneEntityCfg("object", body_names="Object"),
+    #         "static_friction_distribution_params": (0.4, 0.8),
+    #         "dynamic_friction_distribution_params": (0.3, 0.6),
+    #         "restitution_distribution_params": (0.3, 0.7),
+    #         "operation": "abs",
+    #         "distribution": "uniform",
+    #         "make_consistent": True,  # Ensure dynamic friction <= static friction
+    #     }
+    # )
 
 
 @configclass
@@ -437,4 +437,4 @@ class UR5e_Hand_E_Domain_Rand_LiftCubeEnvCfg(ManagerBasedRLEnvCfg):
         self.sim.physx.gpu_found_lost_aggregate_pairs_capacity = 1024 * 1024 * 4
         self.sim.physx.gpu_total_aggregate_pairs_capacity = 16 * 1024
         self.sim.physx.friction_correlation_distance = 0.00625
-        self.sim.physx.gpu_collision_stack_size = 4096 * 4096 * 100 # Was added due to an PhysX error: collisionStackSize buffer overflow detected
+        self.sim.physx.gpu_collision_stack_size = 4096 * 4096 * 120 # Was added due to an PhysX error: collisionStackSize buffer overflow detected
