@@ -266,7 +266,7 @@ class EventCfg:
         func=mdp.reset_joints_by_scale,
         mode="reset",
         params={
-            "position_range": (0.8, 1.2),
+            "position_range": (0.9, 1.1),
             "velocity_range": (0.0, 0.0),
         },
     )
@@ -357,7 +357,7 @@ class RewardsCfg:
 
     reaching_object = RewTerm(func=mdp.object_ee_distance, params={"std": 0.1}, weight=1.0)
 
-    lifting_object = RewTerm(func=mdp.object_is_lifted, params={"minimal_height": MIN_HEIGHT}, weight=15.0) # 15.0
+    lifting_object = RewTerm(func=mdp.object_is_lifted, params={"minimal_height": MIN_HEIGHT}, weight=25.0) # 15.0
 
     object_goal_tracking = RewTerm(
         func=mdp.object_goal_distance,
