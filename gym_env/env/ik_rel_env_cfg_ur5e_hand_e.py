@@ -31,6 +31,9 @@ class RelIK_UR5e_Hand_E_LiftCubeEnvCfg(lift_cube_env_cfg_ur5e_hand_e.UR5e_Hand_E
             ],
         )
 
+        # print(self.commands.ee_pose) # Do not show current end-effector frame
+        self.commands.ee_pose.current_pose_visualizer_cfg.markers['frame'].visible = False
+
         self.actions.arm_action = DifferentialInverseKinematicsActionCfg(
             asset_name="robot",
             joint_names=["shoulder_pan_joint", "shoulder_lift_joint", "elbow_joint", "wrist_1_joint", "wrist_2_joint", "wrist_3_joint"],
