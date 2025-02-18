@@ -88,6 +88,23 @@ cd isaaclab/IsaacLab
     ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/train_sb3_ppo.py --num_envs 64 --task UR5e-Hand-E-Domain-Rand-Lift-Cube-IK --headless
 
 
+#################################################
+# IK Absolute Control with domain randomization #
+#################################################
+
+## UR5e
+### Train PPO agent
+    source isaaclab/bin/activate
+    cd isaaclab/IsaacLab
+    ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/train_sb3_ppo.py --num_envs 64 --task UR5e-Hand-E-Domain-Rand-Lift-Cube-Abs-IK --headless
+
+
+### Weights and Biases
+    source isaaclab/bin/activate
+    cd /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3
+    wandb sweep --project abs_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_domain_rand_without_friction_and_mass config_sb3_ppo_domain_rand.yaml
+
+
 
 ##########################
 # Joint Position Control #
