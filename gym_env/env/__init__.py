@@ -8,7 +8,7 @@ from . import agents, ik_rel_env_cfg_franka, ik_rel_env_cfg_ur5e_sdu_gripper, ik
 
 gym.register(
     id="UR5e-Lift-Cube-IK",
-    entry_point="omni.isaac.lab.envs:ManagerBasedRLEnv",
+    entry_point="isaaclab.envs:ManagerBasedRLEnv",
     disable_env_checker=True,
     kwargs={
         "env_cfg_entry_point": ik_rel_env_cfg_ur5e_sdu_gripper.RelIK_UR5e_SDU_Gripper_LiftCubeEnvCfg,
@@ -25,7 +25,7 @@ gym.register(
 
 gym.register(
     id="UR5e-Hand-E-Lift-Cube-IK",
-    entry_point="omni.isaac.lab.envs:ManagerBasedRLEnv",
+    entry_point="isaaclab.envs:ManagerBasedRLEnv",
     disable_env_checker=True,
     kwargs={
         "env_cfg_entry_point": ik_rel_env_cfg_ur5e_hand_e.RelIK_UR5e_Hand_E_LiftCubeEnvCfg,
@@ -43,7 +43,7 @@ gym.register(
 
 gym.register(
     id="UR5e-Hand-E-Domain-Rand-Lift-Cube-IK",
-    entry_point="omni.isaac.lab.envs:ManagerBasedRLEnv",
+    entry_point="isaaclab.envs:ManagerBasedRLEnv",
     disable_env_checker=True,
     kwargs={
         "env_cfg_entry_point": ik_rel_env_cfg_ur5e_hand_e_domain_rand.RelIK_UR5e_Hand_E_Domain_Rand_LiftCubeEnvCfg,
@@ -61,7 +61,7 @@ gym.register(
 
 gym.register(
     id="UR5e-Hand-E-Domain-Rand-Lift-Cube-Abs-IK",
-    entry_point="omni.isaac.lab.envs:ManagerBasedRLEnv",
+    entry_point="isaaclab.envs:ManagerBasedRLEnv",
     disable_env_checker=True,
     kwargs={
         "env_cfg_entry_point": ik_abs_env_cfg_ur5e_hand_e_domain_rand.AbsIK_UR5e_Hand_E_Domain_Rand_LiftCubeEnvCfg,
@@ -79,7 +79,7 @@ gym.register(
 
 gym.register(
     id="UR5e-Lift-Cube",
-    entry_point="omni.isaac.lab.envs:ManagerBasedRLEnv",
+    entry_point="isaaclab.envs:ManagerBasedRLEnv",
     disable_env_checker=True,
     kwargs={
         "env_cfg_entry_point": joint_pos_env_cfg_ur5e_sdu_gripper.JointPos_UR5e_SDU_Gripper_LiftCubeEnvCfg,
@@ -96,7 +96,7 @@ gym.register(
 
 gym.register(
     id="Franka-Lift-Cube-IK",
-    entry_point="omni.isaac.lab.envs:ManagerBasedRLEnv",
+    entry_point="isaaclab.envs:ManagerBasedRLEnv",
     disable_env_checker=True,
     kwargs={
         "env_cfg_entry_point": ik_rel_env_cfg_franka.RelIK_Franka_LiftCubeEnvCfg,
@@ -110,7 +110,7 @@ gym.register(
 
 gym.register(
     id="Franka-Lift-Cube",
-    entry_point="omni.isaac.lab.envs:ManagerBasedRLEnv",
+    entry_point="isaaclab.envs:ManagerBasedRLEnv",
     disable_env_checker=True,
     kwargs={
         "env_cfg_entry_point": joint_pos_env_cfg_franka.JointPos_Franka_LiftCubeEnvCfg,

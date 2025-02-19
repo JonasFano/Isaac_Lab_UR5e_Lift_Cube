@@ -1,5 +1,5 @@
 import argparse
-from omni.isaac.lab.app import AppLauncher
+from isaaclab.app import AppLauncher
 
 # argparse for non-agent parameters
 parser = argparse.ArgumentParser(description="Train an RL agent with Stable-Baselines3.")
@@ -25,8 +25,8 @@ from rl_games.common import env_configurations, vecenv
 from rl_games.common.algo_observer import IsaacAlgoObserver
 from rl_games.torch_runner import Runner
 
-from omni.isaac.lab_tasks.utils.parse_cfg import parse_env_cfg
-from omni.isaac.lab_tasks.utils.wrappers.rl_games import RlGamesGpuEnv, RlGamesVecEnvWrapper
+from isaaclab_tasks.utils.parse_cfg import parse_env_cfg
+from isaaclab_rl.rl_games import RlGamesGpuEnv, RlGamesVecEnvWrapper
 import wandb
 import yaml
 from wandb.integration.sb3 import WandbCallback

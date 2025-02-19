@@ -7,12 +7,12 @@ from __future__ import annotations
 
 import torch
 from typing import TYPE_CHECKING, List
-from omni.isaac.lab.assets import RigidObject
-from omni.isaac.lab.managers import SceneEntityCfg
-from omni.isaac.lab.utils.math import subtract_frame_transforms, quat_apply, axis_angle_from_quat
+from isaaclab.assets import RigidObject
+from isaaclab.managers import SceneEntityCfg
+from isaaclab.utils.math import subtract_frame_transforms, quat_apply, axis_angle_from_quat
 
 if TYPE_CHECKING:
-    from omni.isaac.lab.envs import ManagerBasedRLEnv
+    from isaaclab.envs import ManagerBasedRLEnv
 
 
 def quat_rotate_vector(quat: torch.Tensor, vec: torch.Tensor) -> torch.Tensor:

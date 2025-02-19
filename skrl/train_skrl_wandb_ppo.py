@@ -15,7 +15,7 @@ a more user-friendly way.
 import argparse
 import sys
 
-from omni.isaac.lab.app import AppLauncher
+from isaaclab.app import AppLauncher
 
 # add argparse arguments
 parser = argparse.ArgumentParser(description="Train an RL agent with skrl.")
@@ -70,19 +70,19 @@ if args_cli.ml_framework.startswith("torch"):
 elif args_cli.ml_framework.startswith("jax"):
     from skrl.utils.runner.jax import Runner
 
-from omni.isaac.lab.envs import (
+from isaaclab.envs import (
     DirectMARLEnv,
     DirectMARLEnvCfg,
     DirectRLEnvCfg,
     ManagerBasedRLEnvCfg,
     multi_agent_to_single_agent,
 )
-from omni.isaac.lab.utils.dict import print_dict
-from omni.isaac.lab.utils.io import dump_pickle, dump_yaml
+from isaaclab.utils.dict import print_dict
+from isaaclab.utils.io import dump_pickle, dump_yaml
 
 import gym_env.env # This import is strictly necessary otherwise it would not recognize the registered custom gym environment
-from omni.isaac.lab_tasks.utils.hydra import hydra_task_config
-from omni.isaac.lab_tasks.utils.wrappers.skrl import SkrlVecEnvWrapper
+from isaaclab_tasks.utils.hydra import hydra_task_config
+from isaaclab_rl.skrl import SkrlVecEnvWrapper
 
 import wandb
 import yaml

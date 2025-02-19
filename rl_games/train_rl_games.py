@@ -10,7 +10,7 @@
 import argparse
 import sys
 
-from omni.isaac.lab.app import AppLauncher
+from isaaclab.app import AppLauncher
 
 # add argparse arguments
 parser = argparse.ArgumentParser(description="Train an RL agent with RL-Games.")
@@ -51,20 +51,20 @@ from rl_games.common import env_configurations, vecenv
 from rl_games.common.algo_observer import IsaacAlgoObserver
 from rl_games.torch_runner import Runner
 
-from omni.isaac.lab.envs import (
+from isaaclab.envs import (
     DirectMARLEnv,
     DirectMARLEnvCfg,
     DirectRLEnvCfg,
     ManagerBasedRLEnvCfg,
     multi_agent_to_single_agent,
 )
-from omni.isaac.lab.utils.assets import retrieve_file_path
-from omni.isaac.lab.utils.dict import print_dict
-from omni.isaac.lab.utils.io import dump_pickle, dump_yaml
+from isaaclab.utils.assets import retrieve_file_path
+from isaaclab.utils.dict import print_dict
+from isaaclab.utils.io import dump_pickle, dump_yaml
 
 import gym_env.env # This import is strictly necessary otherwise it would recognize the registered custom gym environment
-from omni.isaac.lab_tasks.utils.hydra import hydra_task_config
-from omni.isaac.lab_tasks.utils.wrappers.rl_games import RlGamesGpuEnv, RlGamesVecEnvWrapper
+from isaaclab_tasks.utils.hydra import hydra_task_config
+from isaaclab_rl.rl_games import RlGamesGpuEnv, RlGamesVecEnvWrapper
 
 
 @hydra_task_config(args_cli.task, "rl_games_cfg_entry_point")

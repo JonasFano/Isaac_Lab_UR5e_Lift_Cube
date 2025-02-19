@@ -1,5 +1,5 @@
 import argparse
-from omni.isaac.lab.app import AppLauncher
+from isaaclab.app import AppLauncher
 
 # add argparse arguments
 parser = argparse.ArgumentParser(description="Play a checkpoint of an RL agent from Stable-Baselines3.")
@@ -43,11 +43,11 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 from stable_baselines3 import TD3
 from stable_baselines3.common.vec_env import VecNormalize
 
-from omni.isaac.lab.utils.dict import print_dict
+from isaaclab.utils.dict import print_dict
 
 import gym_env.env # This import is strictly necessary otherwise it would recognize the registered custom gym environment
-from omni.isaac.lab_tasks.utils.parse_cfg import get_checkpoint_path, load_cfg_from_registry, parse_env_cfg
-from omni.isaac.lab_tasks.utils.wrappers.sb3 import Sb3VecEnvWrapper, process_sb3_cfg
+from isaaclab_tasks.utils.parse_cfg import get_checkpoint_path, load_cfg_from_registry, parse_env_cfg
+from isaaclab_rl.sb3 import Sb3VecEnvWrapper, process_sb3_cfg
 
 
 def main():

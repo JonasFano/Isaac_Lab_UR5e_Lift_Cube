@@ -1,25 +1,25 @@
 from dataclasses import MISSING
 
-import omni.isaac.lab.sim as sim_utils
-from omni.isaac.lab.assets import ArticulationCfg, AssetBaseCfg, RigidObjectCfg
-from omni.isaac.lab.envs import ManagerBasedRLEnvCfg
-from omni.isaac.lab.managers import CurriculumTermCfg as CurrTerm
-from omni.isaac.lab.managers import EventTermCfg as EventTerm
-from omni.isaac.lab.managers import ObservationGroupCfg as ObsGroup
-from omni.isaac.lab.managers import ObservationTermCfg as ObsTerm
-from omni.isaac.lab.managers import RewardTermCfg as RewTerm
-from omni.isaac.lab.managers import SceneEntityCfg
-from omni.isaac.lab.managers import TerminationTermCfg as DoneTerm
-from omni.isaac.lab.scene import InteractiveSceneCfg
-from omni.isaac.lab.utils import configclass
-from omni.isaac.lab.actuators import ImplicitActuatorCfg
-from omni.isaac.lab.utils.noise import AdditiveUniformNoiseCfg as Unoise
+import isaaclab.sim as sim_utils
+from isaaclab.assets import ArticulationCfg, AssetBaseCfg, RigidObjectCfg
+from isaaclab.envs import ManagerBasedRLEnvCfg
+from isaaclab.managers import CurriculumTermCfg as CurrTerm
+from isaaclab.managers import EventTermCfg as EventTerm
+from isaaclab.managers import ObservationGroupCfg as ObsGroup
+from isaaclab.managers import ObservationTermCfg as ObsTerm
+from isaaclab.managers import RewardTermCfg as RewTerm
+from isaaclab.managers import SceneEntityCfg
+from isaaclab.managers import TerminationTermCfg as DoneTerm
+from isaaclab.scene import InteractiveSceneCfg
+from isaaclab.utils import configclass
+from isaaclab.actuators import ImplicitActuatorCfg
+from isaaclab.utils.noise import AdditiveUniformNoiseCfg as Unoise
 from . import mdp
 import os
 import math
-from omni.isaac.lab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
-from omni.isaac.lab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
-from omni.isaac.lab.utils.assets import ISAAC_NUCLEUS_DIR
+from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
+from isaaclab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
+from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 
 
 ##

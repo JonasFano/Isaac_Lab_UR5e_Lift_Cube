@@ -14,7 +14,7 @@ a more user-friendly way.
 
 import argparse
 
-from omni.isaac.lab.app import AppLauncher
+from isaaclab.app import AppLauncher
 
 # add argparse arguments
 parser = argparse.ArgumentParser(description="Play a checkpoint of an RL agent from skrl.")
@@ -62,12 +62,12 @@ if args_cli.ml_framework.startswith("torch"):
 elif args_cli.ml_framework.startswith("jax"):
     from skrl.utils.runner.jax import Runner
 
-from omni.isaac.lab.envs import DirectMARLEnv, multi_agent_to_single_agent
-from omni.isaac.lab.utils.dict import print_dict
+from isaaclab.envs import DirectMARLEnv, multi_agent_to_single_agent
+from isaaclab.utils.dict import print_dict
 
 import gym_env.env # This import is strictly necessary otherwise it would not recognize the registered custom gym environment
-from omni.isaac.lab_tasks.utils import get_checkpoint_path, load_cfg_from_registry, parse_env_cfg
-from omni.isaac.lab_tasks.utils.wrappers.skrl import SkrlVecEnvWrapper
+from isaaclab_tasks.utils import get_checkpoint_path, load_cfg_from_registry, parse_env_cfg
+from isaaclab_rl.skrl import SkrlVecEnvWrapper
 
 # config shortcuts
 algorithm = args_cli.algorithm.lower()

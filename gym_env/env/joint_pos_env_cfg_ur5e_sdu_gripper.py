@@ -1,7 +1,7 @@
-from omni.isaac.lab.utils import configclass
-from omni.isaac.lab.sensors import FrameTransformerCfg
-from omni.isaac.lab.markers.config import FRAME_MARKER_CFG  # isort: skip
-from omni.isaac.lab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
+from isaaclab.utils import configclass
+from isaaclab.sensors import FrameTransformerCfg
+from isaaclab.markers.config import FRAME_MARKER_CFG  # isort: skip
+from isaaclab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
 
 from . import lift_cube_env_cfg_ur5e_sdu_gripper, mdp
 from settings import Settings

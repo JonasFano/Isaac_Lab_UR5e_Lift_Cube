@@ -1,5 +1,5 @@
 import argparse
-from omni.isaac.lab.app import AppLauncher
+from isaaclab.app import AppLauncher
 import gymnasium as gym
 import numpy as np
 import torch.nn as nn  # Import nn to access activation functions
@@ -23,7 +23,7 @@ app_launcher = AppLauncher(args_cli)
 simulation_app = app_launcher.app
 
 import gym_env.env  # Ensure custom environment is recognized
-from omni.isaac.lab_tasks.utils.parse_cfg import parse_env_cfg
+from isaaclab_tasks.utils.parse_cfg import parse_env_cfg
 from settings import Settings
 from controller.controller import Controller
 

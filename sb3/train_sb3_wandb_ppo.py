@@ -1,5 +1,5 @@
 import argparse
-from omni.isaac.lab.app import AppLauncher
+from isaaclab.app import AppLauncher
 import gymnasium as gym
 import numpy as np
 import torch.nn as nn  # Import nn to access activation functions
@@ -30,8 +30,8 @@ import os
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 import gym_env.env  # Ensure custom environment is recognized
-from omni.isaac.lab_tasks.utils.parse_cfg import parse_env_cfg
-from omni.isaac.lab_tasks.utils.wrappers.sb3 import Sb3VecEnvWrapper
+from isaaclab_tasks.utils.parse_cfg import parse_env_cfg
+from isaaclab_rl.sb3 import Sb3VecEnvWrapper
 import wandb
 import yaml
 from wandb.integration.sb3 import WandbCallback

@@ -1,11 +1,11 @@
-from omni.isaac.lab.utils import configclass
-from omni.isaac.lab.sensors import FrameTransformerCfg
-from omni.isaac.lab.markers.config import FRAME_MARKER_CFG  # isort: skip
-from omni.isaac.lab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
-from omni.isaac.lab.controllers.differential_ik_cfg import DifferentialIKControllerCfg
-from omni.isaac.lab.envs.mdp.actions.actions_cfg import DifferentialInverseKinematicsActionCfg
+from isaaclab.utils import configclass
+from isaaclab.sensors import FrameTransformerCfg
+from isaaclab.markers.config import FRAME_MARKER_CFG  # isort: skip
+from isaaclab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
+from isaaclab.controllers.differential_ik_cfg import DifferentialIKControllerCfg
+from isaaclab.envs.mdp.actions.actions_cfg import DifferentialInverseKinematicsActionCfg
 
-from omni.isaac.lab_assets.franka import FRANKA_PANDA_HIGH_PD_CFG  # isort: skip
+from isaaclab_assets.franka import FRANKA_PANDA_HIGH_PD_CFG  # isort: skip
 
 from . import lift_cube_env_cfg_franka
 
