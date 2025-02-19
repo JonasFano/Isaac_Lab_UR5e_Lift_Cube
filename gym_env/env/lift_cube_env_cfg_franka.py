@@ -21,7 +21,7 @@ from isaaclab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
 from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 
 
-from isaaclab_assets.franka import FRANKA_PANDA_CFG  # isort: skip
+from isaaclab_assets.robots.franka import FRANKA_PANDA_CFG  # isort: skip
 
 ##
 # Scene definition

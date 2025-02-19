@@ -5,7 +5,7 @@ from isaaclab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
 from isaaclab.controllers.differential_ik_cfg import DifferentialIKControllerCfg
 from isaaclab.envs.mdp.actions.actions_cfg import DifferentialInverseKinematicsActionCfg
 
-from isaaclab_assets.franka import FRANKA_PANDA_HIGH_PD_CFG  # isort: skip
+from isaaclab_assets.robots.franka import FRANKA_PANDA_HIGH_PD_CFG  # isort: skip
 
 from . import lift_cube_env_cfg_franka
 
