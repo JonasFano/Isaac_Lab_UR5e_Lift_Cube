@@ -1,0 +1,28 @@
+# create a virtual environment named isaaclab with python3.10
+python3.10 -m venv isaaclab
+# activate the virtual environment
+source isaaclab/bin/activate
+
+pip install torch==2.4.0 --index-url https://download.pytorch.org/whl/cu121
+
+pip install --upgrade pip
+
+pip install isaacsim==4.2.0.2 --extra-index-url https://pypi.nvidia.com
+
+pip install isaacsim-extscache-physics==4.2.0.2 isaacsim-extscache-kit==4.2.0.2 isaacsim-extscache-kit-sdk==4.2.0.2 --extra-index-url https://pypi.nvidia.com
+
+
+cd isaaclab
+
+git clone https://github.com/isaac-sim/IsaacLab.git
+
+cd IsaacLab
+
+sudo apt install cmake build-essential
+
+./isaaclab.sh --install # or "./isaaclab.sh -i"
+
+
+# Option 1: Using the isaaclab.sh executable
+# note: this works for both the bundled python and the virtual environment
+./isaaclab.sh -p source/standalone/tutorials/00_sim/create_empty.py
