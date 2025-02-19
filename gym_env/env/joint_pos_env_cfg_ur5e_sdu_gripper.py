@@ -31,7 +31,7 @@ class JointPos_UR5e_SDU_Gripper_LiftCubeEnvCfg(lift_cube_env_cfg_ur5e_sdu_grippe
         )
 
         # print(self.commands.ee_pose) # Do not show current end-effector frame
-        self.commands.ee_pose.current_pose_visualizer_cfg.markers['frame'].visible = False
+        self.commands.object_pose.current_pose_visualizer_cfg.markers['frame'].visible = False
 
         self.actions.arm_action = mdp.JointPositionActionCfg(
             asset_name="robot", 

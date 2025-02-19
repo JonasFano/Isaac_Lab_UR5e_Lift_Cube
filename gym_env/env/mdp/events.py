@@ -72,47 +72,47 @@ def randomize_friction_coefficients(
     materials = asset.root_physx_view.get_material_properties()
     material_samples = materials.clone()
 
-    # print(materials)
+    print(materials)
 
     # Apply randomization
-    for i, key in enumerate(["static", "dynamic", "restitution"]):
-        material_samples[:, :, i] = _randomize_prop_by_op(
-            material_samples[:, :, i],
-            friction_params[key],
-            env_ids,
-            slice(None),
-            operation=operation,
-            distribution=distribution
-        )
+    # for i, key in enumerate(["static", "dynamic", "restitution"]):
+    #     material_samples[:, :, i] = _randomize_prop_by_op(
+    #         material_samples[:, :, i],
+    #         friction_params[key],
+    #         env_ids,
+    #         slice(None),
+    #         operation=operation,
+    #         distribution=distribution
+    #     )
 
-    # print(material_samples)
-    # print(env_ids.shape)
-    # print(env_ids.shape[0])
+    # # print(material_samples)
+    # # print(env_ids.shape)
+    # # print(env_ids.shape[0])
 
-    # Ensure dynamic friction <= static friction if required
-    if make_consistent:
-        material_samples[:, :, 1] = torch.min(material_samples[:, :, 0], material_samples[:, :, 1])
+    # # Ensure dynamic friction <= static friction if required
+    # if make_consistent:
+    #     material_samples[:, :, 1] = torch.min(material_samples[:, :, 0], material_samples[:, :, 1])
 
-    # update material buffer with new samples
-    if num_shapes_per_body is not None:
-        # sample material properties from the given ranges
-        for body_id in asset_cfg.body_ids:
-            # obtain indices of shapes for the body
-            start_idx = sum(num_shapes_per_body[:body_id])
-            end_idx = start_idx + num_shapes_per_body[body_id]
+    # # update material buffer with new samples
+    # if num_shapes_per_body is not None:
+    #     # sample material properties from the given ranges
+    #     for body_id in asset_cfg.body_ids:
+    #         # obtain indices of shapes for the body
+    #         start_idx = sum(num_shapes_per_body[:body_id])
+    #         end_idx = start_idx + num_shapes_per_body[body_id]
 
-            # print(f"materials shape: {materials.shape}")
-            # print(f"materials[env_ids, start_idx:end_idx] shape: {materials[env_ids, start_idx:end_idx].shape}")
-            # print(f"material_samples[:, start_idx:end_idx] shape: {material_samples[:, start_idx:end_idx].shape}")
+    #         # print(f"materials shape: {materials.shape}")
+    #         # print(f"materials[env_ids, start_idx:end_idx] shape: {materials[env_ids, start_idx:end_idx].shape}")
+    #         # print(f"material_samples[:, start_idx:end_idx] shape: {material_samples[:, start_idx:end_idx].shape}")
 
-            # assign the new materials
-            # material samples are of shape: num_env_ids x total_num_shapes x 3
-            materials[env_ids, start_idx:end_idx] = material_samples[env_ids, start_idx:end_idx]
-    elif num_shapes_per_body is None and env_ids.shape[0] != env.scene.num_envs:
-        materials[env_ids] = material_samples[env_ids].unsqueeze(0)
-    else:
-        # assign all the materials
-        materials[env_ids] = material_samples[:]
+    #         # assign the new materials
+    #         # material samples are of shape: num_env_ids x total_num_shapes x 3
+    #         materials[env_ids, start_idx:end_idx] = material_samples[env_ids, start_idx:end_idx]
+    # elif num_shapes_per_body is None and env_ids.shape[0] != env.scene.num_envs:
+    #     materials[env_ids] = material_samples[env_ids].unsqueeze(0)
+    # else:
+    #     # assign all the materials
+    #     materials[env_ids] = material_samples[:]
 
     # print(materials)
 

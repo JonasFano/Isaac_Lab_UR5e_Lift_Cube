@@ -31,8 +31,8 @@ class RelIK_UR5e_SDU_Gripper_LiftCubeEnvCfg(lift_cube_env_cfg_ur5e_sdu_gripper.U
             ],
         )
 
-        # print(self.commands.ee_pose) # Do not show current end-effector frame
-        self.commands.ee_pose.current_pose_visualizer_cfg.markers['frame'].visible = False
+        # print(self.commands.object_pose) # Do not show current end-effector frame
+        self.commands.object_pose.current_pose_visualizer_cfg.markers['frame'].visible = False
 
         self.actions.arm_action = DifferentialInverseKinematicsActionCfg(
             asset_name="robot",

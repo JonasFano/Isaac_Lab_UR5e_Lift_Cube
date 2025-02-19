@@ -37,8 +37,8 @@ class RelIK_Franka_LiftCubeEnvCfg(lift_cube_env_cfg_franka.Franka_LiftCubeEnvCfg
             ],
         )
 
-        # print(self.commands.ee_pose) # Do not show current end-effector frame
-        self.commands.ee_pose.current_pose_visualizer_cfg.markers['frame'].visible = False
+        # print(self.commands.object_pose) # Do not show current end-effector frame
+        self.commands.object_pose.current_pose_visualizer_cfg.markers['frame'].visible = False
 
         self.actions.arm_action = DifferentialInverseKinematicsActionCfg(
             asset_name="robot",

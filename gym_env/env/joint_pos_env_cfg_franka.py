@@ -29,8 +29,8 @@ class JointPos_Franka_LiftCubeEnvCfg(lift_cube_env_cfg_franka.Franka_LiftCubeEnv
             ],
         )
 
-        # print(self.commands.ee_pose) # Do not show current end-effector frame
-        self.commands.ee_pose.current_pose_visualizer_cfg.markers['frame'].visible = False
+        # print(self.commands.object_pose) # Do not show current end-effector frame
+        self.commands.object_pose.current_pose_visualizer_cfg.markers['frame'].visible = False
 
         self.actions.arm_action = mdp.JointPositionActionCfg(
             asset_name="robot", joint_names=["panda_joint.*"], scale=0.5, use_default_offset=True
