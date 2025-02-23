@@ -327,8 +327,8 @@ class EventCfg:
         mode="reset",
         params={
             "asset_cfg": SceneEntityCfg("robot", body_names=["finger_left", "finger_right"]),
-            "static_friction_distribution_params": (1.5, 1.5), #(0.85, 0.9), #(0.5, 1.2), #(0.1, 1.5),
-            "dynamic_friction_distribution_params": (1.5, 1.5), #(0.6, 0.7), #(0.4, 1.0), #(0.05, 1.2),
+            "static_friction_distribution_params": (1.2, 1.2), #(1.5, 1.5), #(0.85, 0.9), #(0.5, 1.2), #(0.1, 1.5),
+            "dynamic_friction_distribution_params": (1.2, 1.2), #(1.5, 1.5), #(0.6, 0.7), #(0.4, 1.0), #(0.05, 1.2),
             "restitution_distribution_params": (0.1, 0.1), #(0.2, 0.6), #(0.0, 1.0),
             "operation": "abs",
             "distribution": "uniform",
@@ -341,8 +341,8 @@ class EventCfg:
         mode="reset",
         params={
             "asset_cfg": SceneEntityCfg("object", body_names="Object"),
-            "static_friction_distribution_params": (1.5, 1.5), #(0.7, 0.8), #(0.4, 0.8),
-            "dynamic_friction_distribution_params": (1.5, 1.5), #(0.5, 0.6), #(0.3, 0.6),
+            "static_friction_distribution_params": (1.2, 1.2), #(1.5, 1.5), #(0.7, 0.8), #(0.4, 0.8),
+            "dynamic_friction_distribution_params": (1.2, 1.2), #(1.5, 1.5), #(0.5, 0.6), #(0.3, 0.6),
             "restitution_distribution_params": (0.1, 0.1), #(0.3, 0.7),
             "operation": "abs",
             "distribution": "uniform",
