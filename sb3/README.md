@@ -112,6 +112,9 @@ cd isaaclab/IsaacLab
 
 
 
+# rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_domain_rand_with_small_friction_and_without_mass_v5: Actuator stiffness: 1000 (3000 for gripper) - Cube Scale: (0.4, 0.4, 0.4) - Object Pose Generation: pos_x=(0.25, 0.35), pos_y=(0.3, 0.4), pos_z=(0.25, 0.35), roll=0, pitch=pi, yaw=(-pi, +pi) - Action scaling: 0.05 - Gripper binary position action: Open: 0.0, Close: -0.025 - Unoise: 0.0 - TCP offset: [0.0, 0.0, 0.15] - Robot Reset: "position_range" (1.0, 1.0) - Reset Object Position: "x": (-0.1, 0.1), "y": (-0.25, 0.25), "z": (0.0, 0.0) - No mass randomization (mass = 0.5) - Robot Actuator randomization: "stiffness_distribution_params": (0.7, 1.3), "damping_distribution_params": (0.7, 1.3) - Gripper randomization: "stiffness_distribution_params": (2500, 3500), "damping_distribution_params": (300, 700) - Gripper Friction randomization: "stiffness_distribution_params": (1.2, 1.2), "damping_distribution_params": (1.2, 1.2), "restitution_distribution_params": (0.1, 0.1) - Object Friction randomization: "stiffness_distribution_params": (0.8, 0.8), "damping_distribution_params": (0.8, 0.8), "restitution_distribution_params": (0.1, 0.1) - Reaching object: std: 0.1, weight: 1.0 - Lifting object: minheight: 0.08, weight: 35.0 - Object goal tracking: std: 0.3, weight: 16.0 - Object goal tracking: std: 0.05, weight: 5.0 - Orientation tracking: weight: -6.0 - Action rate: weight: -1e-4 - Object dropping: min height: -0.05 - Action rate curriculum: weight: -1e-1, num_steps: 100000 - Decimation 2 - Dt 0.01 - Episode length: 5.0
+    ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/play_sb3_ppo.py --num_envs 64 --task UR5e-Hand-E-Domain-Rand-Lift-Cube-IK --checkpoint
+
 
 
 #################################################
@@ -183,12 +186,10 @@ cd isaaclab/IsaacLab
     wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_domain_rand_without_friction config_sb3_ppo_domain_rand.yaml
 
     wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_domain_rand_with_small_friction_and_without_mass config_sb3_ppo_domain_rand.yaml
-
     wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_domain_rand_with_small_friction_and_without_mass_v2 config_sb3_ppo_domain_rand.yaml
-
     wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_domain_rand_with_small_friction_and_without_mass_v3 config_sb3_ppo_domain_rand.yaml
-
     wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_domain_rand_with_small_friction_and_without_mass_v4 config_sb3_ppo_domain_rand.yaml
+    wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_domain_rand_with_small_friction_and_without_mass_v5 config_sb3_ppo_domain_rand.yaml
 
 
 ## DDPG
