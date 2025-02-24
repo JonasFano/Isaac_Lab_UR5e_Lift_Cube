@@ -190,6 +190,7 @@ cd isaaclab/IsaacLab
     wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_domain_rand_with_small_friction_and_without_mass_v3 config_sb3_ppo_domain_rand.yaml
     wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_domain_rand_with_small_friction_and_without_mass_v4 config_sb3_ppo_domain_rand.yaml
     wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_domain_rand_with_small_friction_and_without_mass_v5 config_sb3_ppo_domain_rand.yaml
+    wandb sweep --project rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_domain_rand_with_small_friction_and_without_mass_v6 config_sb3_ppo_domain_rand.yaml
 
 
 ## DDPG
