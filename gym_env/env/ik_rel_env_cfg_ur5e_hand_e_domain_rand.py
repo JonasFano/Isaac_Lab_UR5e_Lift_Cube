@@ -18,7 +18,7 @@ class RelIK_UR5e_Hand_E_Domain_Rand_LiftCubeEnvCfg(lift_cube_env_cfg_ur5e_hand_e
         marker_cfg.prim_path = "/Visuals/FrameTransformer"
         self.scene.ee_frame = FrameTransformerCfg(
             prim_path="{ENV_REGEX_NS}/robot/base_link",
-            debug_vis=False,
+            debug_vis=True,
             visualizer_cfg=marker_cfg,
             target_frames=[
                 FrameTransformerCfg.FrameCfg(
