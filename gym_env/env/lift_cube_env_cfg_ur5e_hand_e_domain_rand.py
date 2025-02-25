@@ -26,7 +26,7 @@ from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 ##
 
 MODEL_PATH = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")), "scene_models")
-MIN_HEIGHT = 0.04 # 0.04 # 0.1 # Given that the side length of the cube is 2.4 cm = 0.024 m
+MIN_HEIGHT = 0.05 # 0.04 # 0.1 # Given that the side length of the cube is 2.4 cm = 0.024 m
 
 @configclass
 class UR5e_Hand_E_Domain_Rand_LiftCubeSceneCfg(InteractiveSceneCfg):
@@ -122,6 +122,26 @@ class UR5e_Hand_E_Domain_Rand_LiftCubeSceneCfg(InteractiveSceneCfg):
                     "joint_left": 500.0,
                     "joint_right": 500.0,
                 }
+                # stiffness={
+                #     "shoulder_pan_joint": 100000.0,
+                #     "shoulder_lift_joint": 100000.0,
+                #     "elbow_joint": 100000.0,
+                #     "wrist_1_joint": 100000.0,
+                #     "wrist_2_joint": 100000.0,
+                #     "wrist_3_joint": 100000.0,
+                #     "joint_left": 3000.0,
+                #     "joint_right": 3000.0,
+                # },
+                # damping={
+                #     "shoulder_pan_joint": 1216.6,
+                #     "shoulder_lift_joint": 1832.3,
+                #     "elbow_joint": 965.4,
+                #     "wrist_1_joint": 698.3,
+                #     "wrist_2_joint": 698.3,
+                #     "wrist_3_joint": 274.2,
+                #     "joint_left": 500.0,
+                #     "joint_right": 500.0,
+                # }
             )
         }
     )
