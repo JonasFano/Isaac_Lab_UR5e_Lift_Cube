@@ -26,7 +26,7 @@ from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 ##
 
 MODEL_PATH = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")), "scene_models")
-MIN_HEIGHT = 0.08 # 0.04 # 0.1 # Given that the side length of the cube is 2.4 cm = 0.024 m
+MIN_HEIGHT = 0.04 # 0.04 # 0.1 # Given that the side length of the cube is 2.4 cm = 0.024 m
 
 @configclass
 class UR5e_Hand_E_Domain_Rand_LiftCubeSceneCfg(InteractiveSceneCfg):
