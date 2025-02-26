@@ -130,3 +130,13 @@ def orientation_command_error(
     curr_quat_w = asset.data.body_state_w[:, asset_cfg.body_ids[0], 3:7]  # type: ignore
 
     return (object.data.root_pos_w[:, 2] > minimal_height) * quat_error_magnitude(curr_quat_w, des_quat_w)
+
+
+def action_rate_l2_position(env: ManagerBasedRLEnv) -> torch.Tensor:
+    """Penalize the rate of change of the actions using L2 squared kernel."""
+    return torch.sum(torch.square(env.action_manager.action[:, :3] - env.action_manager.prev_action[:, :3]), dim=1)
+
+
+def action_l2_position(env: ManagerBasedRLEnv) -> torch.Tensor:
+    """Penalize the actions using L2 squared kernel."""
+    return torch.sum(torch.square(env.action_manager.action[:, :3]), dim=1)

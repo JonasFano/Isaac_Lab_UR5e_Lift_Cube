@@ -109,8 +109,8 @@ class UR5e_Hand_E_Domain_Rand_LiftCubeSceneCfg(InteractiveSceneCfg):
                 #     "wrist_1_joint": 1000.0,
                 #     "wrist_2_joint": 1000.0,
                 #     "wrist_3_joint": 1000.0,
-                #     "joint_left": 3000.0,
-                #     "joint_right": 3000.0,
+                #     "joint_left": 30000000.0,
+                #     "joint_right": 30000000.0,
                 # },
                 # damping={
                 #     "shoulder_pan_joint": 121.66,
@@ -119,28 +119,29 @@ class UR5e_Hand_E_Domain_Rand_LiftCubeSceneCfg(InteractiveSceneCfg):
                 #     "wrist_1_joint": 69.83,
                 #     "wrist_2_joint": 69.83,
                 #     "wrist_3_joint": 27.42,
-                #     "joint_left": 500.0,
-                #     "joint_right": 500.0,
+                #     "joint_left": 50000.0,
+                #     "joint_right": 50000.0,
                 # }
-                stiffness={
-                    "shoulder_pan_joint": 100000.0,
-                    "shoulder_lift_joint": 100000.0,
-                    "elbow_joint": 100000.0,
-                    "wrist_1_joint": 100000.0,
-                    "wrist_2_joint": 100000.0,
-                    "wrist_3_joint": 100000.0,
-                    "joint_left": 3000.0,
-                    "joint_right": 3000.0,
+                ############### Stiffness 10000000 ###############
+                stiffness = {
+                    "shoulder_pan_joint": 10000000.0,
+                    "shoulder_lift_joint": 10000000.0,
+                    "elbow_joint": 10000000.0,
+                    "wrist_1_joint": 10000000.0,
+                    "wrist_2_joint": 10000000.0,
+                    "wrist_3_joint": 10000000.0,
+                    "joint_left": 10000000.0,
+                    "joint_right": 10000000.0,
                 },
-                damping={
-                    "shoulder_pan_joint": 1216.6,
-                    "shoulder_lift_joint": 1832.3,
-                    "elbow_joint": 965.4,
-                    "wrist_1_joint": 698.3,
-                    "wrist_2_joint": 698.3,
-                    "wrist_3_joint": 274.2,
-                    "joint_left": 500.0,
-                    "joint_right": 500.0,
+                damping = {
+                    "shoulder_pan_joint": 12166.86,
+                    "shoulder_lift_joint": 18333.30,
+                    "elbow_joint": 9651.90,
+                    "wrist_1_joint": 6991.16,
+                    "wrist_2_joint": 6991.16,
+                    "wrist_3_joint": 2752.97,
+                    "joint_left": 50000.0,
+                    "joint_right": 50000.0,
                 }
             )
         }
@@ -319,8 +320,8 @@ class EventCfg:
         mode="reset",
         params={
             "asset_cfg": SceneEntityCfg("robot", joint_names=["shoulder_pan_joint", "shoulder_lift_joint", "elbow_joint", "wrist_1_joint", "wrist_2_joint", "wrist_3_joint"]),
-            "stiffness_distribution_params": (0.7, 1.3),
-            "damping_distribution_params": (0.7, 1.3),
+            "stiffness_distribution_params": (0.5, 1.5),
+            "damping_distribution_params": (0.5, 1.5),
             "operation_stiffness": "scale",
             "operation_damping": "scale",
             "distribution_stiffness": "uniform",
@@ -333,10 +334,10 @@ class EventCfg:
         mode="reset",
         params={
             "asset_cfg": SceneEntityCfg("robot", joint_names=["joint_left", "joint_right"]),
-            "stiffness_distribution_params": (2500, 3500),
-            "damping_distribution_params": (300, 700),
+            "stiffness_distribution_params": (0.5, 2.5),
+            "damping_distribution_params": (0.5, 2.5),
             "operation_stiffness": "scale",
-            "operation_damping": "abs",
+            "operation_damping": "scale",
             "distribution_stiffness": "uniform",
             "distribution_damping": "uniform",
         }
@@ -347,8 +348,8 @@ class EventCfg:
         mode="reset",
         params={
             "asset_cfg": SceneEntityCfg("robot", body_names=["finger_left", "finger_right"]),
-            "static_friction_distribution_params": (1.0, 1.0), #(1.2, 1.2), #(1.5, 1.5), #(0.85, 0.9), #(0.5, 1.2), #(0.1, 1.5),
-            "dynamic_friction_distribution_params": (0.8, 0.8), #(1.2, 1.2), #(1.5, 1.5), #(0.6, 0.7), #(0.4, 1.0), #(0.05, 1.2),
+            "static_friction_distribution_params": (1.0, 1.0), #(1.0, 1.0), #(1.2, 1.2), #(1.5, 1.5), #(0.85, 0.9), #(0.5, 1.2), #(0.1, 1.5),
+            "dynamic_friction_distribution_params": (0.8, 0.8), #(0.8, 0.8), #(1.2, 1.2), #(1.5, 1.5), #(0.6, 0.7), #(0.4, 1.0), #(0.05, 1.2),
             "restitution_distribution_params": (0.1, 0.1), #(0.2, 0.6), #(0.0, 1.0),
             "operation": "abs",
             "distribution": "uniform",
@@ -361,8 +362,8 @@ class EventCfg:
         mode="reset",
         params={
             "asset_cfg": SceneEntityCfg("object", body_names="Object"),
-            "static_friction_distribution_params": (0.8, 0.8), #(0.8, 0.8), #(1.2, 1.2), #(1.5, 1.5), #(0.7, 0.8), #(0.4, 0.8),
-            "dynamic_friction_distribution_params": (0.6, 0.6), #(0.8, 0.8), #(1.2, 1.2), #(1.5, 1.5), #(0.5, 0.6), #(0.3, 0.6),
+            "static_friction_distribution_params": (0.8, 0.8), #(0.8, 0.8), #(0.8, 0.8), #(1.2, 1.2), #(1.5, 1.5), #(0.7, 0.8), #(0.4, 0.8),
+            "dynamic_friction_distribution_params": (0.6, 0.6), #(0.6, 0.6), #(0.8, 0.8), #(1.2, 1.2), #(1.5, 1.5), #(0.5, 0.6), #(0.3, 0.6),
             "restitution_distribution_params": (0.1, 0.1), #(0.3, 0.7),
             "operation": "abs",
             "distribution": "uniform",
