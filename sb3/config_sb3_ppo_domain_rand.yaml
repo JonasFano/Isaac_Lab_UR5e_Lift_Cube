@@ -1,6 +1,6 @@
 program: train_sb3_wandb_ppo_domain_rand.py
 method: grid
-name: rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_domain_rand_with_small_friction_and_without_mass_v8
+name: rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_domain_rand_with_small_friction_and_without_mass_v9
 metric:
   goal: maximize
   name: rollout/ep_rew_mean
@@ -14,7 +14,7 @@ parameters:
     value: 2048
 
   n_timesteps: # Total number of environment interactions: iteration * n_steps * num_envs: 1000 * 64 * 4096 = 262144000 # 52428800 # 78643200
-    value: 393216000
+    value: 52428800 # 393216000
 
   policy:
     value: 'MlpPolicy'
