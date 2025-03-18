@@ -54,7 +54,7 @@ class UR5e_Hand_E_Domain_Rand_LiftCubeSceneCfg(InteractiveSceneCfg):
                 "elbow_joint": 2.0, 
                 "wrist_1_joint": -1.5, 
                 "wrist_2_joint": -1.5, 
-                "wrist_3_joint": 3.14, 
+                "wrist_3_joint": 0.0, 
                 "joint_left": 0.0, 
                 "joint_right": 0.0,
             }
@@ -287,7 +287,7 @@ class EventCfg:
         func=mdp.reset_joints_by_scale,
         mode="reset",
         params={
-            "position_range": (1.0, 1.0),
+            "position_range": (0.9, 1.1),
             "velocity_range": (0.0, 0.0),
         },
     )
@@ -303,17 +303,17 @@ class EventCfg:
         },
     )
 
-    # randomize_object_mass = EventTerm(
-    #     func=mdp.randomize_rigid_body_mass, 
-    #     mode="reset",
-    #     params={
-    #         "asset_cfg": SceneEntityCfg("object", body_names="Object"),
-    #         "mass_distribution_params": (0.1, 1.0),
-    #         "operation": "abs",
-    #         "distribution": "uniform",
-    #         "recompute_inertia": True,
-    #     }
-    # )
+    randomize_object_mass = EventTerm(
+        func=mdp.randomize_rigid_body_mass, 
+        mode="reset",
+        params={
+            "asset_cfg": SceneEntityCfg("object", body_names="Object"),
+            "mass_distribution_params": (0.1, 1.0),
+            "operation": "abs",
+            "distribution": "uniform",
+            "recompute_inertia": True,
+        }
+    )
 
     randomize_robot_gains = EventTerm(
         func=mdp.randomize_actuator_gains_custom,
@@ -348,9 +348,9 @@ class EventCfg:
         mode="reset",
         params={
             "asset_cfg": SceneEntityCfg("robot", body_names=["finger_left", "finger_right"]),
-            "static_friction_distribution_params": (1.0, 1.0), #(1.0, 1.0), #(1.2, 1.2), #(1.5, 1.5), #(0.85, 0.9), #(0.5, 1.2), #(0.1, 1.5),
-            "dynamic_friction_distribution_params": (0.8, 0.8), #(0.8, 0.8), #(1.2, 1.2), #(1.5, 1.5), #(0.6, 0.7), #(0.4, 1.0), #(0.05, 1.2),
-            "restitution_distribution_params": (0.1, 0.1), #(0.2, 0.6), #(0.0, 1.0),
+            "static_friction_distribution_params": (0.8, 1.2), #(1.0, 1.0), #(1.2, 1.2), #(1.5, 1.5), #(0.85, 0.9), #(0.5, 1.2), #(0.1, 1.5),
+            "dynamic_friction_distribution_params": (0.6, 1.2), #(0.8, 0.8), #(1.2, 1.2), #(1.5, 1.5), #(0.6, 0.7), #(0.4, 1.0), #(0.05, 1.2),
+            "restitution_distribution_params": (0.0, 0.3), #(0.2, 0.6), #(0.0, 1.0),
             "operation": "abs",
             "distribution": "uniform",
             "make_consistent": True,  # Ensure dynamic friction <= static friction
@@ -362,9 +362,9 @@ class EventCfg:
         mode="reset",
         params={
             "asset_cfg": SceneEntityCfg("object", body_names="Object"),
-            "static_friction_distribution_params": (0.8, 0.8), #(0.8, 0.8), #(0.8, 0.8), #(1.2, 1.2), #(1.5, 1.5), #(0.7, 0.8), #(0.4, 0.8),
-            "dynamic_friction_distribution_params": (0.6, 0.6), #(0.6, 0.6), #(0.8, 0.8), #(1.2, 1.2), #(1.5, 1.5), #(0.5, 0.6), #(0.3, 0.6),
-            "restitution_distribution_params": (0.1, 0.1), #(0.3, 0.7),
+            "static_friction_distribution_params": (0.6, 1.0), #(0.8, 0.8), #(0.8, 0.8), #(1.2, 1.2), #(1.5, 1.5), #(0.7, 0.8), #(0.4, 0.8),
+            "dynamic_friction_distribution_params": (0.4, 1.0), #(0.6, 0.6), #(0.8, 0.8), #(1.2, 1.2), #(1.5, 1.5), #(0.5, 0.6), #(0.3, 0.6),
+            "restitution_distribution_params": (0.0, 0.3), #(0.3, 0.7),
             "operation": "abs",
             "distribution": "uniform",
             "make_consistent": True,  # Ensure dynamic friction <= static friction

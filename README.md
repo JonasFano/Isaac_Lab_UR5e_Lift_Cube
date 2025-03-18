@@ -2,6 +2,7 @@
 ssh -I 10.178.107.200 jofa@ia-li-2wqd414.unirobotts.local
 
 ssh jofan@rupsi
+ssh jofan@10.126.41.60
 
 ## Token for GitHub
 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
