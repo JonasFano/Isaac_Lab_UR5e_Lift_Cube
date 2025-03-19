@@ -41,11 +41,13 @@ class UR5e_Hand_E_Domain_Rand_LiftCubeSceneCfg(InteractiveSceneCfg):
                 max_depenetration_velocity=5.0,
             ),
             # articulation_props=sim_utils.ArticulationRootPropertiesCfg(
-            #     enabled_self_collisions=True, 
-            #     solver_position_iteration_count=8, 
-            #     solver_velocity_iteration_count=0
+            #     enabled_self_collisions=False,
+            #     solver_position_iteration_count=192,
+            #     solver_velocity_iteration_count=1,
             # ),
-            activate_contact_sensors=True,), 
+            activate_contact_sensors=True,
+            # collision_props=sim_utils.CollisionPropertiesCfg(contact_offset=0.005, rest_offset=0.0),
+        ),  
         init_state=ArticulationCfg.InitialStateCfg(
             pos=(0.175, -0.175, 0.0), 
             joint_pos={
@@ -161,10 +163,20 @@ class UR5e_Hand_E_Domain_Rand_LiftCubeSceneCfg(InteractiveSceneCfg):
                 max_linear_velocity=1000.0,
                 max_depenetration_velocity=5.0,
                 disable_gravity=False,
+                # max_depenetration_velocity=5.0,
+                # linear_damping=0.0,
+                # angular_damping=0.0,
+                # max_linear_velocity=1000.0,
+                # max_angular_velocity=3666.0,
+                # enable_gyroscopic_forces=True,
+                # solver_position_iteration_count=192,
+                # solver_velocity_iteration_count=1,
+                # max_contact_impulse=1e32,
             ),
             mass_props=MassPropertiesCfg(
                 mass=0.5,
             ),
+            # collision_props=sim_utils.CollisionPropertiesCfg(contact_offset=0.005, rest_offset=0.0),
         ),
     )
 
@@ -459,3 +471,13 @@ class UR5e_Hand_E_Domain_Rand_LiftCubeEnvCfg(ManagerBasedRLEnvCfg):
         self.sim.physx.gpu_total_aggregate_pairs_capacity = 16 * 1024
         self.sim.physx.friction_correlation_distance = 0.00625
         self.sim.physx.gpu_collision_stack_size = 4096 * 4096 * 120 # Was added due to an PhysX error: collisionStackSize buffer overflow detected
+
+        self.sim.physx.solver_type=1,
+        self.sim.physx.max_position_iteration_count=192,  # Important to avoid interpenetration.
+        self.sim.physx.max_velocity_iteration_count=1,
+        self.sim.physx.bounce_threshold_velocity=0.2,
+        self.sim.physx.friction_offset_threshold=0.01,
+        self.sim.physx.friction_correlation_distance=0.00625,
+        self.sim.physx.gpu_max_rigid_contact_count=2**23,
+        self.sim.physx.gpu_max_rigid_patch_count=2**23,
+        self.sim.physx.gpu_max_num_partitions=1,  # Important for stable simulation.
