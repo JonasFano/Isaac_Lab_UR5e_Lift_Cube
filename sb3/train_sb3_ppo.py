@@ -167,6 +167,8 @@ def main(env_cfg: ManagerBasedRLEnvCfg | DirectRLEnvCfg | DirectMARLEnvCfg, agen
 
     #     # print(f"Timestep: {timestep}, Action: {action}")
 
+    #     action = np.array([[-0.0, 0.0, 0.0, -0.0, 0.0, 0.0]], dtype=np.float32)
+
     #     # Take the action in the environment
     #     new_obs, reward, done, info = env.step(action)
 

@@ -13,11 +13,10 @@ from isaaclab.managers import TerminationTermCfg as DoneTerm
 from isaaclab.scene import InteractiveSceneCfg
 from isaaclab.utils import configclass
 from isaaclab.actuators import ImplicitActuatorCfg
-from isaaclab.utils.noise import AdditiveUniformNoiseCfg as Unoise
 from . import mdp
 import os
 import math
-from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
+from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg, MassPropertiesCfg
 from isaaclab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
 from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 
@@ -27,7 +26,7 @@ from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 ##
 
 MODEL_PATH = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")), "scene_models")
-MIN_HEIGHT = 0.08 # 0.04 # 0.1
+MIN_HEIGHT = 0.05 # 0.04 # 0.1 # Given that the side length of the cube is 2.4 cm = 0.024 m
 
 @configclass
 class UR5e_Hand_E_LiftCubeSceneCfg(InteractiveSceneCfg):
@@ -40,13 +39,23 @@ class UR5e_Hand_E_LiftCubeSceneCfg(InteractiveSceneCfg):
             rigid_props=sim_utils.RigidBodyPropertiesCfg(
                 disable_gravity=False,
                 max_depenetration_velocity=5.0,
+                linear_damping=0.0,
+                angular_damping=0.0,
+                max_linear_velocity=1000.0,
+                max_angular_velocity=3666.0,
+                enable_gyroscopic_forces=True,
+                solver_position_iteration_count=192,
+                solver_velocity_iteration_count=1,
+                max_contact_impulse=1e32,
             ),
-            # articulation_props=sim_utils.ArticulationRootPropertiesCfg(
-            #     enabled_self_collisions=True, 
-            #     solver_position_iteration_count=8, 
-            #     solver_velocity_iteration_count=0
-            # ),
-            activate_contact_sensors=True,), 
+            articulation_props=sim_utils.ArticulationRootPropertiesCfg(
+                enabled_self_collisions=False,
+                solver_position_iteration_count=192,
+                solver_velocity_iteration_count=1,
+            ),
+            activate_contact_sensors=True,
+            collision_props=sim_utils.CollisionPropertiesCfg(contact_offset=0.005, rest_offset=0.0),
+        ),  
         init_state=ArticulationCfg.InitialStateCfg(
             pos=(0.175, -0.175, 0.0), 
             joint_pos={
@@ -55,7 +64,7 @@ class UR5e_Hand_E_LiftCubeSceneCfg(InteractiveSceneCfg):
                 "elbow_joint": 2.0, 
                 "wrist_1_joint": -1.5, 
                 "wrist_2_joint": -1.5, 
-                "wrist_3_joint": 3.14, 
+                "wrist_3_joint": 0.0, 
                 "joint_left": 0.0, 
                 "joint_right": 0.0,
             }
@@ -103,25 +112,46 @@ class UR5e_Hand_E_LiftCubeSceneCfg(InteractiveSceneCfg):
                 #     "joint_left": 800.0,
                 #     "joint_right": 800.0,
                 # }
-                stiffness={
-                    "shoulder_pan_joint": 1000.0,
-                    "shoulder_lift_joint": 1000.0,
-                    "elbow_joint": 1000.0,
-                    "wrist_1_joint": 1000.0,
-                    "wrist_2_joint": 1000.0,
-                    "wrist_3_joint": 1000.0,
-                    "joint_left": 3000.0,
-                    "joint_right": 3000.0,
+                # stiffness={
+                #     "shoulder_pan_joint": 1000.0,
+                #     "shoulder_lift_joint": 1000.0,
+                #     "elbow_joint": 1000.0,
+                #     "wrist_1_joint": 1000.0,
+                #     "wrist_2_joint": 1000.0,
+                #     "wrist_3_joint": 1000.0,
+                #     "joint_left": 30000000.0,
+                #     "joint_right": 30000000.0,
+                # },
+                # damping={
+                #     "shoulder_pan_joint": 121.66,
+                #     "shoulder_lift_joint": 183.23,
+                #     "elbow_joint": 96.54,
+                #     "wrist_1_joint": 69.83,
+                #     "wrist_2_joint": 69.83,
+                #     "wrist_3_joint": 27.42,
+                #     "joint_left": 50000.0,
+                #     "joint_right": 50000.0,
+                # }
+                ############### Stiffness 10000000 ###############
+                stiffness = {
+                    "shoulder_pan_joint": 10000000.0,
+                    "shoulder_lift_joint": 10000000.0,
+                    "elbow_joint": 10000000.0,
+                    "wrist_1_joint": 10000000.0,
+                    "wrist_2_joint": 10000000.0,
+                    "wrist_3_joint": 10000000.0,
+                    "joint_left": 10000000.0,
+                    "joint_right": 10000000.0,
                 },
-                damping={
-                    "shoulder_pan_joint": 121.66,
-                    "shoulder_lift_joint": 183.23,
-                    "elbow_joint": 96.54,
-                    "wrist_1_joint": 69.83,
-                    "wrist_2_joint": 69.83,
-                    "wrist_3_joint": 27.42,
-                    "joint_left": 500.0,
-                    "joint_right": 500.0,
+                damping = {
+                    "shoulder_pan_joint": 12166.86,
+                    "shoulder_lift_joint": 18333.30,
+                    "elbow_joint": 9651.90,
+                    "wrist_1_joint": 6991.16,
+                    "wrist_2_joint": 6991.16,
+                    "wrist_3_joint": 2752.97,
+                    "joint_left": 50000.0,
+                    "joint_right": 50000.0,
                 }
             )
         }
@@ -133,17 +163,38 @@ class UR5e_Hand_E_LiftCubeSceneCfg(InteractiveSceneCfg):
         init_state=RigidObjectCfg.InitialStateCfg(pos=[0.04, 0.35, 0.055], rot=[1, 0, 0, 0]),
         spawn=UsdFileCfg(
             usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Blocks/DexCube/dex_cube_instanceable.usd",
-            scale=(0.4, 0.4, 0.4),
+            scale=(0.4, 0.4, 0.4), # Initial side length/width = 6 cm = 0.06 m -> Scaled with 0.4 = 2.4 cm
             rigid_props=RigidBodyPropertiesCfg(
-                solver_position_iteration_count=16,
-                solver_velocity_iteration_count=1,
-                max_angular_velocity=1000.0,
-                max_linear_velocity=1000.0,
-                max_depenetration_velocity=5.0,
                 disable_gravity=False,
+                max_depenetration_velocity=5.0,
+                linear_damping=0.0,
+                angular_damping=0.0,
+                max_linear_velocity=1000.0,
+                max_angular_velocity=3666.0,
+                enable_gyroscopic_forces=True,
+                solver_position_iteration_count=192,
+                solver_velocity_iteration_count=1,
+                max_contact_impulse=1e32,
             ),
+            mass_props=MassPropertiesCfg(
+                mass=0.5,
+            ),
+            collision_props=sim_utils.CollisionPropertiesCfg(contact_offset=0.005, rest_offset=0.0),
         ),
     )
+
+    # Peg from the Cranfield Assembly Benchmark
+    # object = RigidObjectCfg(
+    #     prim_path = "{ENV_REGEX_NS}/Object", 
+    #     spawn=sim_utils.UsdFileCfg(
+    #         usd_path=os.path.join(MODEL_PATH, "cranfield_model/Cranfield parts - BolzenKleinEckig.usd"), 
+    #         scale=(0.92, 0.92, 1),
+    #         mass_props=MassPropertiesCfg(
+    #             mass=1.0,
+    #         ),
+    #     ), 
+    #     init_state=RigidObjectCfg.InitialStateCfg(pos=(0.04, 0.35, 0.0), lin_vel=(0.0, 0.0, 0.0)),
+    # )
 
     # ground plane
     ground = AssetBaseCfg(
@@ -214,24 +265,20 @@ class ObservationsCfg:
         gripper_joint_pos = ObsTerm(
             func=mdp.joint_pos, 
             params={"asset_cfg": SceneEntityCfg("robot", joint_names=["joint_left", "joint_right"]),},
-            # noise=Unoise(n_min=-0.001, n_max=0.001),
         )
         
         tcp_pose = ObsTerm(
             func=mdp.get_current_tcp_pose,
             params={"gripper_offset": [0.0, 0.0, 0.15], "robot_cfg": SceneEntityCfg("robot", body_names=["wrist_3_link"])},
-            # noise=Unoise(n_min=-0.001, n_max=0.001),
         )
         
         object_pose = ObsTerm(
-            func=mdp.object_position_in_robot_root_frame,
-            # noise=Unoise(n_min=-0.001, n_max=0.001),
+            func=mdp.object_position_in_robot_root_frame
         )
 
         target_object_pose = ObsTerm(
             func=mdp.generated_commands,
-            params={"command_name": "object_pose"},
-            # noise=Unoise(n_min=-0.001, n_max=0.001),
+            params={"command_name": "object_pose"}
         )
 
         actions = ObsTerm(
@@ -255,7 +302,7 @@ class EventCfg:
         func=mdp.reset_joints_by_scale,
         mode="reset",
         params={
-            "position_range": (0.5, 1.5),
+            "position_range": (1.0, 1.0),
             "velocity_range": (0.0, 0.0),
         },
     )
@@ -271,6 +318,46 @@ class EventCfg:
         },
     )
 
+    randomize_object_mass = EventTerm(
+        func=mdp.randomize_rigid_body_mass, 
+        mode="reset",
+        params={
+            "asset_cfg": SceneEntityCfg("object", body_names="Object"),
+            "mass_distribution_params": (1.0, 1.0),
+            "operation": "abs",
+            "distribution": "uniform",
+            "recompute_inertia": True,
+        }
+    )
+
+    randomize_gripper_fingers_friction_coefficients = EventTerm(
+        func=mdp.randomize_friction_coefficients,
+        mode="reset",
+        params={
+            "asset_cfg": SceneEntityCfg("robot", body_names=["finger_left", "finger_right"]),
+            "static_friction_distribution_params": (1.2, 1.2), #(1.5, 1.5), #(0.85, 0.9), #(0.5, 1.2), #(0.1, 1.5),
+            "dynamic_friction_distribution_params": (1.2, 1.2), #(1.5, 1.5), #(0.6, 0.7), #(0.4, 1.0), #(0.05, 1.2),
+            "restitution_distribution_params": (0.2, 0.2), #(0.2, 0.6), #(0.0, 1.0),
+            "operation": "abs",
+            "distribution": "uniform",
+            "make_consistent": True,  # Ensure dynamic friction <= static friction
+        }
+    )
+
+    randomize_object_friction_coefficients = EventTerm(
+        func=mdp.randomize_friction_coefficients,
+        mode="reset",
+        params={
+            "asset_cfg": SceneEntityCfg("object", body_names="Object"),
+            "static_friction_distribution_params": (1.2, 1.2), #(1.5, 1.5), #(0.7, 0.8), #(0.4, 0.8),
+            "dynamic_friction_distribution_params": (1.2, 1.2), #(1.5, 1.5), #(0.5, 0.6), #(0.3, 0.6),
+            "restitution_distribution_params": (0.2, 0.2), #(0.3, 0.7),
+            "operation": "abs",
+            "distribution": "uniform",
+            "make_consistent": True,  # Ensure dynamic friction <= static friction
+        }
+    )
+
 
 @configclass
 class RewardsCfg:
@@ -278,7 +365,7 @@ class RewardsCfg:
 
     reaching_object = RewTerm(func=mdp.object_ee_distance, params={"std": 0.1}, weight=1.0)
 
-    lifting_object = RewTerm(func=mdp.object_is_lifted, params={"minimal_height": MIN_HEIGHT}, weight=15.0) # 15.0
+    lifting_object = RewTerm(func=mdp.object_is_lifted, params={"minimal_height": MIN_HEIGHT}, weight=35.0) # 15.0
 
     object_goal_tracking = RewTerm(
         func=mdp.object_goal_distance,
@@ -299,7 +386,7 @@ class RewardsCfg:
     )
 
     # action penalty
-    action_rate = RewTerm(func=mdp.action_rate_l2, weight=-1e-4)
+    # action_rate = RewTerm(func=mdp.action_rate_l2_position, weight=-1e-4)
 
 
 
@@ -318,9 +405,9 @@ class TerminationsCfg:
 class CurriculumCfg:
     """Curriculum terms for the MDP."""
 
-    action_rate = CurrTerm(
-        func=mdp.modify_reward_weight, params={"term_name": "action_rate", "weight": -1e-1, "num_steps": 10000}
-    )
+    # action_rate = CurrTerm(
+    #     func=mdp.modify_reward_weight, params={"term_name": "action_rate", "weight": -1e-1, "num_steps": 64000} # 100000
+    # )
 
 
 ##
@@ -358,4 +445,4 @@ class UR5e_Hand_E_LiftCubeEnvCfg(ManagerBasedRLEnvCfg):
         self.sim.physx.gpu_found_lost_aggregate_pairs_capacity = 1024 * 1024 * 4
         self.sim.physx.gpu_total_aggregate_pairs_capacity = 16 * 1024
         self.sim.physx.friction_correlation_distance = 0.00625
-        self.sim.physx.gpu_collision_stack_size = 4096 * 4096 * 100 # Was added due to an PhysX error: collisionStackSize buffer overflow detected
+        self.sim.physx.gpu_collision_stack_size = 4096 * 4096 * 120 # Was added due to an PhysX error: collisionStackSize buffer overflow detected
