@@ -49,7 +49,7 @@ class UR5e_Hand_E_LiftCubeSceneCfg(InteractiveSceneCfg):
                 max_contact_impulse=1e32,
             ),
             articulation_props=sim_utils.ArticulationRootPropertiesCfg(
-                enabled_self_collisions=False,
+                enabled_self_collisions=True,
                 solver_position_iteration_count=192,
                 solver_velocity_iteration_count=1,
             ),

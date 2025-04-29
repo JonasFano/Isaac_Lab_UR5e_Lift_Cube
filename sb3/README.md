@@ -138,6 +138,15 @@ cd isaaclab/IsaacLab
 
 
 
+
+### rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_v1: No joint reset randomization, fixed stiffness, friction set to 1.2, restitution to 0.2
+    ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/play_sb3_ppo.py --num_envs 4 --task UR5e-Hand-E-Lift-Cube-IK --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/models/ap4kxgq2/model.zip
+
+
+
+
+
+
 #################################################
 # IK Absolute Control with domain randomization #
 #################################################
