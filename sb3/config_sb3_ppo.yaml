@@ -1,6 +1,6 @@
 program: train_sb3_wandb_ppo.py
 method: grid
-name: rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_ent_coef_0_01
+name: rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_ent_coef_0_001
 metric:
   goal: maximize
   name: rollout/ep_rew_mean
@@ -34,7 +34,7 @@ parameters:
     value: 8
 
   ent_coef: # Possibly change this to encourange more exploration
-    value: 0.01
+    value: 0.001
 
   vf_coef:
     value: 0.1
