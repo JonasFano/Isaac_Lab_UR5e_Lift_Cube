@@ -133,25 +133,46 @@ class UR5e_Hand_E_LiftCubeSceneCfg(InteractiveSceneCfg):
                 #     "joint_right": 50000.0,
                 # }
                 ############### Stiffness 10000000 ###############
+                # stiffness = {
+                #     "shoulder_pan_joint": 10000000.0,
+                #     "shoulder_lift_joint": 10000000.0,
+                #     "elbow_joint": 10000000.0,
+                #     "wrist_1_joint": 10000000.0,
+                #     "wrist_2_joint": 10000000.0,
+                #     "wrist_3_joint": 10000000.0,
+                #     "joint_left": 10000000.0,
+                #     "joint_right": 10000000.0,
+                # },
+                # damping = {
+                #     "shoulder_pan_joint": 12166.86,
+                #     "shoulder_lift_joint": 18333.30,
+                #     "elbow_joint": 9651.90,
+                #     "wrist_1_joint": 6991.16,
+                #     "wrist_2_joint": 6991.16,
+                #     "wrist_3_joint": 2752.97,
+                #     "joint_left": 50000.0,
+                #     "joint_right": 50000.0,
+                # }
+                ############## Stiffness 100000 #################
                 stiffness = {
-                    "shoulder_pan_joint": 10000000.0,
-                    "shoulder_lift_joint": 10000000.0,
-                    "elbow_joint": 10000000.0,
-                    "wrist_1_joint": 10000000.0,
-                    "wrist_2_joint": 10000000.0,
-                    "wrist_3_joint": 10000000.0,
-                    "joint_left": 10000000.0,
-                    "joint_right": 10000000.0,
+                    "shoulder_pan_joint": 100000.0,
+                    "shoulder_lift_joint": 100000.0,
+                    "elbow_joint": 100000.0,
+                    "wrist_1_joint": 100000.0,
+                    "wrist_2_joint": 100000.0,
+                    "wrist_3_joint": 100000.0,
+                    "joint_left": 100000.0,
+                    "joint_right": 100000.0,
                 },
                 damping = {
-                    "shoulder_pan_joint": 12166.86,
-                    "shoulder_lift_joint": 18333.30,
-                    "elbow_joint": 9651.90,
-                    "wrist_1_joint": 6991.16,
-                    "wrist_2_joint": 6991.16,
-                    "wrist_3_joint": 2752.97,
-                    "joint_left": 50000.0,
-                    "joint_right": 50000.0,
+                    "shoulder_pan_joint": 1216.69,
+                    "shoulder_lift_joint": 1833.33,
+                    "elbow_joint": 965.19,
+                    "wrist_1_joint": 699.12,
+                    "wrist_2_joint": 699.12,
+                    "wrist_3_joint": 275.30,
+                    "joint_left": 5000.0,
+                    "joint_right": 5000.0,
                 }
             )
         }
