@@ -1,6 +1,6 @@
 program: train_sb3_wandb_ppo.py
 method: grid
-name: rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_stiffness_100000
+name: rel_ik_sb3_ppo_ur5e_lift_cube_0_05_hand_e_stiffness_1000_param_optimization
 metric:
   goal: maximize
   name: rollout/ep_rew_mean
@@ -10,10 +10,10 @@ parameters:
     values: [42, 24]
 
   num_envs:
-    value: 2048
+    value: 4096
 
   n_timesteps: # Total number of environment interactions: iteration * n_steps * num_envs: 1000 * 64 * 4096 = 262144000 # 52428800 # 78643200
-    value: 524288000
+    value: 262144000
 
   policy:
     value: 'MlpPolicy'
@@ -22,7 +22,7 @@ parameters:
     value: 64
 
   batch_size: # Data is divided into minibatches of size batch_size. = number of samples used for one gradient update during training
-    value: 16384
+    values: [16384, 8192]
 
   gae_lambda:
     value: 0.95
@@ -34,7 +34,7 @@ parameters:
     value: 8
 
   ent_coef: # Possibly change this to encourange more exploration
-    value: 0.001
+    values: [0.01, 0.001]
 
   vf_coef:
     value: 0.1
