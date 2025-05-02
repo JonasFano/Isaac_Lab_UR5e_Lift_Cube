@@ -407,7 +407,7 @@ class RewardsCfg:
     )
 
     # action penalty
-    # action_rate = RewTerm(func=mdp.action_rate_l2_position, weight=-1e-4)
+    action_rate = RewTerm(func=mdp.action_rate_l2_position, weight=-1e-4)
 
 
 
@@ -426,9 +426,9 @@ class TerminationsCfg:
 class CurriculumCfg:
     """Curriculum terms for the MDP."""
 
-    # action_rate = CurrTerm(
-    #     func=mdp.modify_reward_weight, params={"term_name": "action_rate", "weight": -1e-1, "num_steps": 64000} # 100000
-    # )
+    action_rate = CurrTerm(
+        func=mdp.modify_reward_weight, params={"term_name": "action_rate", "weight": -1e-1, "num_steps": 32000} # 100000
+    )
 
 
 ##

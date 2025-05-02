@@ -7,19 +7,19 @@ metric:
 
 parameters:
   seed:
-    values: [42, 24]
+    value: 42
 
   num_envs:
     value: 2048
 
   n_timesteps: # Total number of environment interactions: iteration * n_steps * num_envs: 1000 * 64 * 4096 = 262144000 # 52428800 # 78643200
-    value: 262144000
+    value: 196608000
 
   policy:
     value: 'MlpPolicy'
 
   n_steps: # Number of steps each environment runs before the collected data is used for policy update
-    value: 64
+    values: [64, 32]
 
   batch_size: # Data is divided into minibatches of size batch_size. = number of samples used for one gradient update during training
     values: [16384, 8192]
@@ -40,7 +40,7 @@ parameters:
     value: 0.1
 
   learning_rate:
-    value: 0.0001
+    values: [0.0001, 0.0003]
 
   clip_range:
     value: 0.2
