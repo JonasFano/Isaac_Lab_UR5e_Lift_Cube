@@ -46,7 +46,7 @@ def main():
         config = yaml.load(file, Loader=yaml.FullLoader)
 
     run = wandb.init(
-        project="rel_ik_sb3_td3_ur5e_lift_cube_0_05_bayes_64",
+        project="rel_ik_sb3_td3_ur5e_lift_cube_bayes_optimization",
         config=config,
         sync_tensorboard=True,  # auto-upload sb3's tensorboard metrics
         monitor_gym=False,  # auto-upload the videos of agents playing the game
@@ -55,7 +55,7 @@ def main():
 
     # Load env cfg
     task = "UR5e-Lift-Cube-IK"
-    num_envs = 64
+    num_envs = 2048
     device = "cuda"
     env_cfg = parse_env_cfg(task, device=device, num_envs=num_envs)
     env_cfg.seed = wandb.config["seed"]
