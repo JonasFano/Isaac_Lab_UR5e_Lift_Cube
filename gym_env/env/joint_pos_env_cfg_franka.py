@@ -4,6 +4,7 @@ from isaaclab.markers.config import FRAME_MARKER_CFG  # isort: skip
 from isaaclab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
 
 from . import lift_cube_env_cfg_franka, mdp
+from taskparameters_franka import TaskParams
 
 @configclass
 class JointPos_Franka_LiftCubeEnvCfg(lift_cube_env_cfg_franka.Franka_LiftCubeEnvCfg):
@@ -23,7 +24,7 @@ class JointPos_Franka_LiftCubeEnvCfg(lift_cube_env_cfg_franka.Franka_LiftCubeEnv
                     prim_path="{ENV_REGEX_NS}/robot/panda_hand",
                     name="end_effector",
                     offset=OffsetCfg(
-                        pos=[0.0, 0.0, 0.1034],
+                        pos=TaskParams.gripper_offset,
                     ),
                 ),
             ],

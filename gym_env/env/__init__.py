@@ -5,7 +5,6 @@ from . import agents, ik_rel_env_cfg_franka, ik_rel_env_cfg_ur5e_sdu_gripper, ik
 
 
 # Relative Differential Inverse Kinematics Action Space with SDU Gripper attached to UR5e
-
 gym.register(
     id="UR5e-Lift-Cube-IK",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
@@ -21,8 +20,8 @@ gym.register(
     },
 )
 
-# Relative Differential Inverse Kinematics Action Space with Robotiq Hand E attached to UR5e
 
+# Relative Differential Inverse Kinematics Action Space with Robotiq Hand E attached to UR5e
 gym.register(
     id="UR5e-Hand-E-Lift-Cube-IK",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
@@ -40,7 +39,6 @@ gym.register(
 
 
 # Relative Differential Inverse Kinematics Action Space with Robotiq Hand E attached to UR5e AND domain randomization
-
 gym.register(
     id="UR5e-Hand-E-Domain-Rand-Lift-Cube-IK",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
@@ -58,7 +56,6 @@ gym.register(
 
 
 # Absolute Differential Inverse Kinematics Action Space with Robotiq Hand E attached to UR5e AND domain randomization
-
 gym.register(
     id="UR5e-Hand-E-Domain-Rand-Lift-Cube-Abs-IK",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
@@ -76,7 +73,6 @@ gym.register(
 
 
 # Joint Position Action Space with SDU Gripper attached to UR5e
-
 gym.register(
     id="UR5e-Lift-Cube",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
@@ -93,7 +89,6 @@ gym.register(
 
 
 # Relative Differential Inverse Kinematics Action Space with Franka
-
 gym.register(
     id="Franka-Lift-Cube-IK",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",
@@ -107,7 +102,6 @@ gym.register(
 )
 
 # Joint Position Action Space with Franka
-
 gym.register(
     id="Franka-Lift-Cube",
     entry_point="isaaclab.envs:ManagerBasedRLEnv",

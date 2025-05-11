@@ -1,7 +1,7 @@
 from dataclasses import MISSING
 
 import isaaclab.sim as sim_utils
-from isaaclab.assets import ArticulationCfg, AssetBaseCfg, RigidObjectCfg
+from isaaclab.assets import AssetBaseCfg, RigidObjectCfg
 from isaaclab.envs import ManagerBasedRLEnvCfg
 from isaaclab.managers import CurriculumTermCfg as CurrTerm
 from isaaclab.managers import EventTermCfg as EventTerm
@@ -12,22 +12,21 @@ from isaaclab.managers import SceneEntityCfg
 from isaaclab.managers import TerminationTermCfg as DoneTerm
 from isaaclab.scene import InteractiveSceneCfg
 from isaaclab.utils import configclass
-from isaaclab.actuators import ImplicitActuatorCfg
 from . import mdp
 import os
-
-from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg
+from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg, MassPropertiesCfg
 from isaaclab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
 from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
 
-
 from isaaclab_assets.robots.franka import FRANKA_PANDA_CFG  # isort: skip
+
+from taskparameters_franka import TaskParams
 
 ##
 # Scene definition
 ##
 
-MODEL_PATH = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../")), "scene_models")
+MODEL_PATH = os.path.join(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../")), "scene_models")
 
 @configclass
 class Franka_LiftCubeSceneCfg(InteractiveSceneCfg):
@@ -38,10 +37,10 @@ class Franka_LiftCubeSceneCfg(InteractiveSceneCfg):
     # Set Cube as object
     object = RigidObjectCfg(
         prim_path="{ENV_REGEX_NS}/Object",
-        init_state=RigidObjectCfg.InitialStateCfg(pos=[0.04, 0.35, 0.055], rot=[1, 0, 0, 0]),
+        init_state=RigidObjectCfg.InitialStateCfg(pos=TaskParams.object_init_position, rot=TaskParams.object_init_rotation),
         spawn=UsdFileCfg(
             usd_path=f"{ISAAC_NUCLEUS_DIR}/Props/Blocks/DexCube/dex_cube_instanceable.usd",
-            scale=(0.8, 0.8, 0.8),
+            scale=TaskParams.object_scale,
             rigid_props=RigidBodyPropertiesCfg(
                 solver_position_iteration_count=16,
                 solver_velocity_iteration_count=1,
@@ -50,6 +49,10 @@ class Franka_LiftCubeSceneCfg(InteractiveSceneCfg):
                 max_depenetration_velocity=5.0,
                 disable_gravity=False,
             ),
+            mass_props=MassPropertiesCfg(
+                mass=0.5,
+            ),
+            collision_props=sim_utils.CollisionPropertiesCfg(contact_offset=0.005, rest_offset=0.0),
         ),
     )
 
@@ -83,11 +86,16 @@ class CommandsCfg:
     """Command terms for the MDP."""
     object_pose = mdp.UniformPoseCommandCfg(
         asset_name="robot",
-        body_name="panda_hand", 
-        resampling_time_range=(5.0, 5.0),
-        debug_vis=True,
+        body_name=TaskParams.ee_body_name,
+        resampling_time_range=TaskParams.resampling_time_range,
+        debug_vis=TaskParams.visualize_frame,
         ranges=mdp.UniformPoseCommandCfg.Ranges(
-            pos_x=(0.25, 0.35), pos_y=(0.3, 0.4), pos_z=(0.25, 0.35), roll=(0.0, 0.0), pitch=(0.0, 0.0), yaw=(0.0, 0.0)
+            pos_x=TaskParams.sample_range_pos_x,
+            pos_y=TaskParams.sample_range_pos_y,
+            pos_z=TaskParams.sample_range_pos_z,
+            roll=TaskParams.sample_range_roll,
+            pitch=TaskParams.sample_range_pitch,  
+            yaw=TaskParams.sample_range_yaw,
         ),
     )
 
@@ -101,8 +109,8 @@ class ActionsCfg:
     gripper_action = mdp.BinaryJointPositionActionCfg(
         asset_name="robot",
         joint_names=["panda_finger.*"],
-        open_command_expr={"panda_finger_.*": 0.04},
-        close_command_expr={"panda_finger_.*": 0.0},
+        open_command_expr={"panda_finger_.*": TaskParams.gripper_open},
+        close_command_expr={"panda_finger_.*": TaskParams.gripper_close},
     )
 
 
@@ -113,10 +121,7 @@ class ObservationsCfg:
     @configclass
     class PolicyCfg(ObsGroup):
         """Observations for policy group."""
-        # joint_pos = ObsTerm(func=mdp.joint_pos_rel)
-        # joint_vel = ObsTerm(func=mdp.joint_vel_rel)
         tcp_pose = ObsTerm(func=mdp.get_current_tcp_pose)
-        # tcp_lin_vel = ObsTerm(func=mdp.base_lin_vel, params={"asset_cfg": SceneEntityCfg("robot", body_names="wrist_3_link")})
         # tcp_lin_vel = ObsTerm(func=mdp.base_lin_vel, params={"asset_cfg": SceneEntityCfg("robot", body_names="panda_hand")})
 
         object_position = ObsTerm(func=mdp.object_position_in_robot_root_frame)
@@ -136,70 +141,112 @@ class EventCfg:
     """Configuration for events."""
     reset_all = EventTerm(func=mdp.reset_scene_to_default, mode="reset")
 
-    # Randomize the object position 
+    reset_robot_joints = EventTerm(
+        func=mdp.reset_joints_by_scale,
+        mode="reset",
+        params={
+            "position_range": TaskParams.robot_reset_joints_pos_range,
+            "velocity_range": TaskParams.robot_reset_joints_vel_range,
+        },
+    )
+
     reset_object_position = EventTerm(
         func=mdp.reset_root_state_uniform,
         mode="reset",
         params={
-            "pose_range": {"x": (-0.1, 0.1), "y": (-0.25, 0.25), "z": (0.0, 0.0)},
+            "pose_range": {"x": TaskParams.object_randomize_pose_range_x, "y": TaskParams.object_randomize_pose_range_y, "z": TaskParams.object_randomize_pose_range_z},
             "velocity_range": {},
             "asset_cfg": SceneEntityCfg("object", body_names="Object"),
         },
+    )
+
+    randomize_object_mass = EventTerm(
+        func=mdp.randomize_rigid_body_mass, 
+        mode="reset",
+        params={
+            "asset_cfg": SceneEntityCfg("object", body_names="Object"),
+            "mass_distribution_params": TaskParams.object_randomize_mass_range,
+            "operation": TaskParams.object_randomize_mass_operation,
+            "distribution": TaskParams.object_randomize_mass_distribution,
+            "recompute_inertia": TaskParams.object_randomize_recompute_inertia,
+        }
+    )
+
+    randomize_gripper_fingers_friction_coefficients = EventTerm(
+        func=mdp.randomize_friction_coefficients,
+        mode="reset",
+        params={
+            "asset_cfg": SceneEntityCfg("robot", body_names=TaskParams.gripper_body_names),
+            "static_friction_distribution_params": TaskParams.gripper_static_friction_distribution_params,
+            "dynamic_friction_distribution_params": TaskParams.gripper_dynamic_friction_distribution_params,
+            "restitution_distribution_params": TaskParams.gripper_restitution_distribution_params,
+            "operation": TaskParams.gripper_randomize_friction_operation,
+            "distribution": TaskParams.gripper_randomize_friction_distribution,
+            "make_consistent": TaskParams.gripper_randomize_friction_make_consistent,  
+        }
+    )
+
+    randomize_object_friction_coefficients = EventTerm(
+        func=mdp.randomize_friction_coefficients,
+        mode="reset",
+        params={
+            "asset_cfg": SceneEntityCfg("object", body_names="Object"),
+            "static_friction_distribution_params": TaskParams.object_static_friction_distribution_params,
+            "dynamic_friction_distribution_params": TaskParams.object_dynamic_friction_distribution_params,
+            "restitution_distribution_params": TaskParams.object_restitution_distribution_params,
+            "operation": TaskParams.object_randomize_friction_operation,
+            "distribution": TaskParams.object_randomize_friction_distribution,
+            "make_consistent": TaskParams.object_randomize_friction_make_consistent,  
+        }
     )
 
 
 @configclass
 class RewardsCfg:
     """Reward terms for the MDP."""
+    reaching_object = RewTerm(func=mdp.object_ee_distance, params={"std": TaskParams.reaching_object_std}, weight=TaskParams.reaching_object_weight)
 
-    reaching_object = RewTerm(func=mdp.object_ee_distance, params={"std": 0.1}, weight=1.0)
-
-    lifting_object = RewTerm(func=mdp.object_is_lifted, params={"minimal_height": 0.04}, weight=30.0)
+    lifting_object = RewTerm(func=mdp.object_is_lifted, params={"minimal_height": TaskParams.lift_min_height}, weight=TaskParams.lift_weight) # 15.0
 
     object_goal_tracking = RewTerm(
         func=mdp.object_goal_distance,
-        params={"std": 0.3, "minimal_height": 0.04, "command_name": "object_pose"},
-        weight=16.0,
+        params={"std": TaskParams.object_goal_tracking_coarse_std, "minimal_height": TaskParams.lift_min_height, "command_name": "object_pose"},
+        weight=TaskParams.object_goal_tracking_coarse_weight,
     )
 
     object_goal_tracking_fine_grained = RewTerm(
         func=mdp.object_goal_distance,
-        params={"std": 0.05, "minimal_height": 0.04, "command_name": "object_pose"},
-        weight=5.0,
+        params={"std": TaskParams.object_goal_tracking_fine_grained_std, "minimal_height": TaskParams.lift_min_height, "command_name": "object_pose"},
+        weight=TaskParams.object_goal_tracking_fine_grained_weight,
+    )
+
+    end_effector_orientation_tracking = RewTerm(
+        func=mdp.orientation_command_error,
+        weight=TaskParams.end_effector_orientation_tracking_weight,
+        params={"minimal_height": TaskParams.lift_min_height, "command_name": "object_pose", "asset_cfg": SceneEntityCfg("robot", body_names=TaskParams.ee_body_name),},
     )
 
     # action penalty
-    action_rate = RewTerm(func=mdp.action_rate_l2, weight=-1e-4)
+    action_rate = RewTerm(func=mdp.action_rate_l2, weight=TaskParams.action_rate_weight)
 
-    # joint_vel = RewTerm(
-    #     func=mdp.joint_vel_l2,
-    #     weight=-1e-4,
-    #     params={"asset_cfg": SceneEntityCfg("robot")},
-    # )
 
 
 @configclass
 class TerminationsCfg:
     """Termination terms for the MDP."""
-
     time_out = DoneTerm(func=mdp.time_out, time_out=True)
 
     object_dropping = DoneTerm(
-        func=mdp.root_height_below_minimum, params={"minimum_height": -0.05, "asset_cfg": SceneEntityCfg("object")}
+        func=mdp.root_height_below_minimum, params={"minimum_height": TaskParams.min_height_object_dropping, "asset_cfg": SceneEntityCfg("object")}
     )
 
 
 @configclass
 class CurriculumCfg:
     """Curriculum terms for the MDP."""
-
     action_rate = CurrTerm(
-        func=mdp.modify_reward_weight, params={"term_name": "action_rate", "weight": -1e-1, "num_steps": 10000}
+        func=mdp.modify_reward_weight, params={"term_name": "action_rate", "weight": TaskParams.action_rate_curriculum_weight, "num_steps": TaskParams.curriculum_num_steps} 
     )
-
-    # joint_vel = CurrTerm(
-    #     func=mdp.modify_reward_weight, params={"term_name": "joint_vel", "weight": -1e-1, "num_steps": 10000}
-    # )
 
 
 ##
@@ -226,10 +273,10 @@ class Franka_LiftCubeEnvCfg(ManagerBasedRLEnvCfg):
     def __post_init__(self):
         """Post initialization."""
         # general settings
-        self.decimation = 2
-        self.episode_length_s = 5.0
+        self.decimation = TaskParams.decimation
+        self.episode_length_s = TaskParams.episode_length_s
         # simulation settings
-        self.sim.dt = 0.01  # 100Hz
+        self.sim.dt = TaskParams.dt
         self.sim.render_interval = self.decimation
 
         self.sim.physx.bounce_threshold_velocity = 0.2
@@ -237,4 +284,4 @@ class Franka_LiftCubeEnvCfg(ManagerBasedRLEnvCfg):
         self.sim.physx.gpu_found_lost_aggregate_pairs_capacity = 1024 * 1024 * 4
         self.sim.physx.gpu_total_aggregate_pairs_capacity = 16 * 1024
         self.sim.physx.friction_correlation_distance = 0.00625
-        self.sim.physx.gpu_collision_stack_size = 4096 * 4096 * 64 # Was added due to an PhysX error: collisionStackSize buffer overflow detected
+        self.sim.physx.gpu_collision_stack_size = 4096 * 4096 * 100 # Was added due to an PhysX error: collisionStackSize buffer overflow detected

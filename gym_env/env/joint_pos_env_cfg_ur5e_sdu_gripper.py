@@ -4,7 +4,7 @@ from isaaclab.markers.config import FRAME_MARKER_CFG  # isort: skip
 from isaaclab.sensors.frame_transformer.frame_transformer_cfg import OffsetCfg
 
 from . import lift_cube_env_cfg_ur5e_sdu_gripper, mdp
-from settings import Settings
+from taskparameters_ur5e_sdu_gripper import TaskParams
 
 @configclass
 class JointPos_UR5e_SDU_Gripper_LiftCubeEnvCfg(lift_cube_env_cfg_ur5e_sdu_gripper.UR5e_SDU_Gripper_LiftCubeEnvCfg):
@@ -24,7 +24,7 @@ class JointPos_UR5e_SDU_Gripper_LiftCubeEnvCfg(lift_cube_env_cfg_ur5e_sdu_grippe
                     prim_path="{ENV_REGEX_NS}/robot/wrist_3_link",
                     name="end_effector",
                     offset=OffsetCfg(
-                        pos=Settings.gripper_offset,
+                        pos=TaskParams.gripper_offset,
                     ),
                 ),
             ],
@@ -35,7 +35,7 @@ class JointPos_UR5e_SDU_Gripper_LiftCubeEnvCfg(lift_cube_env_cfg_ur5e_sdu_grippe
 
         self.actions.arm_action = mdp.JointPositionActionCfg(
             asset_name="robot", 
-            joint_names=["shoulder_pan_joint", "shoulder_lift_joint", "elbow_joint", "wrist_1_joint", "wrist_2_joint", "wrist_3_joint"], 
+            joint_names=TaskParams.joint_names, 
             scale=0.5, 
             use_default_offset=True,
         )

@@ -8,6 +8,7 @@ from isaaclab.envs.mdp.actions.actions_cfg import DifferentialInverseKinematicsA
 from isaaclab_assets.robots.franka import FRANKA_PANDA_HIGH_PD_CFG  # isort: skip
 
 from . import lift_cube_env_cfg_franka
+from taskparameters_franka import TaskParams
 
 @configclass
 class RelIK_Franka_LiftCubeEnvCfg(lift_cube_env_cfg_franka.Franka_LiftCubeEnvCfg):
@@ -31,7 +32,7 @@ class RelIK_Franka_LiftCubeEnvCfg(lift_cube_env_cfg_franka.Franka_LiftCubeEnvCfg
                     prim_path="{ENV_REGEX_NS}/robot/panda_hand",
                     name="end_effector",
                     offset=OffsetCfg(
-                        pos=[0.0, 0.0, 0.1034],
+                        pos=TaskParams.gripper_offset,
                     ),
                 ),
             ],
@@ -43,10 +44,10 @@ class RelIK_Franka_LiftCubeEnvCfg(lift_cube_env_cfg_franka.Franka_LiftCubeEnvCfg
         self.actions.arm_action = DifferentialInverseKinematicsActionCfg(
             asset_name="robot",
             joint_names=["panda_joint.*"],
-            body_name="panda_hand",
-            controller=DifferentialIKControllerCfg(command_type="pose", use_relative_mode=True, ik_method="dls"),
+            body_name=TaskParams.ee_body_name,
+            controller=DifferentialIKControllerCfg(command_type=TaskParams.command_type, use_relative_mode=TaskParams.use_relative_mode, ik_method=TaskParams.ik_method),
+            body_offset=DifferentialInverseKinematicsActionCfg.OffsetCfg(pos=TaskParams.gripper_offset),
             scale=0.6,
-            body_offset=DifferentialInverseKinematicsActionCfg.OffsetCfg(pos=[0.0, 0.0, 0.107]),
         )
 
 
