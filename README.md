@@ -1,5 +1,5 @@
 # Short project description
-This project was part of my Master's Thesis for the Master's programme "Robot Systems - Advanced Robotics Technology" at the University of Southern Denmark (SDU). The task was to assess the feasibility of using RL-based robot control for a peg-in-hole task using the advanced physics simulator NVIDIA Isaac Lab. A stepwise development process was used in which task complexity is gradually increased to enable systematic optimization and validation of key framework components and algorithm hyperparameters. Each task builds directly on the previous one, reusing components and introducing new challenges in isolation.
+This project was part of my Master's Thesis with the title "Reinforcement Learning for Robot Control in Isaac Lab: A Feasibility Study" for the Master's program "Robot Systems - Advanced Robotics Technology" at the University of Southern Denmark (SDU). The task was to assess the feasibility of using RL-based robot control for a peg-in-hole task using the advanced physics simulator NVIDIA Isaac Lab. A stepwise development process was used in which task complexity is gradually increased to enable systematic optimization and validation of key framework components and algorithm hyperparameters. Each task builds directly on the previous one, reusing components and introducing new challenges in isolation.
 
 This Repository includes the implementation to train PPO, DDPG or TD3 agents (from Stable-Baselines3) in Isaac Lab. It also includes multiple non-optimized agents for the RL-Games and SKRL library. The considered task includes a UR5e (Hand E gripper or custom SDU gripper) or Franka robot and requires it to lift a cube to a desired pose with differential inverse kinematics (IK) control or joint position control.
 
@@ -53,7 +53,7 @@ Notably, optimization project names and the specific environment that is used fo
 
 
 
-## Train PPO agent using Stable-Baselines3 without Weights&Biases
+# Train PPO agent using Stable-Baselines3 without Weights&Biases
 Option 1:
 
     source /path/to/virtual/environment/bin/activate
@@ -74,7 +74,7 @@ Note: For this option, the hyperparameters are defined in /gym_env/env/agents/
 
 
 
-## Play agent trained with PPO and Stable-Baselines3 
+# Play agent trained with PPO and Stable-Baselines3 
 Option 1:
 
     source /path/to/virtual/environment/bin/activate
@@ -90,8 +90,17 @@ Option 2:
 Note: This repository includes several pre-trained models in sb3/models/. These models were used to obtain the result described in the Master's Thesis.
 
 
+Example:
+    source isaaclab/bin/activate
+    cd isaaclab/IsaacLab/
+    ./isaaclab.sh -p /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/play_sb3_ppo.py --num_envs 2 --task UR5e-Hand-E-Domain-Rand-Lift-Cube-IK --checkpoint /home/jofa/Downloads/Repositories/Isaac_Lab_UR5e_Lift_Cube/sb3/models/config_d/xlbrr2gw/model.zip
 
-## Train PPO agent using RL-Games without Weights&Biases
+
+
+
+
+
+# Train PPO agent using RL-Games without Weights&Biases
 Option 1:
 
     source /path/to/virtual/environment/bin/activate
@@ -106,7 +115,7 @@ Option 2:
 
 
 
-## Play agent trained with PPO and RL-Games
+# Play agent trained with PPO and RL-Games
 Option 1:
 
     source /path/to/virtual/environment/bin/activate
@@ -121,7 +130,7 @@ Option 2:
 
 
 
-## Train PPO agent using SKRL without Weights&Biases
+# Train PPO agent using SKRL without Weights&Biases
 Option 1:
 
     source /path/to/virtual/environment/bin/activate
@@ -135,7 +144,7 @@ Option 2:
     ./isaaclab.sh -p /path/to/repository/skrl/train_skrl_ppo.py --num_envs 2048 --task UR5e-Hand-E-Lift-Cube-IK--headless
 
 
-## Play agent trained with PPO and SKRL
+# Play agent trained with PPO and SKRL
 Option 1:
 
     source /path/to/virtual/environment/bin/activate
@@ -151,7 +160,7 @@ Option 2:
 
 
 
-## Task options (defined in /gym_env/env/__init__.py)
+# Task options (defined in /gym_env/env/__init__.py)
 UR5e with Hand E Gripper and Relative Differential Inverse Kinematics Action Space
 
     --task UR5e-Hand-E-Lift-Cube-IK

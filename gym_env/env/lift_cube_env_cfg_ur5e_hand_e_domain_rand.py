@@ -15,7 +15,7 @@ from isaaclab.utils import configclass
 from isaaclab.actuators import ImplicitActuatorCfg
 from . import mdp
 import os
-import math
+from isaaclab.utils.noise import AdditiveUniformNoiseCfg as Unoise
 from isaaclab.sim.schemas.schemas_cfg import RigidBodyPropertiesCfg, MassPropertiesCfg
 from isaaclab.sim.spawners.from_files.from_files_cfg import UsdFileCfg
 from isaaclab.utils.assets import ISAAC_NUCLEUS_DIR
@@ -208,20 +208,24 @@ class ObservationsCfg:
         gripper_joint_pos = ObsTerm(
             func=mdp.joint_pos, 
             params={"asset_cfg": SceneEntityCfg("robot", joint_names=TaskParams.gripper_joint_names),},
+            noise=Unoise(n_min=-0.0001, n_max=0.0001),
         )
         
         tcp_pose = ObsTerm(
             func=mdp.get_current_tcp_pose,
             params={"gripper_offset": TaskParams.gripper_offset, "robot_cfg": SceneEntityCfg("robot", body_names=TaskParams.ee_body_name)},
+            noise=Unoise(n_min=-0.0001, n_max=0.0001),
         )
         
         object_pose = ObsTerm(
-            func=mdp.object_position_in_robot_root_frame
+            func=mdp.object_position_in_robot_root_frame,
+            noise=Unoise(n_min=-0.0001, n_max=0.0001),
         )
 
         target_object_pose = ObsTerm(
             func=mdp.generated_commands,
-            params={"command_name": "object_pose"}
+            params={"command_name": "object_pose"},
+            noise=Unoise(n_min=-0.0001, n_max=0.0001),
         )
 
         actions = ObsTerm(
@@ -283,6 +287,20 @@ class EventCfg:
             "operation_damping": TaskParams.robot_randomize_damping_operation,
             "distribution_stiffness": TaskParams.robot_randomize_stiffness_distribution,
             "distribution_damping": TaskParams.robot_randomize_damping_distribution,
+        }
+    )
+
+    randomize_gripper_gains = EventTerm(
+        func=mdp.randomize_actuator_gains_custom,
+        mode="reset",
+        params={
+            "asset_cfg": SceneEntityCfg("robot", joint_names=TaskParams.gripper_joint_names),
+            "stiffness_distribution_params": TaskParams.gripper_randomize_stiffness,
+            "damping_distribution_params": TaskParams.gripper_randomize_damping,
+            "operation_stiffness": TaskParams.gripper_randomize_stiffness_operation,
+            "operation_damping": TaskParams.gripper_randomize_damping_operation,
+            "distribution_stiffness": TaskParams.gripper_randomize_stiffness_distribution,
+            "distribution_damping": TaskParams.gripper_randomize_damping_distribution,
         }
     )
 
@@ -399,4 +417,4 @@ class UR5e_Hand_E_Domain_Rand_LiftCubeEnvCfg(ManagerBasedRLEnvCfg):
         self.sim.physx.gpu_found_lost_aggregate_pairs_capacity = 1024 * 1024 * 4
         self.sim.physx.gpu_total_aggregate_pairs_capacity = 16 * 1024
         self.sim.physx.friction_correlation_distance = 0.00625
-        self.sim.physx.gpu_collision_stack_size = 4096 * 4096 * 120 # Was added due to an PhysX error: collisionStackSize buffer overflow detected
+        self.sim.physx.gpu_collision_stack_size = 4096 * 4096 * 100 # Was added due to an PhysX error: collisionStackSize buffer overflow detected

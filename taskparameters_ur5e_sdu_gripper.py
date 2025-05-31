@@ -51,7 +51,7 @@ class TaskParams:
 
     robot_vel_limit = 180.0
     robot_effort_limit = 87.0
-    robot_stiffness = 10000000.0
+    robot_stiffness = 1000.0
 
     shoulder_pan_mass = 3.761
     shoulder_lift_mass = 8.058
@@ -69,8 +69,8 @@ class TaskParams:
     wrist_3_damping = 2 * math.sqrt(robot_stiffness * wrist_3_mass)
     
     # Domain randomize robot stiffness and damping
-    robot_randomize_stiffness = (0.5, 1.5)
-    robot_randomize_damping = (0.5, 1.5)
+    robot_randomize_stiffness = (0.7, 1.3)
+    robot_randomize_damping = (0.7, 1.3)
     robot_randomize_stiffness_operation = "scale"
     robot_randomize_damping_operation = "scale"
     robot_randomize_stiffness_distribution = "uniform"
@@ -92,7 +92,7 @@ class TaskParams:
     ###############
     ### Command ###
     ###############
-    resampling_time_range = (5.0, 5.0)
+    resampling_time_range = (15.0, 15.0)
     visualize_frame = True
 
     sample_range_pos_x = (-0.15, 0.15)

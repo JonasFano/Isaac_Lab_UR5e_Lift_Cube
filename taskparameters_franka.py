@@ -75,7 +75,7 @@ class TaskParams:
     ###############
     ### Command ###
     ###############
-    resampling_time_range = (5.0, 5.0)
+    resampling_time_range = (15.0, 15.0)
     visualize_frame = True
 
     sample_range_pos_x = (0.25, 0.35)

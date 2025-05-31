@@ -51,7 +51,7 @@ class TaskParams:
 
     robot_vel_limit = 180.0
     robot_effort_limit = 87.0
-    robot_stiffness = 10000000.0
+    robot_stiffness = 1000.0
 
     shoulder_pan_mass = 3.761
     shoulder_lift_mass = 8.058
@@ -69,8 +69,8 @@ class TaskParams:
     wrist_3_damping = 2 * math.sqrt(robot_stiffness * wrist_3_mass)
     
     # Domain randomize robot stiffness and damping
-    robot_randomize_stiffness = (0.5, 1.5)
-    robot_randomize_damping = (0.5, 1.5)
+    robot_randomize_stiffness = (0.7, 1.3)
+    robot_randomize_damping = (0.7, 1.3)
     robot_randomize_stiffness_operation = "scale"
     robot_randomize_damping_operation = "scale"
     robot_randomize_stiffness_distribution = "uniform"
@@ -94,7 +94,15 @@ class TaskParams:
     gripper_vel_limit = 1000000.0
     gripper_effort_limit = 200.0
     gripper_stiffness = 10000000.0
-    gripper_damping = 50000.0
+    gripper_damping = 50000.0 # slightly overdamped assuming gripper mass of 1.07 g
+
+    # Domain randomize gripper stiffness and damping
+    gripper_randomize_stiffness = (0.75, 1.05)
+    gripper_randomize_damping = (0.75, 1.05)
+    gripper_randomize_stiffness_operation = "scale"
+    gripper_randomize_damping_operation = "scale"
+    gripper_randomize_stiffness_distribution = "uniform"
+    gripper_randomize_damping_distribution = "uniform"
 
     # Randomize gripper finger friction
     gripper_static_friction_distribution_params = (0.8, 1.2)
@@ -131,7 +139,7 @@ class TaskParams:
     object_randomize_pose_range_z = (0.0, 0.0)
 
     # Domain randomize object mass
-    object_randomize_mass_range = (1.0, 1.0)
+    object_randomize_mass_range = (0.5, 0.5)
     object_randomize_mass_operation = "abs"
     object_randomize_mass_distribution = "uniform"
     object_randomize_recompute_inertia = True
